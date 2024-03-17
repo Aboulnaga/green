@@ -18,12 +18,12 @@ export default function SignupPage() {
     const checkUser = async () => {
       const user = await authUser.currentUser?.email;
       if (user) {
-        console.log(user);
+        // console.log(user);
       }
     };
     checkUser();
     return () => {
-      console.log("unmounted");
+      // console.log("unmounted");
     };
   }, []);
   const [isError, setIsError] = useState<FormErrorType | false>(false);
@@ -75,9 +75,9 @@ export default function SignupPage() {
     }
   };
 
-  console.log("user data");
-  console.log("email", authUser.currentUser?.email);
-  console.log("verified", authUser.currentUser?.emailVerified);
+  // console.log("user data");
+  // console.log("email", authUser.currentUser?.email);
+  // console.log("verified", authUser.currentUser?.emailVerified);
   const handleNewUser = (e: any) => {
     e.preventDefault();
     setIsError(false);
@@ -115,6 +115,8 @@ export default function SignupPage() {
       // console.log(mapError);
     }
   };
+
+  // console.log(authUser.currentUser?.email);
 
   return (
     <>

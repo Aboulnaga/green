@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
+import { authUser } from "../../../Config/FireBaseConfig";
+// console.log(authUser.currentUser);
+
 export default function TopHeader() {
   return (
     <div className="top-header-container">
       <div className="top-header fix-width center">
+        <div>
+          <p>
+            {JSON.stringify(authUser.currentUser?.emailVerified?.toString())}
+          </p>
+          <p>{JSON.stringify(authUser.currentUser?.email)}</p>
+        </div>
         <div className="top-header__col1">
           <div className="top-header__col1__location-icon">
             <svg

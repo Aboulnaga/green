@@ -4,6 +4,8 @@ import PopularCategories from "../../Components/HomeComp/PopularCategories/Popul
 import PopularProducts from "../../Components/HomeComp/PopularProducts/PopularProducts";
 import PopularProductsAdds from "../../Components/HomeComp/PopularProductsAdds/PopularProductsAdds";
 export default function HomePage() {
+  const SERC = import.meta.env.VITE_SERC;
+  console.log(SERC);
   return (
     <>
       <HomeMetaTags />

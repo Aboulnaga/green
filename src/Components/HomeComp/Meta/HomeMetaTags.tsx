@@ -1,6 +1,8 @@
-import { Helmet } from "react-helmet-async"
-import { Site_URL } from "../../../Lab/Info"
+import { Helmet } from "react-helmet-async";
+// import { Site_URL } from "../../../Lab/Info";
 export default function HomeMetaTags() {
+  const GreenUrl = import.meta.env.VITE_GREEN_URL;
+  // console.log(GreenUrl);
   return (
     <Helmet>
       <title>Green - home</title>
@@ -17,8 +19,8 @@ export default function HomeMetaTags() {
       <meta name="language" content="EN" />
       <meta name="og:title" content="Green Store: Fresh & Healthy Delivered" />
       <meta name="og:type" content="product.group" />
-      <meta name="og:url" content={`${Site_URL}/`} />
-      <meta name="og:image" content={`${Site_URL}/img/meta/ogImage.jpg`} />
+      <meta name="og:url" content={`${GreenUrl}/`} />
+      <meta name="og:image" content={`${GreenUrl}/img/meta/ogImage.jpg`} />
       <meta name="og:site_name" content="Green Store" />
       <meta
         name="og:description"
@@ -31,5 +33,5 @@ export default function HomeMetaTags() {
 "
       />
     </Helmet>
-  )
+  );
 }

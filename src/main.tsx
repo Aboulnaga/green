@@ -13,6 +13,7 @@ import SignupPage from "./Pages/auth/Signup/Signup.tsx";
 import Cat from "./Pages/ShopPage/Category/Cat";
 import VerfiyEmailPage from "./Pages/auth/Verfiy/VerfiyEmail.tsx";
 import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
+import ErrorPage from "./Pages/Error/ErrorPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
       {
         path: "/auth/verified",
         element: <VerifiedDonePage />,
+      },
+
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },

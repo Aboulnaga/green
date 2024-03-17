@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet-async";
 export default function HomeMetaTags() {
   const GreenUrl = import.meta.env.VITE_GREEN_URL;
   // console.log(GreenUrl);
-  const Vite = process.env.VITE_GREEN_URL;
-  console.log(Vite);
+  // const Vite = process.env.VITE_GREEN_URL;
+  // console.log(Vite);
 
   return (
     <Helmet>

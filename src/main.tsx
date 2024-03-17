@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "shop",
+        path: "/shop",
         element: <ShopLayout />,
         children: [
           {
@@ -39,20 +39,20 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "auth/sign-in",
+        path: "/auth/sign-in",
         element: <SigninPage />,
       },
       {
-        path: "auth/sign-up",
+        path: "/auth/sign-up",
         element: <SignupPage />,
       },
 
       {
-        path: "auth/verify-email",
+        path: "/auth/verify-email",
         element: <VerfiyEmailPage />,
       },
       {
-        path: "auth/verified",
+        path: "/auth/verified",
         element: <VerifiedDonePage />,
       },
     ],

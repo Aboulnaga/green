@@ -10,9 +10,9 @@ export default function VerifiedDonePage() {
   const actionCode = searchParams.get("oobCode");
   const continueUrl = searchParams.get("continueUrl");
   const lang = searchParams.get("lang");
-  // console.log("actionCode", actionCode);
+  console.log("actionCode", actionCode);
   // console.log("continueUrl", continueUrl);
-  // console.log("lang", lang);
+  console.log("lang", lang);
 
   useEffect(() => {
     function handleVerifyEmail(auth, actionCode, continueUrl, lang) {

@@ -1,6 +1,34 @@
 import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { applyActionCode } from "firebase/auth";
+import { authUser } from "../../../Config/FireBaseConfig";
+import { useEffect } from "react";
 export default function VerifiedDonePage() {
+  const [searchParams] = useSearchParams();
+  // console.log(searchParams);
+  // const mode = searchParams.get("mode");
+  const actionCode = searchParams.get("oobCode");
+  const continueUrl = searchParams.get("continueUrl");
+  const lang = searchParams.get("lang");
+  // console.log("actionCode", actionCode);
+  // console.log("continueUrl", continueUrl);
+  // console.log("lang", lang);
+
+  useEffect(() => {
+    function handleVerifyEmail(auth, actionCode, continueUrl, lang) {
+      applyActionCode(auth, actionCode)
+        .then(resp => {
+          console.log(resp);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    handleVerifyEmail(authUser, actionCode, continueUrl, lang);
+    console.log("done");
+  }, []);
+
   return (
     <>
       <BreadCrumbsComp path={[{ title: "Verfied", url: "auth/verified" }]} />

@@ -1,0 +1,12 @@
+.header-container {
+  // border: 1px solid red;
+  max-height: 195px;
+}
+
+.header-line {
+  border-bottom: 2px solid rgba(var(--greyRgb), 1);
+}
+
+@import "./TopHeader/TopHeader";
+@import "./MainHeader/MainHeader";
+@import "./MainNav/MainNav";

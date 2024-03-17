@@ -1,0 +1,134 @@
+.sign-up-page {
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+.sign-up {
+  max-width: 520px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  box-shadow: 1px 1px 20px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sign-up h2 {
+  text-align: center;
+  font-weight: 600;
+  //   font-size: var(--h3);
+  //   line-height: calc(var(--lineHeight) * var(--h3));
+  color: var(--grey800);
+}
+
+.sign-up p {
+  text-align: center;
+  font-size: var(--smf14);
+  font-weight: 400;
+  line-height: calc(var(--lineHeight) * var(--smf14));
+  color: var(--grey400);
+}
+
+.sign-up form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sign-up form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sign-up form input {
+  padding: 1rem;
+  border: 1px solid var(--grey100);
+  outline: none;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+// .sign-up form .password .icon.active svg {
+//   stroke: var(--greenColor);
+// }
+.sign-up form button {
+  padding: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+  background-color: var(--greenColor);
+  color: var(--lightColor);
+  cursor: pointer;
+}
+
+.sign-up form button:hover {
+  background-color: var(--darkColor);
+  color: var(--lightColor);
+}
+
+.sign-up form button:active {
+  transform: scale(0.9);
+}
+
+.sign-up form input::placeholder {
+  color: var(--grey400);
+}
+
+.sign-up .extra {
+  color: var(--grey500);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: red;
+}
+
+.sign-up .extra .remember-me {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0;
+
+  input {
+    width: 25px;
+    height: 24px;
+    scale: 0.6;
+    cursor: pointer;
+    accent-color: var(--greenColor);
+  }
+
+  p {
+    font-size: var(--smf14);
+    font-weight: 400;
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    color: var(--grey400);
+  }
+}
+
+.sign-up .extra .forget {
+  display: flex;
+  justify-content: flex-end;
+  p {
+    font-size: var(--smf14);
+    font-weight: 400;
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    color: var(--grey400);
+  }
+}
+
+.sign-up .link {
+  text-align: center;
+  font-size: var(--smf14);
+  font-weight: 400;
+  line-height: calc(var(--lineHeight) * var(--smf14));
+  color: var(--grey400);
+  transition: all 0.5s ease;
+}
+
+.sign-up .link:hover {
+  color: var(--greenColor);
+}

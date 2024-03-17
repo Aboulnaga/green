@@ -1,0 +1,17 @@
+.form-error {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--errorColor);
+  background-color: rgba(var(--errorRgb), 0.1);
+  margin-bottom: 0.5rem;
+
+  p {
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 400;
+    color: var(--errorColor);
+  }
+}

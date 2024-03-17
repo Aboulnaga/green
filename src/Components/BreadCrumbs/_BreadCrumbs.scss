@@ -1,0 +1,33 @@
+.bread-crumbs-comp {
+  background: url(/img/breadcrumbs/Breadcrumbs.jpg) no-repeat center center /
+    cover;
+  color: var(--grey100);
+  background-color: var(--darkColor);
+}
+
+.bread-crumbs {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 120px;
+}
+
+.bread-crumbs a {
+  color: var(--grey400);
+}
+
+.bread-crumbs ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bread-crumbs .active {
+  color: var(--greenColor);
+}
+
+.bread-crumbs svg {
+  stroke: var(--grey400);
+  fill: var(--darkColor);
+}

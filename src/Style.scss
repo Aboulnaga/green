@@ -1,0 +1,10 @@
+@import "./Components/Header/HeaderComp";
+@import "./Components/Footer/Footer";
+@import "./Components/BreadCrumbs/BreadCrumbs";
+@import "./Pages/Home/HomePage";
+@import "./Pages/auth/Signin/Signin";
+@import "./Pages/auth/Signup/Signup";
+@import "./Components/Loader/Loader.scss";
+@import "./Components/FormErrorMsg/FormErrorMsg";
+@import "./Pages/auth/Verfiy/VerfiyEmail";
+@import "./Pages/auth/Verified/VerifiedDone";

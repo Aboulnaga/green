@@ -1,0 +1,143 @@
+.popular-products-adds {
+  padding: 2rem 0;
+  color: var(--lightColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.popular-products-add {
+  text-align: center;
+  flex: 1 1 350px;
+  position: relative;
+  width: 100%;
+  max-width: 424px;
+}
+
+// .add-shpn-btn-container {
+//
+// }
+
+.add-shpn-btn {
+  background-color: var(--grey100);
+  color: var(--greenColor);
+  padding: 1rem 2rem;
+  border-radius: 3rem;
+  border: 1px solid var(--grey100);
+  transition: all 0.5s ease;
+}
+.add-shpn-btn svg {
+  scale: 0.8;
+  stroke: var(--greenColor);
+  transition: all 0.5s ease;
+}
+
+.add-shpn-btn:hover {
+  color: var(--darkColor);
+  border: 1px solid var(--greenColor);
+}
+
+.add-shpn-btn:hover svg {
+  scale: 1;
+  stroke: var(--darkColor);
+}
+
+.popular-products-add-3 {
+  color: var(--darkColor);
+}
+
+.popular-products-add-3 span {
+  background-color: var(--darkColor);
+  color: var(--yellowColor);
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.5rem;
+}
+.popular-products-add-2 span {
+  color: var(--orangeColor);
+}
+
+.popular-products-add-2 .add-shpn-btn,
+.popular-products-add-3 .add-shpn-btn {
+  margin-top: 1rem;
+}
+
+.popular-products-add img {
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.popular-products-add .info {
+  padding: 2rem 1rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.popular-products-add .info p:first-child {
+  font-size: var(--smf14);
+}
+
+.popular-products-add .info h2 {
+  font-size: var(--h3);
+  line-height: calc(var(--lineHeight) * var(--h3));
+  font-weight: 600;
+}
+
+.popular-products-add .timer {
+  display: flex;
+  //   background-color: red;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  align-items: flex-start;
+  text-align: center;
+}
+
+@media (1100px > width >= 768px) {
+  .popular-products-adds {
+    // background-color: blue;
+  }
+  .popular-products-add {
+    flex: 1 1 240px;
+    height: fit-content;
+    max-width: 300px;
+  }
+
+  .popular-products-add .img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .popular-products-add img {
+    width: 100%;
+    border-radius: 1rem;
+    height: 100%;
+  }
+}
+
+@media (width >= 1100px) {
+  .popular-products-adds {
+    // background-color: black;
+  }
+  .popular-products-add {
+    flex: 1 1 250px;
+    // height: 70vh;
+    // max-height: 600px;
+  }
+
+  .popular-products-add .img {
+    width: 100%;
+  }
+
+  .popular-products-add img {
+    width: 100%;
+    border-radius: 1rem;
+    height: 100%;
+  }
+}

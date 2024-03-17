@@ -1,0 +1,168 @@
+.sign-in-page {
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+.sign-in {
+  max-width: 520px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  box-shadow: 1px 1px 20px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sign-in h2 {
+  text-align: center;
+  font-weight: 600;
+  //   font-size: var(--h3);
+  //   line-height: calc(var(--lineHeight) * var(--h3));
+  color: var(--grey800);
+}
+
+.sign-in p {
+  text-align: center;
+  font-size: var(--smf14);
+  font-weight: 400;
+  line-height: calc(var(--lineHeight) * var(--smf14));
+  color: var(--grey400);
+}
+
+.sign-in form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sign-in form input {
+  padding: 1rem;
+  border: 1px solid var(--grey100);
+  outline: none;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.sign-in form .password {
+  position: relative;
+}
+
+.sign-in form .password .icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  pointer-events: all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.sign-in form .password .icon svg {
+  pointer-events: none;
+  stroke: var(--grey800);
+  transition: all 0.5s ease;
+}
+
+.sign-in form .password .show-pwd svg {
+  stroke: var(--greenColor);
+  scale: 1.2;
+  //   background-color: red;
+}
+
+// ////////////////////
+
+.sign-in form .password .icon:hover svg {
+  stroke: var(--greenColor);
+}
+
+// .sign-in form .password .icon.active svg {
+//   stroke: var(--greenColor);
+// }
+.sign-in form button {
+  padding: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+  background-color: var(--greenColor);
+  color: var(--lightColor);
+  cursor: pointer;
+}
+
+.sign-in form button:hover {
+  background-color: var(--darkColor);
+  color: var(--lightColor);
+}
+
+.sign-in form button:active {
+  transform: scale(0.9);
+}
+
+.sign-in form input::placeholder {
+  color: var(--grey400);
+}
+
+.sign-in .extra {
+  color: var(--grey500);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .remember-me,
+  .forget {
+    flex: 1;
+  }
+}
+
+.sign-in .extra .remember-me {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.2rem;
+
+  input {
+    width: 25px;
+    height: 20px;
+    scale: 0.5;
+    cursor: pointer;
+    accent-color: var(--greenColor);
+  }
+
+  p {
+    font-size: var(--smf14);
+    font-weight: 400;
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    color: var(--grey400);
+  }
+}
+
+.sign-in .extra .forget {
+  display: flex;
+  justify-content: flex-end;
+  p {
+    font-size: var(--smf14);
+    font-weight: 400;
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    color: var(--grey400);
+  }
+}
+
+.sign-in .link {
+  text-align: center;
+  font-size: var(--smf14);
+  font-weight: 400;
+  line-height: calc(var(--lineHeight) * var(--smf14));
+  color: var(--grey400);
+  transition: all 0.5s ease;
+}
+
+.sign-in .link:hover {
+  color: var(--greenColor);
+}

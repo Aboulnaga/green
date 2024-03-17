@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --lineHeight: 1.5;
+  font-family: "Poppins", sans-serif;
+
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --lightColor: #ffffff;
+  --darkColor: #333333;
+  --greenColor: #00b207;
+  --greenSuccess: #84d187;
+  --greenDark: #2c742f;
+  --green900: #002603;
+  --orangeColor: #ff8a00;
+  --yellowColor: #fcc900;
+  --errorColor: #ea4b48;
+  --errorRgb: 234, 75, 72;
+
+  --greyColor: #cccccc;
+  --grey900: #1a1a1a;
+  --grey800: #333333;
+  --grey700: #4d4d4d;
+  --grey500: #808080;
+  --grey400: #999999;
+  --grey100: #e6e6e6;
+
+  --lightRgb: 255, 255, 255;
+  --darkRgb: 51, 51, 51;
+  --yellowRGB: 252, 201, 0;
+
+  --greenRgb: 0, 178, 7;
+  --greenSuccessRgb: 132, 209, 135;
+  --greenDarkRgb: 44, 116, 47;
+
+  --green900Rgb: 0, 38, 3;
+  --orangeRgb: 255, 138, 0;
+
+  --greyRgb: 247, 247, 245;
+  --grey900Rgb: 26, 26, 26;
+  --grey700Rgb: 77, 77, 77;
+  --grey500Rgb: 128, 128, 128;
+  --grey400Rgb: 153, 153, 153;
+  --grey100Rgb: 230, 230, 230;
+
+  --h1: 2.986rem;
+  --h2: 2.488rem;
+  --h3: 2.074rem;
+  --h4: 1.728rem;
+  --h5: 1.44rem;
+  --h6: 1.2rem;
+  --bgf48: 3rem; /* 48px*/
+  --smf15: 0.9375rem; /*15px*/
+  --smf14: 0.875rem; /*14px*/
+  --smFont: 0.8rem; /*12.8px*/
+  --smf11: 0.6875rem; /*11px*/
+  --smf9: 0.6rem; /*9.6px*/
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: var(--lineHeight);
+  background-color: var(--lightColor);
+  direction: ltr;
+}
+
+h1 {
+  font-size: var(--h1); /* 47.776px */
+  line-height: calc(var(--lineHeight) * var(--h1));
+  font-weight: 900;
+}
+
+h2 {
+  font-size: var(--h2);
+  line-height: calc(var(--lineHeight) * var(--h2));
+  font-weight: 800;
+}
+
+h3 {
+  font-size: var(--h3);
+  line-height: calc(var(--lineHeight) * var(--h3));
+  font-weight: 700;
+}
+
+h4 {
+  font-size: var(--h4);
+  line-height: calc(var(--lineHeight) * var(--h4));
+  font-weight: 600;
+}
+
+h5 {
+  font-size: var(--h5);
+  line-height: calc(var(--lineHeight) * var(--h5));
+  font-weight: 500;
+}
+
+h6 {
+  font-size: var(--h6);
+  line-height: calc(var(--lineHeight) * var(--h6));
+  font-weight: 400;
+}
+
+p {
+  font-size: 1rem;
+  line-height: calc(var(--lineHeight) * 1rem);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  font-size: var(--smf15);
+  line-height: calc(var(--lineHeight) * var(--smf15));
+  font-weight: 500;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  pointer-events: all;
+  cursor: pointer;
+
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-weight: 500;
+  font-family: inherit;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.fix-width {
+  width: calc(100% - 300px);
+  max-width: 1280px;
+  /* border: 1px solid red; */
+}
+
+/* @media (width < 1400px) {
+  .fix-width {
+    width: calc(100% - 250px);
+  }
+}
+
+@media (width < 900px) {
+  .fix-width {
+    width: 80%;
+  }
+} */
+
+@media (width < 1400px) {
+  .fix-width {
+    width: 80%;
+  }
+}
+
+@media (width < 900px) {
+  .fix-width {
+    width: 80%;
+  }
+}
+
+@media (width < 798px) {
+  .fix-width {
+    width: 90%;
+  }
+}
+
+.center {
+  margin: 0 auto;
+}

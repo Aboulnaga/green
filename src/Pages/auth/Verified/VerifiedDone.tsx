@@ -1,6 +1,6 @@
 import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
 import { Link, useSearchParams } from "react-router-dom";
-import { applyActionCode } from "firebase/auth";
+import { applyActionCode, sendEmailVerification } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { useEffect } from "react";
 export default function VerifiedDonePage() {
@@ -15,12 +15,7 @@ export default function VerifiedDonePage() {
   console.log("lang", lang);
 
   useEffect(() => {
-    function handleVerifyEmail(
-      auth: any,
-      actionCode: any,
-      continueUrl: any,
-      lang: any
-    ) {
+    function handleVerifyEmail(auth: any, actionCode: any) {
       console.log(continueUrl, lang);
       applyActionCode(auth, actionCode)
         .then(resp => {
@@ -31,7 +26,7 @@ export default function VerifiedDonePage() {
         });
     }
 
-    handleVerifyEmail(authUser, actionCode, continueUrl, lang);
+    handleVerifyEmail(authUser, actionCode);
     console.log("done");
   }, []);
 

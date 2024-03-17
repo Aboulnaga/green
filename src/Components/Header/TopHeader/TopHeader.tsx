@@ -1,17 +1,26 @@
 import { Link } from "react-router-dom";
 import { authUser } from "../../../Config/FireBaseConfig";
+import { useState } from "react";
 // console.log(authUser.currentUser);
 
 export default function TopHeader() {
+  const [email, setEmail] = useState<string | null | "empty" | undefined>(
+    "empty"
+  );
+  const [isVef, setIsVef] = useState<string | null | "empty" | undefined>(
+    "empty"
+  );
+
+  const getUserData = async () => {
+    const user = await authUser;
+    setEmail(user?.currentUser?.email);
+    setIsVef(user?.currentUser?.emailVerified?.toString());
+    console.log("email", user?.currentUser?.email);
+    console.log("verified", user?.currentUser?.emailVerified);
+  };
   return (
     <div className="top-header-container">
       <div className="top-header fix-width center">
-        <div>
-          <p>
-            {JSON.stringify(authUser.currentUser?.emailVerified?.toString())}
-          </p>
-          <p>{JSON.stringify(authUser.currentUser?.email)}</p>
-        </div>
         <div className="top-header__col1">
           <div className="top-header__col1__location-icon">
             <svg
@@ -47,6 +56,12 @@ export default function TopHeader() {
               <option value="egp">EGP</option>
               <option value="usd">USD</option>
             </select>
+          </div>
+          <div>
+            <h3>tst</h3>
+            <button onClick={getUserData}>data</button>
+            <p>{JSON.stringify(isVef)}</p>
+            {JSON.stringify(email)}
           </div>
           <div className="top-header__col2__log">
             <Link to="/auth/sign-in"> Sign in</Link>

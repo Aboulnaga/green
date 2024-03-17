@@ -1,34 +1,31 @@
 import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
 import { Link, useSearchParams } from "react-router-dom";
-import { applyActionCode, sendEmailVerification } from "firebase/auth";
+import { applyActionCode } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 export default function VerifiedDonePage() {
   const [searchParams] = useSearchParams();
-  // console.log(searchParams);
-  // const mode = searchParams.get("mode");
   const actionCode = searchParams.get("oobCode");
-  // const continueUrl = searchParams.get("continueUrl");
-  // const lang = searchParams.get("lang");
-  // console.log("actionCode", actionCode);
-  // console.log("continueUrl", continueUrl);
-  // console.log("lang", lang);
+  const [res, setRes] = useState<any>("");
 
   useEffect(() => {
     function handleVerifyEmail(auth: any, actionCode: any) {
-      console.log("handel");
       applyActionCode(auth, actionCode)
         .then(resp => {
+          setRes(resp);
           console.log(resp);
         })
         .catch(error => {
-          console.log(error.message);
+          // console.log(error.message);
         });
     }
 
-    handleVerifyEmail(authUser, actionCode);
-    console.log("done");
+    window.addEventListener("DOMContentLoaded", () =>
+      handleVerifyEmail(authUser, actionCode)
+    );
   }, []);
+
+  console.log(res);
 
   return (
     <>

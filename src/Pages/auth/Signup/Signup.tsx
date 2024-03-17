@@ -14,18 +14,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
-  useEffect(() => {
-    const checkUser = async () => {
-      const user = await authUser.currentUser?.email;
-      if (user) {
-        // console.log(user);
-      }
-    };
-    checkUser();
-    return () => {
-      // console.log("unmounted");
-    };
-  }, []);
   const [isError, setIsError] = useState<FormErrorType | false>(false);
   const [submitUser, setSubmitUser] = useState<false | true>(false);
   const doNav = useNavigate();

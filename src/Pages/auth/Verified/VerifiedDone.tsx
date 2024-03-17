@@ -8,21 +8,21 @@ export default function VerifiedDonePage() {
   // console.log(searchParams);
   // const mode = searchParams.get("mode");
   const actionCode = searchParams.get("oobCode");
-  const continueUrl = searchParams.get("continueUrl");
-  const lang = searchParams.get("lang");
+  // const continueUrl = searchParams.get("continueUrl");
+  // const lang = searchParams.get("lang");
   // console.log("actionCode", actionCode);
   // console.log("continueUrl", continueUrl);
-  console.log("lang", lang);
+  // console.log("lang", lang);
 
   useEffect(() => {
     function handleVerifyEmail(auth: any, actionCode: any) {
-      console.log(continueUrl, lang);
+      console.log("handel");
       applyActionCode(auth, actionCode)
         .then(resp => {
           console.log(resp);
         })
         .catch(error => {
-          console.log(error);
+          console.log(error.message);
         });
     }
 

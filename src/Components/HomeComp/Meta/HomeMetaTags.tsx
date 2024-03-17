@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 // import { Site_URL } from "../../../Lab/Info";
 export default function HomeMetaTags() {
   const GreenUrl = import.meta.env.VITE_GREEN_URL;
-  // console.log(GreenUrl);
+  console.log(GreenUrl);
   return (
     <Helmet>
       <title>Green - home</title>

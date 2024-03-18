@@ -32,7 +32,7 @@ export default function GoogleSignin() {
       })
       .finally(() => {
         dispatch({ isLogedIn: true });
-        if (state.isLogedIn) window.location.replace("/");
+        window.location.replace("/");
       });
   };
 

@@ -6,9 +6,7 @@ import { localContextType } from "../../../Providers/LocalContextProvider";
 export default function GoogleSignin() {
   const provider = new GoogleAuthProvider();
   const [userData, setUserData] = useState({});
-  const { dispatch } = useContext(GreenContext) as localContextType;
-
-  //   console.log(cusrrentUser);
+  const { state, dispatch } = useContext(GreenContext) as localContextType;
 
   const handleSignwithGoogle = () => {
     signInWithPopup(authUser, provider)
@@ -29,9 +27,12 @@ export default function GoogleSignin() {
           dispatch({ cusrrentUser: userData });
         }
       })
+      .catch(error => {
+        console.log(error);
+      })
       .finally(() => {
         dispatch({ isLogedIn: true });
-        window.location.reload();
+        if (state.isLogedIn) window.location.replace("/");
       });
   };
 

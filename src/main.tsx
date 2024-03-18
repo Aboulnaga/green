@@ -71,11 +71,19 @@ const router = createBrowserRouter([
 
       {
         path: "auth/verify-email",
-        element: <VerfiyEmailPage />,
+        element: (
+          <ProtectChild url="/">
+            <VerfiyEmailPage />
+          </ProtectChild>
+        ),
       },
       {
         path: "auth/verified",
-        element: <VerifiedDonePage />,
+        element: (
+          <ProtectChild url="/">
+            <VerifiedDonePage />
+          </ProtectChild>
+        ),
       },
 
       {

@@ -11,7 +11,7 @@ export default function HomeMetaTags() {
       <title>Green - home</title>
       <meta
         name="keywords"
-        content="vegetables, healthy, organic, fresh, delivery, online orders, Green Store"
+        content="vegetables, healthy, organic, fresh, delivery, online orders,Green Store"
       />
       <meta
         name="description"
@@ -32,7 +32,7 @@ export default function HomeMetaTags() {
       />
       <meta
         name="og:keywords"
-        content="fresh vegetables, healthy produce, organic food, convenient delivery, online grocery shopping, Green Store
+        content="fresh vegetables, healthy produce, organic food, convenient delivery, online grocery shopping,Green Store
 "
       />
     </Helmet>

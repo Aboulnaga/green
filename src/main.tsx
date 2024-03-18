@@ -16,7 +16,6 @@ import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
 import ErrorPage from "./Pages/Error/ErrorPage.tsx";
 import { Navigate } from "react-router-dom";
 import useCurrentUser from "./Hooks/useCurrentUser.tsx";
-const currentUser = useCurrentUser();
 
 const ProtectChild = ({
   children,
@@ -25,6 +24,7 @@ const ProtectChild = ({
   children: React.ReactNode;
   url: string;
 }) => {
+  const currentUser = useCurrentUser();
   return currentUser ? <Navigate to={url} /> : children;
 };
 

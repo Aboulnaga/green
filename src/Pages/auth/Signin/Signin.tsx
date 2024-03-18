@@ -1,8 +1,69 @@
-import { useState } from "react";
+import { useRef, useState, useContext } from "react";
 import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
 import { Link } from "react-router-dom";
+import FormErrorMsg from "../../../Components/FormErrorMsg/FormErrorMsg";
+import { FormErrorType } from "../../../Components/FormErrorMsg/FormErrorMsg";
+import { Z_SigninSchema } from "./Z_SigninSchema";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { authUser } from "../../../Config/FireBaseConfig";
+import { GreenContext } from "../../../Providers/LocalContextProvider";
+import GoogleSignin from "./GoogleSignin";
+
 export default function SigninPage() {
+  const [error, setError] = useState<FormErrorType | false>(false);
   const [isPwdHidden, setIsPwdHidden] = useState(true);
+  const formREf = useRef<HTMLFormElement | null>(null);
+  const { dispatch } = useContext(GreenContext);
+
+  const handelSignInFormSubmit = (e: any) => {
+    e.preventDefault();
+    const formData: FormData = new FormData(e.target);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    // console.log(email, password);
+
+    const Z_Result = Z_SigninSchema.safeParse({ email, password });
+
+    if (Z_Result.success) {
+      setError(false);
+      doLogin(Z_Result.data);
+    } else {
+      const mapErrors = Z_Result.error.errors.map((err): any => {
+        // console.log(err);
+        return { error: err.message, path: err.path[0] };
+      });
+
+      setError(mapErrors);
+    }
+  };
+
+  // console.log(error.length);
+
+  const doLogin = async (data: any) => {
+    try {
+      const res = await signInWithEmailAndPassword(
+        authUser,
+        data.email,
+        data.password
+      );
+
+      if (res.user) {
+        setError(false);
+        formREf.current?.reset();
+        dispatch({ isLogedIn: true });
+        window.location.reload();
+      }
+    } catch (err) {
+      // console.log(err.message);
+      setError([
+        {
+          error: "Something went wrong in email, password or user not found",
+          path: "server",
+        },
+      ]);
+    }
+  };
+
   return (
     <>
       <div className="breadcrumbs-container">
@@ -11,12 +72,15 @@ export default function SigninPage() {
       <main className="sign-in-page">
         <div className="sign-in">
           <h2>Sign In</h2>
-          <form>
-            <input type="email" placeholder="Email" />
+          <form ref={formREf} onSubmit={handelSignInFormSubmit}>
+            <div className="email">
+              <input name="email" type="email" placeholder="Email" />
+            </div>
             <div className="password">
               <input
                 type={isPwdHidden ? "password" : "text"}
                 placeholder="Password"
+                name="password"
               />
 
               <div
@@ -59,8 +123,43 @@ export default function SigninPage() {
                 </p>
               </div>
             </div>
-            <button>Sign In</button>
+            <div className="submit">
+              <button>Sign In</button>
+              {error && error?.length === 2 ? (
+                <FormErrorMsg
+                  userClass="sign-in-error-msg"
+                  path="password"
+                  key="password"
+                  errors={error}
+                />
+              ) : (
+                <>
+                  <FormErrorMsg
+                    userClass="sign-in-error-msg"
+                    path="password"
+                    key="password"
+                    errors={error}
+                  />
+                  <FormErrorMsg
+                    userClass="sign-in-error-msg"
+                    path="email"
+                    key="email"
+                    errors={error}
+                  />
+                </>
+              )}
+              <FormErrorMsg
+                userClass="sign-in-error-msg"
+                path="server"
+                key="server"
+                errors={error}
+              />
+            </div>
           </form>
+
+          <div className="google-sign-in-container">
+            <GoogleSignin />
+          </div>
 
           <p>
             Don't have an account?{" "}

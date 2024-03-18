@@ -46,6 +46,12 @@
   width: 100%;
 }
 
+.sign-in form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .sign-in form .password {
   position: relative;
 }
@@ -111,7 +117,7 @@
 
 .sign-in .extra {
   color: var(--grey500);
-  display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
@@ -165,4 +171,37 @@
 
 .sign-in .link:hover {
   color: var(--greenColor);
+}
+
+.sign-in-error-msg {
+  p {
+    text-align: left;
+  }
+}
+
+.google-sign-in-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  background-color: var(--darkColor);
+  padding: 0.9rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+.google-sign-in-btn:hover {
+  background-color: rgba(var(--darkRgb), 0.9);
+}
+
+.google-sign-in-btn p {
+  color: var(--lightColor);
+}
+
+.google-sign-in-btn img {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
 }

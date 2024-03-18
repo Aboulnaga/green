@@ -3,10 +3,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 0.2rem;
   min-height: 100vh;
+
+  animation: loaderFade 0.7s ease-in-out;
+}
+
+@keyframes loaderFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loader-conatiner .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 .loader {
-  --s: 40px;
+  --s: 30px;
   height: var(--s);
   aspect-ratio: 2.5;
   --_g: #00b207 90%, #0000;

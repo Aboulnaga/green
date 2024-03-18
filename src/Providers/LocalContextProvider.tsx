@@ -8,6 +8,14 @@ export type localContextType = {
       cat_img: string;
       isPopular: boolean;
     }[];
+    cusrrentUser: {
+      uuid: string;
+      email: string;
+      isVerified: boolean;
+      displayName?: string;
+      avatar?: string;
+    } | null;
+    isLogedIn: boolean;
   };
   action: any;
   dispatch: React.Dispatch<any>;
@@ -16,9 +24,14 @@ export const GreenContext = createContext<localContextType | {}>({});
 
 export default function LocalContextProvider({ children }: any) {
   const [state, dispatch] = useReducer(
-    (state: localContextType, action: any) => ({ ...state, ...action }),
+    (state: localContextType, action: any) => ({
+      ...state,
+      ...action,
+    }),
     {
+      cusrrentUser: null,
       CategoriesDB,
+      isLogedIn: false,
     }
   );
 

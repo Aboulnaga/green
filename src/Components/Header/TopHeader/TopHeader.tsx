@@ -1,23 +1,45 @@
 import { Link } from "react-router-dom";
+import { GreenContext } from "../../../Providers/LocalContextProvider";
+import { useContext, useMemo } from "react";
+import { localContextType } from "../../../Providers/LocalContextProvider";
 import { authUser } from "../../../Config/FireBaseConfig";
-import { useState } from "react";
-// console.log(authUser.currentUser);
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import UserInfo from "../UserInfo/UserInfo";
 
 export default function TopHeader() {
-  const [email, setEmail] = useState<string | null | "empty" | undefined>(
-    "empty"
-  );
-  const [isVef, setIsVef] = useState<string | null | "empty" | undefined>(
-    "empty"
-  );
+  const { state, dispatch } = useContext(GreenContext) as localContextType;
+  const { cusrrentUser, isLogedIn } = state;
 
-  const getUserData = async () => {
-    const user = await authUser;
-    setEmail(user?.currentUser?.email);
-    setIsVef(user?.currentUser?.emailVerified?.toString());
-    console.log("email", user?.currentUser?.email);
-    console.log("verified", user?.currentUser?.emailVerified);
+  const getUserLoginData = () => {
+    onAuthStateChanged(authUser, user => {
+      if (user) {
+        const email = user.email;
+        const isVerified = user.emailVerified;
+        const uuid = user.uid;
+        const avatar = user.photoURL;
+        const displayName = user.displayName;
+        // console.log(avatar, displayName);
+
+        dispatch({
+          cusrrentUser: { email, isVerified, uuid, avatar, displayName },
+        });
+
+        // console.log(email, isVerified, uuid);
+      } else {
+        dispatch({ cusrrentUser: null });
+      }
+    });
   };
+
+  const memoUserLoginData = useMemo(() => {
+    getUserLoginData();
+  }, []);
+
+  useEffect(() => {
+    memoUserLoginData;
+  }, [isLogedIn]);
+
   return (
     <div className="top-header-container">
       <div className="top-header fix-width center">
@@ -57,17 +79,16 @@ export default function TopHeader() {
               <option value="usd">USD</option>
             </select>
           </div>
-          <div>
-            <h3>tst</h3>
-            <button onClick={getUserData}>data</button>
-            <p>{JSON.stringify(isVef)}</p>
-            {JSON.stringify(email)}
-          </div>
-          <div className="top-header__col2__log">
-            <Link to="/auth/sign-in"> Sign in</Link>
-            <span></span>
-            <Link to="/auth/sign-up">Sign Up</Link>
-          </div>
+
+          {!cusrrentUser ? (
+            <div className="top-header__col2__log">
+              <Link to="/auth/sign-in"> Sign in</Link>
+              <span></span>
+              <Link to="/auth/sign-up">Sign Up</Link>
+            </div>
+          ) : null}
+
+          {cusrrentUser ? <UserInfo /> : null}
         </div>
       </div>
     </div>

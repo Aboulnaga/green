@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import MainLayout from "./MainLayout.tsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
 import "./index.css";
 import LocalContextProvider from "./Providers/LocalContextProvider.tsx";
 import LocalHelmetProvider from "./Providers/LocalHelmetProvider.tsx";
@@ -15,17 +19,45 @@ import VerfiyEmailPage from "./Pages/auth/Verfiy/VerfiyEmail.tsx";
 import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
 import ErrorPage from "./Pages/Error/ErrorPage.tsx";
 
+import { Suspense } from "react";
+import Loader from "./Components/Loader/Loader";
+
+import { GreenContext } from "./Providers/LocalContextProvider.tsx";
+import { useContext } from "react";
+import { localContextType } from "./Providers/LocalContextProvider.tsx";
+import { Navigate } from "react-router-dom";
+
+export default function Red({ children }: { children: React.ReactNode }) {
+  const { state } = useContext(GreenContext) as localContextType;
+  const { cusrrentUser } = state;
+  const location = window.location.pathname;
+
+  // if (location === "/auth/sign-in") {
+  //   return children;
+  // }
+  // if (location === "/auth/sign-up") {
+  //   return children;
+  // }
+  // console.log(location === "/");
+  // const doNav = useNavigate();
+  return cusrrentUser ? <Navigate to="/" /> : children;
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <MainLayout />
+      </Suspense>
+    ),
     children: [
       {
         index: true,
         element: <HomePage />,
       },
       {
-        path: "/shop",
+        path: "shop",
         element: <ShopLayout />,
         children: [
           {
@@ -40,20 +72,28 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/auth/sign-in",
-        element: <SigninPage />,
+        path: "auth/sign-in",
+        element: (
+          <Red>
+            <SigninPage />
+          </Red>
+        ),
       },
       {
-        path: "/auth/sign-up",
-        element: <SignupPage />,
+        path: "auth/sign-up",
+        element: (
+          <Red>
+            <SignupPage />
+          </Red>
+        ),
       },
 
       {
-        path: "/auth/verify-email",
+        path: "auth/verify-email",
         element: <VerfiyEmailPage />,
       },
       {
-        path: "/auth/verified",
+        path: "auth/verified",
         element: <VerifiedDonePage />,
       },
 

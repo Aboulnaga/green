@@ -7,7 +7,6 @@ export default function GoogleSignin() {
   const provider = new GoogleAuthProvider();
   const [userData, setUserData] = useState({});
   const { dispatch } = useContext(GreenContext) as localContextType;
-  const [googleErr, setGoogleErr] = useState<any | null>([]);
 
   //   console.log(cusrrentUser);
 
@@ -29,18 +28,6 @@ export default function GoogleSignin() {
           });
           dispatch({ cusrrentUser: userData });
         }
-      })
-      .catch(error => {
-        setGoogleErr(error);
-        // console.log(error);
-        // Handle Errors here.
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // // The email of the user's account used.
-        // const email = error.customData.email;
-        // // The AuthCredential type that was used.
-        // const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       })
       .finally(() => {
         dispatch({ isLogedIn: true });

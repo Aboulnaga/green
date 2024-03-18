@@ -14,6 +14,19 @@ import Cat from "./Pages/ShopPage/Category/Cat";
 import VerfiyEmailPage from "./Pages/auth/Verfiy/VerfiyEmail.tsx";
 import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
 import ErrorPage from "./Pages/Error/ErrorPage.tsx";
+import { Navigate } from "react-router-dom";
+import useCurrentUser from "./Hooks/useCurrentUser.tsx";
+const currentUser = useCurrentUser();
+
+const ProtectChild = ({
+  children,
+  url,
+}: {
+  children: React.ReactNode;
+  url: string;
+}) => {
+  return currentUser ? <Navigate to={url} /> : children;
+};
 
 const router = createBrowserRouter([
   {
@@ -41,11 +54,19 @@ const router = createBrowserRouter([
 
       {
         path: "auth/sign-in",
-        element: <SigninPage />,
+        element: (
+          <ProtectChild url="/auth/sign-in">
+            <SigninPage />
+          </ProtectChild>
+        ),
       },
       {
         path: "auth/sign-up",
-        element: <SignupPage />,
+        element: (
+          <ProtectChild url="/auth/sign-up">
+            <SignupPage />
+          </ProtectChild>
+        ),
       },
 
       {

@@ -52,7 +52,7 @@ export default function SigninPage() {
         setError(false);
         formREf.current?.reset();
         dispatch({ isLogedIn: true });
-        window.location.reload();
+        window.location.replace("/");
       }
     } catch (err) {
       // console.log(err.message);

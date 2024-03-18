@@ -15,29 +15,10 @@ import VerfiyEmailPage from "./Pages/auth/Verfiy/VerfiyEmail.tsx";
 import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
 import ErrorPage from "./Pages/Error/ErrorPage.tsx";
 
-import { Suspense } from "react";
-import Loader from "./Components/Loader/Loader";
-
-import { GreenContext } from "./Providers/LocalContextProvider.tsx";
-import { useContext } from "react";
-import { localContextType } from "./Providers/LocalContextProvider.tsx";
-import { Navigate } from "react-router-dom";
-
-export default function Red({ children }: { children: React.ReactNode }) {
-  const { state } = useContext(GreenContext) as localContextType;
-  const { cusrrentUser } = state;
-
-  return cusrrentUser ? <Navigate to="/" /> : children;
-}
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Suspense fallback={<Loader />}>
-        <MainLayout />
-      </Suspense>
-    ),
+    element: <MainLayout />,
     children: [
       {
         index: true,
@@ -60,19 +41,11 @@ const router = createBrowserRouter([
 
       {
         path: "auth/sign-in",
-        element: (
-          <Red>
-            <SigninPage />
-          </Red>
-        ),
+        element: <SigninPage />,
       },
       {
         path: "auth/sign-up",
-        element: (
-          <Red>
-            <SignupPage />
-          </Red>
-        ),
+        element: <SignupPage />,
       },
 
       {

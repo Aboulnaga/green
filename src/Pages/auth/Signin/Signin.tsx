@@ -8,12 +8,13 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { GreenContext } from "../../../Providers/LocalContextProvider";
 import GoogleSignin from "./GoogleSignin";
+import { localContextType } from "../../../Providers/LocalContextProvider";
 
 export default function SigninPage() {
   const [error, setError] = useState<FormErrorType | false>(false);
   const [isPwdHidden, setIsPwdHidden] = useState(true);
   const formREf = useRef<HTMLFormElement | null>(null);
-  const { dispatch } = useContext(GreenContext);
+  const { dispatch } = useContext(GreenContext) as localContextType;
 
   const handelSignInFormSubmit = (e: any) => {
     e.preventDefault();

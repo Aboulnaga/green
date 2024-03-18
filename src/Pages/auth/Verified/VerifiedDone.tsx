@@ -4,6 +4,7 @@ import { applyActionCode } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { useEffect, useState } from "react";
 export default function VerifiedDonePage() {
+  const [verErr, setVerErr] = useState<any | null>([]);
   const [searchParams] = useSearchParams();
   const actionCode = searchParams.get("oobCode");
   const [res, setRes] = useState<any>("");
@@ -13,10 +14,12 @@ export default function VerifiedDonePage() {
       applyActionCode(auth, actionCode)
         .then(resp => {
           setRes(resp);
-          console.log(resp);
+          // console.log(resp);
         })
         .catch(error => {
           // console.log(error.message);
+          const erros = error.message.split("/");
+          setVerErr(erros);
         });
     }
 
@@ -25,7 +28,7 @@ export default function VerifiedDonePage() {
     );
   }, []);
 
-  console.log(res);
+  // console.log(res);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { authUser } from "../../../Config/FireBaseConfig";
 import {
   createUserWithEmailAndPassword,

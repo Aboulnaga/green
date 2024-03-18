@@ -1,4 +1,4 @@
-export default function DefAvatarSvg({ svgClass }) {
+export default function DefAvatarSvg({ svgClass }: { svgClass: string }) {
   return (
     <svg
       className={svgClass}

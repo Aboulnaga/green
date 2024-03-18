@@ -1,11 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import MainLayout from "./MainLayout.tsx";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useLocation,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import LocalContextProvider from "./Providers/LocalContextProvider.tsx";
 import LocalHelmetProvider from "./Providers/LocalHelmetProvider.tsx";
@@ -30,16 +26,7 @@ import { Navigate } from "react-router-dom";
 export default function Red({ children }: { children: React.ReactNode }) {
   const { state } = useContext(GreenContext) as localContextType;
   const { cusrrentUser } = state;
-  const location = window.location.pathname;
 
-  // if (location === "/auth/sign-in") {
-  //   return children;
-  // }
-  // if (location === "/auth/sign-up") {
-  //   return children;
-  // }
-  // console.log(location === "/");
-  // const doNav = useNavigate();
   return cusrrentUser ? <Navigate to="/" /> : children;
 }
 

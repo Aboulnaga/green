@@ -6,7 +6,7 @@ import { localContextType } from "../../../Providers/LocalContextProvider";
 export default function GoogleSignin() {
   const provider = new GoogleAuthProvider();
   const [userData, setUserData] = useState({});
-  const { state, dispatch } = useContext(GreenContext) as localContextType;
+  const { dispatch } = useContext(GreenContext) as localContextType;
 
   const handleSignwithGoogle = () => {
     signInWithPopup(authUser, provider)

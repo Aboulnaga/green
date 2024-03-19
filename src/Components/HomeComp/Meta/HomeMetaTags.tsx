@@ -20,18 +20,21 @@ export default function HomeMetaTags() {
       <meta name="author" content="Green Store" />
       <meta name="copyright" content="Green Store" />
       <meta name="language" content="EN" />
-      <meta name="og:title" content="Green Store: Fresh & Healthy Delivered" />
-      <meta name="og:type" content="product.group" />
-      <meta name="og:url" content={`${GreenUrl}/`} />
-      <meta name="og:image" content={`${GreenUrl}/img/meta/ogImage.jpg`} />
-      <meta name="og:site_name" content="Green Store" />
       <meta
-        name="og:description"
+        property="og:title"
+        content="Green Store: Fresh & Healthy Delivered"
+      />
+      <meta property="og:type" content="product.group" />
+      <meta property="og:url" content={`${GreenUrl}/`} />
+      <meta property="og:image" content={`${GreenUrl}/img/meta/ogImage.jpg`} />
+      <meta property="og:site_name" content="Green Store" />
+      <meta
+        property="og:description"
         content="Green Store - Get fresh, healthy, and organic vegetables delivered straight to your door! Enjoy a quick and easy online shopping experience. Order now and discover a convenient way to eat well!
 "
       />
       <meta
-        name="og:keywords"
+        property="og:keywords"
         content="fresh vegetables, healthy produce, organic food, convenient delivery, online grocery shopping,Green Store
 "
       />

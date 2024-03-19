@@ -110,7 +110,12 @@ export default function SignupPage() {
     <>
       <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       <div className="breadcrumbs-container">
-        <BreadCrumbsComp path={[{ title: "Sign up", url: "auth/sign-up" }]} />
+        <BreadCrumbsComp
+          path={[
+            { title: "Home", url: "/" },
+            { title: "Sign up", url: "/auth/sign-up" },
+          ]}
+        />
       </div>
       <main className="sign-up-page">
         <div className="sign-up">

@@ -19,7 +19,13 @@ export default function VerifiedDonePage() {
 
   return (
     <>
-      <BreadCrumbsComp path={[{ title: "Verfied", url: "auth/verified" }]} />
+      <BreadCrumbsComp
+        path={[
+          { title: "Home", url: "/" },
+          { title: "Sign Up", url: "/auth/sign-up" },
+          { title: "Verfied", url: "/auth/verified" },
+        ]}
+      />
       <main>
         <section className="verfied-done-page-container">
           <div className="verfied fix-width center">

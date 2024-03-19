@@ -68,7 +68,12 @@ export default function SigninPage() {
   return (
     <>
       <div className="breadcrumbs-container">
-        <BreadCrumbsComp path={[{ title: "Sign In", url: "auth/sign-in" }]} />
+        <BreadCrumbsComp
+          path={[
+            { title: "Home", url: "/" },
+            { title: "Sign In", url: "/auth/sign-in" },
+          ]}
+        />
       </div>
       <main className="sign-in-page">
         <div className="sign-in">

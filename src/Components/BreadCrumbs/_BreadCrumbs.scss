@@ -20,7 +20,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .bread-crumbs .active {
@@ -30,4 +30,10 @@
 .bread-crumbs svg {
   stroke: var(--grey400);
   fill: var(--darkColor);
+}
+
+.map-path {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

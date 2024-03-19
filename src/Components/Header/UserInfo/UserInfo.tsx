@@ -6,11 +6,13 @@ import { CusrrentUserType } from "../../../Hooks/useCurrentUser";
 import DefAvatarSvg from "./DefAvatarSvg";
 import { GreenContext } from "../../../Providers/LocalContextProvider";
 import { localContextType } from "../../../Providers/LocalContextProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function UserInfo() {
   const { dispatch } = useContext(GreenContext) as localContextType;
   const currentUser = useCurrentUser();
   const { email, avatar, displayName } = currentUser as CusrrentUserType;
+  const doNav = useNavigate();
   const [userData, setUserData] = useState<{
     userName: string;
     userImg: string | null | undefined;
@@ -67,11 +69,16 @@ export default function UserInfo() {
             <div className="user-name">
               <h6>{userData?.userName}</h6>
             </div>
-            <div className="user-profile">
-              <button>Profile</button>
-            </div>
+
             <div className="user-dashboard">
-              <button>Dashboard</button>
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  doNav("u/dashboard");
+                }}
+              >
+                Dashboard
+              </button>
             </div>
             <div className="log-out">
               <button

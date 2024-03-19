@@ -7,9 +7,16 @@ export default function BreadCrumbsComp({
 }) {
   const mapPath = path.map((path, i) => {
     return (
-      <li key={i}>
-        <NavLink to={`/${path.url}`}>{path.title}</NavLink>
-      </li>
+      <span className="map-path" key={i}>
+        <li>
+          <img src="/img/breadcrumbs/arrow.png" alt="arrow" />
+        </li>
+        <li>
+          <NavLink end to={`${path.url}`}>
+            {path.title}
+          </NavLink>
+        </li>
+      </span>
     );
   });
   return (
@@ -32,15 +39,6 @@ export default function BreadCrumbsComp({
                 />
               </svg>
             </Link>
-          </li>
-          <li>
-            <img src="/img/breadcrumbs/arrow.png" alt="arrow" />
-          </li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <img src="/img/breadcrumbs/arrow.png" alt="arrow" />
           </li>
 
           {mapPath ? mapPath : null}

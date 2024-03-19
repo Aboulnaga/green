@@ -4,8 +4,9 @@ export default function VerfiyEmailPage() {
     <>
       <BreadCrumbsComp
         path={[
-          { title: "Signup", url: "auth/sign-up" },
-          { title: "Verfiy Email", url: "auth/verify-email" },
+          { title: "Home", url: "/" },
+          { title: "Sign Up", url: "/auth/sign-up" },
+          { title: "Verfiy Email", url: "/auth/verify-email" },
         ]}
       />
       <main>

@@ -16,7 +16,12 @@ import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
 import ErrorPage from "./Pages/Error/ErrorPage.tsx";
 import { Navigate } from "react-router-dom";
 import useCurrentUser from "./Hooks/useCurrentUser.tsx";
-
+import UserDahsboardLayout from "./Layout/UserDashboardLayout/UserDahsboardLayout.tsx";
+import UserDashboardPage from "./Pages/Dashboard/UserDashboard/UserDashboardPage.tsx";
+import OrderHistory from "./Pages/Dashboard/OrderHistory/OrderHistory.tsx";
+import UserWishlist from "./Pages/Dashboard/Wishlist/UserWishlist.tsx";
+import UserShoppingCart from "./Pages/Dashboard/ShoppingCart/UserShoppingCart.tsx";
+import UserSettings from "./Pages/Dashboard/Settings/UserSettings.tsx";
 const ProtectChild = ({
   children,
   url,
@@ -53,6 +58,34 @@ const router = createBrowserRouter([
       },
 
       {
+        path: "u/dashboard",
+
+        element: <UserDahsboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <UserDashboardPage />,
+          },
+          {
+            path: "order-history",
+            element: <OrderHistory />,
+          },
+          {
+            path: "wishlist",
+            element: <UserWishlist />,
+          },
+          {
+            path: "shopping-cart",
+            element: <UserShoppingCart />,
+          },
+          {
+            path: "settings",
+            element: <UserSettings />,
+          },
+        ],
+      },
+
+      {
         path: "auth/sign-in",
         element: (
           <ProtectChild url="/">
@@ -84,6 +117,11 @@ const router = createBrowserRouter([
             <VerifiedDonePage />
           </ProtectChild>
         ),
+      },
+
+      {
+        path: "error",
+        element: <ErrorPage />,
       },
 
       {

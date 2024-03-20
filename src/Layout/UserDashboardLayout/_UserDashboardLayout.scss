@@ -1,0 +1,104 @@
+.dashboard-layout {
+  display: flex;
+  padding: 2rem 0;
+  gap: 1rem;
+}
+
+.dashboard-layout aside ul li .dashboard-link-comp svg,
+.dashboard-layout aside ul li .order-history-link-comp svg,
+.dashboard-layout aside ul li .wishlist-link-comp svg,
+.dashboard-layout aside ul li .settings-link-comp svg,
+.dashboard-layout aside ul li .logout-link-comp svg {
+  fill: var(--grey400);
+  stroke: var(--grey400);
+  pointer-events: none;
+}
+
+.dashboard-layout aside ul li .Shopping-cart-link-comp svg {
+  fill: none;
+  stroke: var(--grey400);
+}
+
+.dashboard-layout aside {
+  min-width: 70px;
+}
+
+.dashboard-layout aside ul {
+  padding: 1rem 0 1rem 0;
+  border: 1px solid var(--grey100);
+  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0px;
+}
+
+.dashboard-layout aside ul a {
+  display: block;
+}
+
+.dashboard-layout aside ul li {
+  border-left: 3px solid transparent;
+  transition: all 1s ease;
+}
+
+.dashboard-layout aside ul li:has(.active) {
+  border-left: 3px solid var(--greenColor);
+  background-color: rgba(var(--greenRgb), 0.1);
+  svg {
+    fill: var(--darkColor);
+    stroke: var(--darkColor);
+  }
+}
+
+.dashboard-layout aside .nav-links-comp {
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.dashboard-layout aside .nav-links-comp .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //   background-color: blue;
+  width: 100%;
+  min-height: 30px;
+  aspect-ratio: 1;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.dashboard-layout aside .nav-links-comp .title {
+  display: none;
+}
+
+@media (width > 900px) {
+  .dashboard-layout aside .nav-links-comp .title {
+    display: block;
+  }
+
+  .dashboard-layout aside {
+    width: 100%;
+    max-width: 312px;
+  }
+
+  .dashboard-layout aside ul li {
+    padding: 0.5rem 0;
+  }
+
+  .dashboard-layout aside .nav-links-comp .icon {
+    width: 24px;
+    min-height: 24px;
+    aspect-ratio: 1;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

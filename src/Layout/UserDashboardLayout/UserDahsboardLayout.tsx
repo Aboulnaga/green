@@ -2,7 +2,14 @@ import { Outlet } from "react-router-dom";
 import BreadCrumbsComp from "../../Components/BreadCrumbs/BreadCrumbs";
 import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-
+import {
+  LogOutButtonComp,
+  SettingsLinkComp,
+  ShoppingCartLinkComp,
+  WishlistLinkComp,
+  DashboardLinkComp,
+  OrderHistoryLinkComp,
+} from "./NavLinksComp";
 type BreadCompsType = {
   title: string;
   url: string;
@@ -56,24 +63,71 @@ export default function UserDahsboardLayout() {
         <aside>
           <ul>
             <li>
-              <NavLink to="/u/dashboard">Dashboard</NavLink>
+              <NavLink
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "instant" });
+                }}
+                end
+                to="/u/dashboard"
+                title="Dashboard"
+              >
+                <DashboardLinkComp />
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/u/dashboard/order-history">Order History</NavLink>
+              <NavLink
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "instant" });
+                }}
+                end
+                to="/u/dashboard/order-history"
+                title="Order History"
+              >
+                <OrderHistoryLinkComp />
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/u/dashboard/wishlist">Wishlist</NavLink>
+              <NavLink
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "instant" });
+                }}
+                end
+                to="/u/dashboard/wishlist"
+                title="Wishlist"
+              >
+                <WishlistLinkComp />
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/u/dashboard/shopping-cart">Shopping Cart</NavLink>
+              <NavLink
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "instant" });
+                }}
+                end
+                to="/u/dashboard/shopping-cart"
+                title="Shopping Cart"
+              >
+                <ShoppingCartLinkComp />
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/u/dashboard/settings">Settings</NavLink>
+              <NavLink
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "instant" });
+                }}
+                end
+                to="/u/dashboard/settings"
+                title="Settings"
+              >
+                <SettingsLinkComp />
+              </NavLink>
+            </li>
+            <li>
+              <LogOutButtonComp />
             </li>
           </ul>
         </aside>
         <main>
-          <h2>dashboard</h2>
           <Outlet />
         </main>
       </div>

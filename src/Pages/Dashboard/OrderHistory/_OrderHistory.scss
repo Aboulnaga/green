@@ -1,0 +1,18 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0rem;
+  margin-top: 2rem;
+}
+
+.pagination-container a {
+  padding: 0.5rem 1rem;
+  border: 1px solid red;
+  cursor: pointer;
+}
+
+.pagination-container .page-active,
+.pagination-container .page-active-link {
+  background-color: var(--greenColor);
+}

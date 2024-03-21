@@ -65,7 +65,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "instant" });
+                  window.scrollTo({ top: 320, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard"
@@ -77,7 +77,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "instant" });
+                  window.scrollTo({ top: 320, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard/order-history"
@@ -89,7 +89,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "instant" });
+                  window.scrollTo({ top: 320, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard/wishlist"
@@ -101,7 +101,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "instant" });
+                  window.scrollTo({ top: 320, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard/shopping-cart"
@@ -113,7 +113,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "instant" });
+                  window.scrollTo({ top: 320, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard/settings"

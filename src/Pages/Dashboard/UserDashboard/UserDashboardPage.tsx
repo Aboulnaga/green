@@ -4,14 +4,14 @@ export default function UserDashboardPage() {
     <div className="dashboard-page-container">
       <div className="dashboard-page-container__col1">
         <img src="/img/pages/dashboard/user.jpg" alt="user name" />
-        <p>Abdelrahman Mahmoud</p>
+        <p>Abdelrahman Mahmoud Ahmed zaher Abdel Azem Salama Abdelrahman</p>
         <p>Customer</p>
         <a href="#">Edit Profile</a>
       </div>
       <div className="dashboard-page-container__col2">
         <p>BILLING ADDRESS</p>
         <div className="user-info">
-          <p>Abdelrahman Mahmoud</p>
+          <p>Abdelrahman Mahmoud Ahmed Abdel Azem Salama Abdelrahman</p>
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi,
             maiores.
@@ -24,7 +24,7 @@ export default function UserDashboardPage() {
       <div className="dashboard-page-container__col3">
         <div className="table-title">
           <p>Recent Order History</p>
-          <Link to="/dashboard/order">View All</Link>
+          <Link to="/dashboard/order">View</Link>
         </div>
         <table cellSpacing={0} className="table">
           <thead>
@@ -42,22 +42,13 @@ export default function UserDashboardPage() {
               <td>2022-01-01</td>
               <td>Delivered</td>
               <td>
-                $250 <span>(4 items)</span>
+                <p>
+                  {" "}
+                  $250 <span>(4 items)</span>
+                </p>
               </td>
               <td>
-                <Link to="/dashboard/order/123456">View Details</Link>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#123456</td>
-              <td>2022-01-01</td>
-              <td>Delivered</td>
-              <td>
-                $600 <span>(7 items)</span>
-              </td>
-              <td>
-                <Link to="/dashboard/order/123456">View Details</Link>
+                <Link to="/dashboard/order/123456">View</Link>
               </td>
             </tr>
 
@@ -66,22 +57,12 @@ export default function UserDashboardPage() {
               <td>2022-01-01</td>
               <td>Delivered</td>
               <td>
-                $1000 <span>(10 items)</span>
+                <p>
+                  $600 <span>(7 items)</span>
+                </p>
               </td>
               <td>
-                <Link to="/dashboard/order/123456">View Details</Link>
-              </td>
-            </tr>
-
-            <tr>
-              <td>#123456</td>
-              <td>2022-01-01</td>
-              <td>Delivered</td>
-              <td>
-                $70 <span>(1 items)</span>
-              </td>
-              <td>
-                <Link to="/dashboard/order/123456">View Details</Link>
+                <Link to="/dashboard/order/123456">View</Link>
               </td>
             </tr>
 
@@ -90,10 +71,42 @@ export default function UserDashboardPage() {
               <td>2022-01-01</td>
               <td>Delivered</td>
               <td>
-                $100 <span>(3 items)</span>
+                <p>
+                  $1000 <span>(10 items)</span>
+                </p>
               </td>
               <td>
-                <Link to="/dashboard/order/123456">View Details</Link>
+                <Link to="/dashboard/order/123456">View</Link>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#123456</td>
+              <td>2022-01-01</td>
+              <td>Delivered</td>
+              <td>
+                <p>
+                  {" "}
+                  $70 <span>(1 items)</span>
+                </p>
+              </td>
+              <td>
+                <Link to="/dashboard/order/123456">View</Link>
+              </td>
+            </tr>
+
+            <tr>
+              <td>#123456</td>
+              <td>2022-01-01</td>
+              <td>Delivered</td>
+              <td>
+                <p>
+                  {" "}
+                  $100 <span>(3 items)</span>
+                </p>
+              </td>
+              <td>
+                <Link to="/dashboard/order/123456">View</Link>
               </td>
             </tr>
           </tbody>

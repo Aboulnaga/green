@@ -1,5 +1,6 @@
 import ReactPaginate from "react-paginate";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 type OrderType = {
   id: string;
   date: string;
@@ -205,6 +206,510 @@ export default function OrderHistory() {
       total: 100,
       items: 10,
     },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
+    {
+      id: "#1234",
+      date: "2022-01-01",
+      status: "pending",
+      total: 100,
+      items: 10,
+    },
   ] as OrderType;
 
   const mapOrders = orders.map((order, i) => {
@@ -212,14 +717,21 @@ export default function OrderHistory() {
       <tr key={i}>
         <td>{order.id}</td>
         <td>{order.date}</td>
-        <td>{order.status}</td>
+
         <td>
           <p>
-            ${order.total} <span> ({order.items} items)</span>
+            <span> ${order.total} </span>
+            <span> ({order.items} items)</span>
           </p>
         </td>
+        <td>{order.status}</td>
         <td>
-          <a href="#">View</a>
+          <NavLink
+            onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
+            to="/u/dashboard/orders-history/id/123/"
+          >
+            View
+          </NavLink>
         </td>
       </tr>
     );
@@ -228,22 +740,22 @@ export default function OrderHistory() {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
-  let itemsPerPage = 7;
+  let itemsPerPage = 14;
 
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = mapOrders.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(mapOrders.length / itemsPerPage);
 
   // Invoke when user click to request another page.
   const handlePageClick = (e: any) => {
     const newOffset = (e.selected * itemsPerPage) % mapOrders.length;
-    console.log(
-      `User requested page number ${e.selected}, which is offset ${newOffset}`
-    );
+    // console.log(
+    //   `User requested page number ${e.selected}, which is offset ${newOffset}`
+    // );
     setItemOffset(newOffset);
   };
 
@@ -251,8 +763,10 @@ export default function OrderHistory() {
   return (
     <div className="wishlist-page-container">
       <div className="wishlist-page-table">
-        <div className="table-title"></div>
-        <table>
+        <div className="table-title">
+          <h3>Orders History</h3>
+        </div>
+        <table cellSpacing={0}>
           <thead>
             <tr>
               <th>ID</th>
@@ -264,27 +778,23 @@ export default function OrderHistory() {
           </thead>
           <tbody>{currentItems}</tbody>
         </table>
-        <div className="pagination">
+        <div className="pagination-comp">
           <ReactPaginate
-            // breakClassName="page-item"
-            // breakLinkClassName="page-link"
-            containerClassName="pagination-container"
-            nextClassName="next-page-item"
-            nextLinkClassName="next-page-link"
-            previousClassName="perv-page-item"
-            previousLinkClassName="prev-page-link"
-            pageClassName="current-items-page"
-            pageLinkClassName="ucrrent-items-page-link"
+            onClick={() => window.scrollTo({ top: 160, behavior: "instant" })}
+            className="pagination"
+            pageClassName="page-li"
             activeClassName="page-active"
             activeLinkClassName="page-active-link"
+            nextLinkClassName="page-next"
+            previousLinkClassName="page-prev"
             pageCount={pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={1}
+            marginPagesDisplayed={1}
             onPageChange={handlePageClick}
-            forcePage={0}
+            // forcePage={0}
             breakLabel="..."
-            nextLabel="next >"
-            previousLabel="< previous"
+            nextLabel=" >"
+            previousLabel="<"
             renderOnZeroPageCount={null}
           />
         </div>

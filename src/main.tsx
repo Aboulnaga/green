@@ -22,6 +22,7 @@ import OrderHistory from "./Pages/Dashboard/OrderHistory/OrderHistory.tsx";
 import UserWishlist from "./Pages/Dashboard/Wishlist/UserWishlist.tsx";
 import UserShoppingCart from "./Pages/Dashboard/ShoppingCart/UserShoppingCart.tsx";
 import UserSettings from "./Pages/Dashboard/Settings/UserSettings.tsx";
+import OrderDetailsPage from "./Pages/Dashboard/OrderDetails/OrderDetailsPage.tsx";
 const ProtectChild = ({
   children,
   url,
@@ -67,9 +68,10 @@ const router = createBrowserRouter([
             element: <UserDashboardPage />,
           },
           {
-            path: "order-history",
+            path: "orders-history",
             element: <OrderHistory />,
           },
+          { path: "orders-history/id/:id", element: <OrderDetailsPage /> },
           {
             path: "wishlist",
             element: <UserWishlist />,

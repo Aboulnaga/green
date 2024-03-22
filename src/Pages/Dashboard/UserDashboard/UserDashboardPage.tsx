@@ -43,12 +43,12 @@ export default function UserDashboardPage() {
               <td>Delivered</td>
               <td>
                 <p>
-                  {" "}
-                  $250 <span>(4 items)</span>
+                  $250
+                  <span>(4 items)</span>
                 </p>
               </td>
               <td>
-                <Link to="/dashboard/order/123456">View</Link>
+                <Link to="/u/dashboard/order-history/id/123/">View</Link>
               </td>
             </tr>
 
@@ -58,11 +58,12 @@ export default function UserDashboardPage() {
               <td>Delivered</td>
               <td>
                 <p>
-                  $600 <span>(7 items)</span>
+                  $500
+                  <span>(7 items)</span>
                 </p>
               </td>
               <td>
-                <Link to="/dashboard/order/123456">View</Link>
+                <Link to="/u/dashboard/order-history/id/123/">View</Link>
               </td>
             </tr>
 
@@ -76,7 +77,7 @@ export default function UserDashboardPage() {
                 </p>
               </td>
               <td>
-                <Link to="/dashboard/order/123456">View</Link>
+                <Link to="/u/dashboard/order-history/id/123/">View</Link>
               </td>
             </tr>
 
@@ -86,12 +87,11 @@ export default function UserDashboardPage() {
               <td>Delivered</td>
               <td>
                 <p>
-                  {" "}
                   $70 <span>(1 items)</span>
                 </p>
               </td>
               <td>
-                <Link to="/dashboard/order/123456">View</Link>
+                <Link to="/u/dashboard/order-history/id/123/">View</Link>
               </td>
             </tr>
 
@@ -101,12 +101,12 @@ export default function UserDashboardPage() {
               <td>Delivered</td>
               <td>
                 <p>
-                  {" "}
-                  $100 <span>(3 items)</span>
+                  $100
+                  <span>(3 items)</span>
                 </p>
               </td>
               <td>
-                <Link to="/dashboard/order/123456">View</Link>
+                <Link to="/u/dashboard/order-history/id/123/">View</Link>
               </td>
             </tr>
           </tbody>

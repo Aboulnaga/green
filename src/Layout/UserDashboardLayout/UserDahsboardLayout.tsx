@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import BreadCrumbsComp from "../../Components/BreadCrumbs/BreadCrumbs";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import {
   LogOutButtonComp,
@@ -17,10 +17,23 @@ type BreadCompsType = {
 
 export default function UserDahsboardLayout() {
   const { pathname } = useLocation();
+  const { id: orderDetailesId } = useParams();
+  const onScrollHeight = 0;
 
   const BreadCompsComp = () => {
     let path;
     const baseDashboardUrl = "/u/dashboard/";
+    // console.log(pathname);
+    // console.log(baseDashboardUrl + "/id/:id");
+    // console.log(orderDetailesId);
+
+    if (orderDetailesId) {
+      path = "Dashboard";
+      return [
+        { title: "Orders History", url: "/u/dashboard/orders-history/" },
+        { title: "Order Details", url: pathname },
+      ];
+    }
 
     if (pathname === baseDashboardUrl || pathname === "/u/dashboard") {
       path = "Dashboard";
@@ -40,7 +53,7 @@ export default function UserDahsboardLayout() {
         const urlPath = (path = finshDashPart_1 + " " + finshDashPart_2);
         return [
           { title: "Dashboard", url: baseDashboardUrl },
-          { title: urlPath, url: pathname },
+          { title: urlPath.replace(/[^a-zA-Z ]+/g, ""), url: pathname },
         ];
       } else {
         const splitBySlash = pathname.split("/")[3];
@@ -50,7 +63,10 @@ export default function UserDahsboardLayout() {
           [...splitBySlash].slice(1).join("");
         return [
           { title: "Dashboard", url: baseDashboardUrl },
-          { title: upperFirstLetter, url: pathname },
+          {
+            title: upperFirstLetter.replace(/[^a-zA-Z ]+/g, ""),
+            url: pathname,
+          },
         ];
       }
     }
@@ -65,7 +81,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 320, behavior: "instant" });
+                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard"
@@ -77,10 +93,9 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 320, behavior: "instant" });
+                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
                 }}
-                end
-                to="/u/dashboard/order-history"
+                to="/u/dashboard/orders-history"
                 title="Order History"
               >
                 <OrderHistoryLinkComp />
@@ -89,7 +104,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 320, behavior: "instant" });
+                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard/wishlist"
@@ -101,7 +116,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 320, behavior: "instant" });
+                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard/shopping-cart"
@@ -113,7 +128,7 @@ export default function UserDahsboardLayout() {
             <li>
               <NavLink
                 onClick={() => {
-                  window.scrollTo({ top: 320, behavior: "instant" });
+                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
                 }}
                 end
                 to="/u/dashboard/settings"

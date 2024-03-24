@@ -24,7 +24,6 @@ import UserShoppingCart from "./Pages/Dashboard/ShoppingCart/UserShoppingCart.ts
 import UserSettings from "./Pages/Dashboard/Settings/UserSettings.tsx";
 import OrderDetailsPage from "./Pages/Dashboard/OrderDetails/OrderDetailsPage.tsx";
 
-import { Helmet } from "react-helmet-async";
 const ProtectChild = ({
   children,
   url,

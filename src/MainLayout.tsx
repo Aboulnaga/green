@@ -7,9 +7,12 @@ import Loader from "./Components/Loader/Loader";
 export default function MainLayout() {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    window.addEventListener("load", () => {
+      // console.log("loaded");
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    });
   }, []);
   return (
     <>

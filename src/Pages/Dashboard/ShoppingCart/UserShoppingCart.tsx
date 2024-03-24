@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Helmet } from "react-helmet-async";
 import QuantityBTN from "../../../Components/Buttons/QuantityBTN/QuantityBTN";

@@ -23,6 +23,8 @@ import UserWishlist from "./Pages/Dashboard/Wishlist/UserWishlist.tsx";
 import UserShoppingCart from "./Pages/Dashboard/ShoppingCart/UserShoppingCart.tsx";
 import UserSettings from "./Pages/Dashboard/Settings/UserSettings.tsx";
 import OrderDetailsPage from "./Pages/Dashboard/OrderDetails/OrderDetailsPage.tsx";
+
+import { Helmet } from "react-helmet-async";
 const ProtectChild = ({
   children,
   url,

@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import UserDashboardMetaTags from "./MetaTags";
+import { Helmet } from "react-helmet-async";
 export default function UserDashboardPage() {
   return (
     <>
-      <UserDashboardMetaTags />
+      <Helmet>
+        <title>Green Store - Dashboard</title>
+      </Helmet>
       <div className="dashboard-page-container">
         <div className="dashboard-page-container__col1">
           <img src="/img/pages/dashboard/user.jpg" alt="user name" />

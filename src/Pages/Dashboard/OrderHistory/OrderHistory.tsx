@@ -1,6 +1,7 @@
 import ReactPaginate from "react-paginate";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 type OrderType = {
   id: string;
   date: string;
@@ -737,68 +738,63 @@ export default function OrderHistory() {
     );
   });
 
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
+  // Pagination library start
   const [itemOffset, setItemOffset] = useState(0);
   let itemsPerPage = 14;
-
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = mapOrders.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(mapOrders.length / itemsPerPage);
-
-  // Invoke when user click to request another page.
   const handlePageClick = (e: any) => {
     const newOffset = (e.selected * itemsPerPage) % mapOrders.length;
-    // console.log(
-    //   `User requested page number ${e.selected}, which is offset ${newOffset}`
-    // );
     setItemOffset(newOffset);
   };
+  // Pagination library end
 
-  // console.log(orders);
   return (
-    <div className="wishlist-page-container">
-      <div className="wishlist-page-table">
-        <div className="table-title">
-          <h3>Orders History</h3>
-        </div>
-        <table cellSpacing={0}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Date</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>{currentItems}</tbody>
-        </table>
-        <div className="pagination-comp">
-          <ReactPaginate
-            onClick={() => window.scrollTo({ top: 160, behavior: "instant" })}
-            className="pagination"
-            pageClassName="page-li"
-            activeClassName="page-active"
-            activeLinkClassName="page-active-link"
-            nextLinkClassName="page-next"
-            previousLinkClassName="page-prev"
-            pageCount={pageCount}
-            pageRangeDisplayed={1}
-            marginPagesDisplayed={1}
-            onPageChange={handlePageClick}
-            // forcePage={0}
-            breakLabel="..."
-            nextLabel=" >"
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-          />
+    <>
+      <Helmet>
+        <title>Green Store - Orders History</title>
+      </Helmet>
+
+      <div className="wishlist-page-container">
+        <div className="wishlist-page-table">
+          <div className="table-title">
+            <h3>Orders History</h3>
+          </div>
+          <table cellSpacing={0}>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>{currentItems}</tbody>
+          </table>
+          <div className="pagination-comp">
+            <ReactPaginate
+              onClick={() => window.scrollTo({ top: 160, behavior: "instant" })}
+              className="pagination"
+              pageClassName="page-li"
+              activeClassName="page-active"
+              activeLinkClassName="page-active-link"
+              nextLinkClassName="page-next"
+              previousLinkClassName="page-prev"
+              pageCount={pageCount}
+              pageRangeDisplayed={1}
+              marginPagesDisplayed={1}
+              onPageChange={handlePageClick}
+              // forcePage={0}
+              breakLabel="..."
+              nextLabel=" >"
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

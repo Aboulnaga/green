@@ -18,7 +18,7 @@ type BreadCompsType = {
 export default function UserDahsboardLayout() {
   const { pathname } = useLocation();
   const { id: orderDetailesId } = useParams();
-  const onScrollHeight = 0;
+  // const onScrollHeight = 0;
 
   const BreadCompsComp = () => {
     let path;
@@ -80,9 +80,9 @@ export default function UserDahsboardLayout() {
           <ul>
             <li>
               <NavLink
-                onClick={() => {
-                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
-                }}
+                // onClick={() => {
+                //   window.scrollTo({ top: onScrollHeight, behavior: "instant" });
+                // }}
                 end
                 to="/u/dashboard"
                 title="Dashboard"
@@ -91,33 +91,17 @@ export default function UserDahsboardLayout() {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                onClick={() => {
-                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
-                }}
-                to="/u/dashboard/orders-history"
-                title="Order History"
-              >
+              <NavLink to="/u/dashboard/orders-history" title="Order History">
                 <OrderHistoryLinkComp />
               </NavLink>
             </li>
             <li>
-              <NavLink
-                onClick={() => {
-                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
-                }}
-                end
-                to="/u/dashboard/wishlist"
-                title="Wishlist"
-              >
+              <NavLink end to="/u/dashboard/wishlist" title="Wishlist">
                 <WishlistLinkComp />
               </NavLink>
             </li>
             <li>
               <NavLink
-                onClick={() => {
-                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
-                }}
                 end
                 to="/u/dashboard/shopping-cart"
                 title="Shopping Cart"
@@ -126,14 +110,7 @@ export default function UserDahsboardLayout() {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                onClick={() => {
-                  window.scrollTo({ top: onScrollHeight, behavior: "instant" });
-                }}
-                end
-                to="/u/dashboard/settings"
-                title="Settings"
-              >
+              <NavLink end to="/u/dashboard/settings" title="Settings">
                 <SettingsLinkComp />
               </NavLink>
             </li>

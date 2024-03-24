@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Helmet } from "react-helmet-async";
-import CartBTN from "../../../Components/Buttons/CartBTN/CartBTN";
-import InStockBTN from "../../../Components/Buttons/InStockBTN/InStockBTN";
+import QuantityBTN from "../../../Components/Buttons/QuantityBTN/QuantityBTN";
 import { wishlistData } from "../Wishlist/wishListDB";
 
 export default function UserShoppingCart() {
@@ -19,7 +18,10 @@ export default function UserShoppingCart() {
   // Pagination library end
 
   const renderWishlist = currentItems.map(product => {
-    const { id, title, price, stock, imgUrl } = product;
+    const [quantity, setQuantity] = useState(1);
+    const [quantityModelOn, setQuantityModelOn] = useState(false);
+    const { id, title, price, imgUrl } = product;
+
     const formatCurrency = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
@@ -37,24 +39,43 @@ export default function UserShoppingCart() {
           <div className="price">{formatCurrency.format(price)}</div>
         </td>
         <td>
-          <div className="instock">
-            {
-              <InStockBTN
-                hover={true}
-                inStockClassContainer="in-stock-container"
-                inStockClass="in-stock"
-                status={stock}
-              />
-            }
+          <div className="quantity">
+            {quantityModelOn ? (
+              <div
+                onClick={() => {
+                  setQuantityModelOn(false);
+                }}
+                className="quantity-model"
+              >
+                <QuantityBTN
+                  least={1} // least to buy in one time
+                  most={10} // most to buy in one time
+                  stockQuantity={20} // quntity in stock db
+                  defaultQuantity={1} // input value
+                  containerClass="quantity-container"
+                  quantityBTNSClass="quantity-btns"
+                  errorMsgClass="quantity-error"
+                  setQuantity={setQuantity}
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            <p
+              className="quantity-model-btn"
+              onClick={() => setQuantityModelOn(!quantityModelOn)}
+            >
+              {quantity === 1 ? "+" : quantity}
+            </p>
           </div>
         </td>
         <td>
-          <div className="cart-btn">
-            <CartBTN />
+          <div className="subtotal">
+            <p>{formatCurrency.format(price * quantity)}</p>
           </div>
         </td>
         <td>
-          <div className="remove">X</div>
+          <div className="remove">-</div>
         </td>
       </tr>
     );
@@ -63,27 +84,53 @@ export default function UserShoppingCart() {
   return (
     <>
       <Helmet>
-        <title>Green Store - Wishlist</title>
+        <title>Green Store - Shopping Cart</title>
       </Helmet>
-      <section className="wishlist-page">
-        <h3 className="wishlist-page-title">Wishlist</h3>
-        <table className="wishlist-table">
+      <section className="shopping-cart-page">
+        <h3 className="shopping-cart-page-title">Shopping Cart</h3>
+
+        <div className="cart-bill-container">
+          <div className="cart-bill">
+            <div className="cart-bill-title">
+              <h3>Cart Total</h3>
+            </div>
+            <div className="sub-total">
+              <p>Subtotal</p>
+              <p>$ 0.00</p>
+            </div>
+
+            <div className="shipping">
+              <p>Shipping</p>
+              <p>$ 0.00</p>
+            </div>
+
+            <div className="total">
+              <p>Total</p>
+              <p>$ 0.00</p>
+            </div>
+
+            <div className="checkout">
+              <button>Proceed to checkout</button>
+            </div>
+          </div>
+        </div>
+        <table className="shopping-cart-table">
           <thead>
             <tr>
               <th>Item</th>
               <th>Price</th>
-              <th>Stock?</th>
-              <th></th>
+              <th>Q</th>
+              <th> Subtotal</th>
               <th></th>
             </tr>
           </thead>
           <tbody>{renderWishlist}</tbody>
         </table>
 
-        <div className="wishlist-pagination-comp">
+        <div className="shopping-cart-pagination-comp">
           <ReactPaginate
             // onClick={() => window.scrollTo({ top: 160, behavior: "instant" })}
-            className="wishlist-pagination"
+            className="shopping-cart-pagination"
             pageClassName="page-li"
             activeClassName="page-active"
             activeLinkClassName="page-active-link"

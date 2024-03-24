@@ -107,6 +107,20 @@
     font-size: var(--smf11);
     line-height: calc(var(--lineHeight) * var(--smf11));
   }
+
+  ::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--grey800);
+    transform-origin: center;
+  }
 }
 
 @keyframes msgAnim {

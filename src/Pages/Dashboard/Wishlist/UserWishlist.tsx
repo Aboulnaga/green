@@ -53,7 +53,7 @@ export default function UserWishlist() {
           </div>
         </td>
         <td>
-          <div className="remove">X</div>
+          <div className="remove">-</div>
         </td>
       </tr>
     );

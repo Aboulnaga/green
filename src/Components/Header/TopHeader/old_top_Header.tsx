@@ -1,8 +1,44 @@
 import { Link } from "react-router-dom";
+import { GreenContext } from "../../../Providers/LocalContextProvider";
+import { useContext, useMemo } from "react";
+import { localContextType } from "../../../Providers/LocalContextProvider";
+import { authUser } from "../../../Config/FireBaseConfig";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import UserInfo from "../UserInfo/UserInfo";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
-export default function TopHeader() {
-  const user = useCurrentUser();
+
+export default function old_TopHeader() {
+  const { state, dispatch } = useContext(GreenContext) as localContextType;
+  const { currentUser } = state;
+
+  const getUserLoginData = () => {
+    onAuthStateChanged(authUser, user => {
+      if (user) {
+        const email = user.email;
+        const isVerified = user.emailVerified;
+        const uuid = user.uid;
+        const avatar = user.photoURL;
+        const displayName = user.displayName;
+        // console.log(avatar, displayName);
+
+        dispatch({
+          currentUser: { email, isVerified, uuid, avatar, displayName },
+        });
+
+        // console.log(email, isVerified, uuid);
+      } else {
+        dispatch({ currentUser: null });
+      }
+    });
+  };
+
+  const memoUserLoginData = useMemo(() => {
+    getUserLoginData();
+  }, []);
+
+  useEffect(() => {
+    memoUserLoginData;
+  }, []);
 
   return (
     <div className="top-header-container">
@@ -44,7 +80,7 @@ export default function TopHeader() {
             </select>
           </div>
 
-          {!user ? (
+          {!true ? (
             <div className="top-header__col2__log">
               <Link to="/auth/sign-in"> Sign in</Link>
               <span></span>
@@ -52,7 +88,7 @@ export default function TopHeader() {
             </div>
           ) : null}
 
-          {user ? <UserInfo /> : null}
+          {true ? <UserInfo /> : null}
         </div>
       </div>
     </div>

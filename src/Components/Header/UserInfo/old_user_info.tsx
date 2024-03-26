@@ -1,18 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useContext } from "react";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { signOut } from "firebase/auth";
+import { CusrrentUserType } from "../../../Hooks/useCurrentUser";
 import DefAvatarSvg from "./DefAvatarSvg";
+import { GreenContext } from "../../../Providers/LocalContextProvider";
+import { localContextType } from "../../../Providers/LocalContextProvider";
 import { useNavigate } from "react-router-dom";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
 
-export default function UserInfo() {
-  const user = useCurrentUser();
-  const email = user?.user_email;
-  const avatar = user?.user_avatar;
-  const displayName = user?.user_name;
-  // console.log(user);
-
-  // const { email, avatar, displayName } = user as CusrrentUserType;
+export default function old_UserInfo() {
+  const { dispatch } = useContext(GreenContext) as localContextType;
+  const currentUser = useCurrentUser();
+  const { email, avatar, displayName } = currentUser as CusrrentUserType;
   const doNav = useNavigate();
   const [userData, setUserData] = useState<{
     userName: string;
@@ -27,7 +26,7 @@ export default function UserInfo() {
 
   const memoChekUserNameAndImg = useMemo(() => {
     chsekUserNameAndImg();
-  }, [user?.user_id]);
+  }, [currentUser]);
 
   useEffect(() => {
     memoChekUserNameAndImg;
@@ -85,6 +84,7 @@ export default function UserInfo() {
               <button
                 onClick={() => {
                   signOut(authUser);
+                  dispatch({ isLogedIn: false });
                   window.location.reload();
                 }}
                 type="submit"

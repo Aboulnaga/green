@@ -1,5 +1,4 @@
 import EditableInput from "../../../Components/Buttons/EditableInput/EditableInput";
-import CountrySelectBTN from "../../../Components/Buttons/CountrySelectBTN/CountrySelectBTN";
 export default function UserSettings_old() {
   const handleInfoForm = (e: any) => {
     e.preventDefault();
@@ -244,8 +243,6 @@ export default function UserSettings_old() {
           </div>
         </div>
       </div>
-
-      <CountrySelectBTN />
     </section>
   );
 }

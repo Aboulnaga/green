@@ -8,7 +8,7 @@ export default function FormErrorMsg({
   path,
 }: {
   userClass: string;
-  errors: FormErrorType | false;
+  errors: FormErrorType | null;
   path: string;
 }) {
   const mapErrors = (errors: FormErrorType) => {

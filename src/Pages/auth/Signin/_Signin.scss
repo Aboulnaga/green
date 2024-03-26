@@ -205,3 +205,81 @@
   height: 24px;
   margin-right: 0.5rem;
 }
+
+// //////////////////// spin loader
+.sign-in .submit .loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  // background-color: red;
+  padding: 1rem;
+
+  border-radius: 0.5rem;
+  background-color: var(--darkColor);
+  color: var(--lightColor);
+  cursor: not-allowed;
+  // pointer-events: none;
+  span {
+  }
+}
+.signup-loader {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  border-radius: 50%;
+  color: #fff;
+  background: currentColor;
+  box-shadow: 32px 0, -32px 0, 64px 0;
+}
+
+.signup-loader::after {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 10px;
+  background: var(--lightColor);
+  animation: move 3s linear infinite alternate;
+}
+
+@keyframes move {
+  0%,
+  5% {
+    left: -32px;
+    width: 16px;
+  }
+  15%,
+  20% {
+    left: -32px;
+    width: 48px;
+  }
+  30%,
+  35% {
+    left: 0px;
+    width: 16px;
+  }
+  45%,
+  50% {
+    left: 0px;
+    width: 48px;
+  }
+  60%,
+  65% {
+    left: 32px;
+    width: 16px;
+  }
+
+  75%,
+  80% {
+    left: 32px;
+    width: 48px;
+  }
+  95%,
+  100% {
+    left: 64px;
+    width: 16px;
+  }
+}

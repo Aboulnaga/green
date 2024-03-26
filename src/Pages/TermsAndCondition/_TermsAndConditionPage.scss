@@ -1,0 +1,48 @@
+// .terms-and-condition-container {}
+
+.terms-and-condition {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-shadow: 1px 1px 20px 2px rgba(0, 0, 0, 0.1);
+}
+
+.terms-and-condition > .introduction,
+.terms-and-condition > .terms-and-condition-grid > div {
+  padding: 1rem;
+  transition: all 0.5s ease;
+}
+
+.terms-and-condition > .introduction:hover,
+.terms-and-condition > .terms-and-condition-grid > div:hover {
+  box-shadow: 1px 1px 14px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+}
+
+.terms-and-condition > .introduction > fieldset,
+.terms-and-condition > .terms-and-condition-grid > div > fieldset {
+  border: 1px solid var(--greenColor);
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  gap: 1rem;
+  legend {
+    font-weight: 600;
+    font-size: var(--h3);
+    line-height: calc(var(--lineHeight) * var(--h3));
+    color: var(--greenColor);
+  }
+}
+
+.terms-and-condition-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (width > 768px) {
+  .terms-and-condition-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

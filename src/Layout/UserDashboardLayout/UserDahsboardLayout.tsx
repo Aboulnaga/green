@@ -84,33 +84,33 @@ export default function UserDahsboardLayout() {
                 //   window.scrollTo({ top: onScrollHeight, behavior: "instant" });
                 // }}
                 end
-                to="/u/dashboard"
+                to="/u/dashboard/"
                 title="Dashboard"
               >
                 <DashboardLinkComp />
               </NavLink>
             </li>
             <li>
-              <NavLink to="/u/dashboard/orders-history" title="Order History">
+              <NavLink to="/u/dashboard/orders-history/" title="Order History">
                 <OrderHistoryLinkComp />
               </NavLink>
             </li>
             <li>
-              <NavLink end to="/u/dashboard/wishlist" title="Wishlist">
+              <NavLink end to="/u/dashboard/wishlist/" title="Wishlist">
                 <WishlistLinkComp />
               </NavLink>
             </li>
             <li>
               <NavLink
                 end
-                to="/u/dashboard/shopping-cart"
+                to="/u/dashboard/shopping-cart/"
                 title="Shopping Cart"
               >
                 <ShoppingCartLinkComp />
               </NavLink>
             </li>
             <li>
-              <NavLink end to="/u/dashboard/settings" title="Settings">
+              <NavLink end to="/u/dashboard/settings/" title="Settings">
                 <SettingsLinkComp />
               </NavLink>
             </li>

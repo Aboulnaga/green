@@ -1,114 +1,202 @@
-import { useState } from "react";
-import { authUser } from "../../../Config/FireBaseConfig";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
+import FormErrorMsg from "../../../Components/FormErrorMsg/FormErrorMsg";
+import { FormErrorType } from "../../../Components/FormErrorMsg/FormErrorMsg";
+import { signupSchema } from "./Zschema";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
-import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
-import { Link } from "react-router-dom";
-import { signupSchema } from "./Zschema";
-import { SafeParseError, SafeParseSuccess } from "zod";
-import { FormErrorType } from "../../../Components/FormErrorMsg/FormErrorMsg";
-import FormErrorMsg from "../../../Components/FormErrorMsg/FormErrorMsg";
-import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { setDoc, Timestamp, doc } from "firebase/firestore";
+import { authUser, db } from "../../../Config/FireBaseConfig";
+import { Toaster, toast } from "react-hot-toast";
+
+type FormInputsType = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+type createdUserDataType = {
+  userID: string;
+  userEmail: string;
+  userName: string | null;
+  isVerfied: boolean;
+  userAvatar: string | null;
+};
 
 export default function SignupPage() {
-  const [isError, setIsError] = useState<FormErrorType | false>(false);
-  const [submitUser, setSubmitUser] = useState<false | true>(false);
-  const doNav = useNavigate();
+  const [isRememberMe, setIsRememberMe] = useState<boolean>(false);
+  const [isError, setIsError] = useState<FormErrorType | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const sucessSignUpMSG = () => toast.success("Sign Up Successful");
 
-  const createUser = async (data: any) => {
-    try {
-      setIsError(false);
-      await createUserWithEmailAndPassword(authUser, data.email, data.password);
-
-      // Signed in
-
-      // console.log(userCredential);
-    } catch (e) {
-      // console.log(e);
-      if (e) {
-        setSubmitUser(true);
-        setTimeout(() => {
-          setIsError([
-            {
-              error: "Something went wrong or user already exist",
-              path: "server",
-            },
-          ]);
-          setSubmitUser(false);
-        }, 3000);
-      } else {
-        setIsError(false);
-      }
-
+  useEffect(() => {
+    isError && setLoading(false);
+  }, [isError]);
+  const handleFormSubmit = async (e: any) => {
+    setIsError(null);
+    setLoading(true);
+    e.preventDefault();
+    if (!checkIfAllTermessAccepted()) return;
+    const formData = handleFormInput(e) as FormInputsType;
+    if (!handleFormDataInputsByZod(formData)) return;
+    if (!checkMatchedPassword(formData.password, formData.confirmPassword))
       return;
-    } finally {
-      setIsError(false);
-      setSubmitUser(true);
-      sucessSignUpMSG();
-      setTimeout(() => {
-        setSubmitUser(false);
+    const createdUserData = await createNewUserWithEmailAndPassword(formData);
+    if (!createdUserData) return;
+    const { userEmail } = createdUserData as createdUserDataType;
+    const verificationEmail = await sendEmailVerificationLink(userEmail);
+    if (!verificationEmail) return;
+    if (!setDataInUsersCollection(authUser.currentUser)) return;
 
-        if (authUser.currentUser?.emailVerified) {
-          doNav("/auth/sign-in");
-        } else {
-          authUser.currentUser?.email &&
-            sendEmailVerification(authUser.currentUser);
-          doNav("/auth/verify-email");
-        }
-      }, 3000);
-    }
+    setIsError(null);
+    sucessSignUpMSG();
+    setTimeout(() => {
+      setLoading(false);
+      window.location.replace("/auth/verify-email/");
+    }, 3000);
+    // console.log(verificationEmail);
+    // console.log(createdUserData);
+    // console.log(formData);
+    // console.log("submitted");
   };
 
-  // console.log("user data");
-  // console.log("email", authUser.currentUser?.email);
-  // console.log("verified", authUser.currentUser?.emailVerified);
-  const handleNewUser = (e: any) => {
-    e.preventDefault();
-    setIsError(false);
+  const checkIfAllTermessAccepted = () => {
+    if (!isRememberMe) {
+      return setIsError([
+        {
+          error: "Please read and accept the terms and conditions",
+          path: "server",
+        },
+      ]);
+    }
+
+    return true;
+  };
+
+  const handleFormInput = (e: any) => {
     const formData: FormData = new FormData(e.target);
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
     const data = { email, password, confirmPassword };
+    return data;
+  };
 
-    // console.log(data);
-
-    const z_Check = signupSchema.safeParse(data);
-    // console.log(z_Check);
-    if (z_Check.success) {
-      if (password !== confirmPassword) {
-        const errors = [
-          { error: "passwords don't match", path: "password" },
-          { error: "passwords don't match", path: "confirmPassword" },
-        ];
-        setIsError(errors);
-        return;
-      }
-      setIsError(false);
-      const suc = z_Check as SafeParseSuccess<typeof data>;
-      createUser(suc.data);
-      // console.log(suc.data);
-    } else {
-      const error = z_Check as SafeParseError<typeof data>;
-      const mapError = error.error.issues.map(err => {
+  const handleFormDataInputsByZod = (formdata: any) => {
+    const z_Check = signupSchema.safeParse(formdata);
+    if (!z_Check.success) {
+      const mapError = z_Check.error.issues.map(err => {
         return { error: err.message, path: err.path[0] };
       }) as FormErrorType;
-
       setIsError(mapError);
+      return;
+    }
+    return true;
+    // console.log(suc.data);
+  };
 
-      // console.log(mapError);
+  const checkMatchedPassword = (password: string, confirmPassword: string) => {
+    if (password !== confirmPassword) {
+      return setIsError([
+        {
+          error: "passwords don't match",
+          path: "password",
+        },
+        {
+          error: "passwords don't match",
+          path: "confirmPassword",
+        },
+      ]);
+    }
+    return true;
+  };
+
+  const createNewUserWithEmailAndPassword = async (data: any) => {
+    try {
+      const newUser = await createUserWithEmailAndPassword(
+        authUser,
+        data.email,
+        data.password
+      );
+
+      const user = {
+        userName: newUser.user.displayName,
+        userID: newUser.user.uid,
+        userEmail: newUser.user.email,
+        isVerfied: newUser.user.emailVerified,
+        userAvatar: newUser.user.photoURL,
+      };
+
+      // console.log(user);
+
+      return user as createdUserDataType;
+    } catch (error: any) {
+      // console.log(error.message);
+      return setIsError([
+        {
+          error: error.message,
+          path: "server",
+        },
+      ]);
     }
   };
 
-  // console.log(authUser.currentUser?.email);
+  const sendEmailVerificationLink = async (userEmail: string) => {
+    try {
+      const currentUserEmail = authUser.currentUser?.email;
+      if (currentUserEmail !== userEmail) {
+        throw new Error("Something went wrong in email");
+      }
+      currentUserEmail && (await sendEmailVerification(authUser.currentUser!));
+      return true;
+    } catch (error: any) {
+      // console.log(error.message);
+      return setIsError([
+        {
+          error: error.message,
+          path: "server",
+        },
+      ]);
+    }
+  };
+
+  const setDataInUsersCollection = async (data: any) => {
+    try {
+      const userData = {
+        user_name: data.displayName,
+        user_id: data.uid,
+        user_email: data.email,
+        is_verfied: data.emailVerified,
+        user_createdAT: Timestamp.fromDate(new Date("December 10, 1815")),
+        user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
+        user_avatar: data.photoURL,
+        user_role: "customer",
+      };
+      const res = await setDoc(doc(db, "users", data.uid), userData);
+      return res;
+    } catch (error: any) {
+      // console.log(error.message);
+      return setIsError([
+        {
+          error: error.message,
+          path: "server",
+        },
+      ]);
+    } finally {
+      return true;
+    }
+  };
 
   return (
     <>
-      <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+      <Helmet>
+        <title>Green - Sign Up</title>
+      </Helmet>
       <div className="breadcrumbs-container">
         <BreadCrumbsComp
           path={[
@@ -118,9 +206,11 @@ export default function SignupPage() {
         />
       </div>
       <main className="sign-up-page">
+        <Toaster position="top-right" toastOptions={{ duration: 5000 }} />
+        <div className="terms-and-cond"></div>
         <div className="sign-up">
           <h2>Sign Up</h2>
-          <form onSubmit={handleNewUser}>
+          <form onSubmit={handleFormSubmit}>
             <div className="email">
               <input name="email" type="email" placeholder="Email" />
               <FormErrorMsg
@@ -152,12 +242,24 @@ export default function SignupPage() {
 
             <div className="extra">
               <div className="remember-me">
-                <input type="checkbox" />
-                <p>Accept All Terms and Conditions </p>
+                <input
+                  onChange={e => setIsRememberMe(e.target.checked)}
+                  type="checkbox"
+                />
+                <Link target="_blank" to={"/terms-and-conditions/"}>
+                  Accept All Terms and Conditions
+                </Link>
               </div>
             </div>
             <div className="submit">
-              <button>{submitUser ? "Creating new user..." : "Sign Up"}</button>
+              {loading ? (
+                <div className="loader-container">
+                  <span className="signup-loader"></span>
+                </div>
+              ) : (
+                <button type="submit">Sign up</button>
+              )}
+
               <FormErrorMsg
                 userClass="signup-error"
                 errors={isError}

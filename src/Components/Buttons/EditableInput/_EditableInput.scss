@@ -1,0 +1,12 @@
+.input-and-icon {
+  display: flex;
+  position: relative;
+  input {
+    flex: 1;
+
+    &:read-only {
+      background-color: var(--grey100);
+      cursor: pointer;
+    }
+  }
+}

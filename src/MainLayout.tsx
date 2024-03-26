@@ -7,13 +7,12 @@ import Loader from "./Components/Loader/Loader";
 export default function MainLayout() {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    window.addEventListener("load", () => {
-      // console.log("loaded");
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
-    });
-  }, []);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    // console.log("loaded");
+  }, [window.onload]);
   return (
     <>
       <Suspense fallback={<Loader />}>

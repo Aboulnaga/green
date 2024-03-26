@@ -1,0 +1,320 @@
+/********************* general for all page **********************/
+// .user-settings-container {
+//   //   background-color: red;
+// }
+// .user-settings-container > div {
+//   background-color: red;
+// }
+
+.user-settings {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 2rem;
+  //   pointer-events: all;
+  //   cursor: pointer;
+}
+
+// .user-settings > div {
+//   background-color: red;
+//   height: 533px;
+// }
+
+.settings-page-container {
+  //   padding: 0.5rem;
+  border: 1px solid var(--grey100);
+  border-radius: 0.5rem;
+}
+.settings-page-container .section-title {
+  padding: 0.5rem;
+  h3 {
+    font-size: var(--sm14);
+    line-height: calc(var(--lineHeight) * var(--sm14));
+    font-weight: 600;
+    padding: 0 0 0.5rem 0;
+    margin-bottom: 0.5rem;
+  }
+  border-bottom: 1px solid var(--grey100);
+}
+.settings-page-container .settings-page {
+  padding: 1rem 0.5rem;
+  //   border: 1px solid var(--grey100);
+}
+
+@media (width> 768px) {
+  .settings-page-container .section-title {
+    padding: 1rem;
+    h3 {
+      font-size: var(--nf20);
+      line-height: calc(var(--lineHeight) * var(--nf20));
+      font-weight: 600;
+      padding: 1rem;
+    }
+  }
+}
+
+/********************* user info **********************/
+.user-info-container .user-info {
+  //   background-color: red;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-info-container .user-info .user-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+
+  img {
+    max-width: 224px;
+    max-height: 224px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    width: 30%;
+  }
+  button {
+    padding: 0.5rem 0.7rem;
+    background-color: var(--lightColor);
+    color: var(--greenColor);
+    border: 1px solid var(--greenColor);
+    border-radius: 3rem;
+    font-size: var(--smf11);
+    line-height: calc(var(--lineHeight) * var(--smf11));
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:hover {
+      background-color: var(--greenColor);
+      color: var(--lightColor);
+    }
+  }
+}
+
+.user-info-container .user-info .info-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+.user-info-container .user-info .info-form form > div {
+  display: flex;
+  flex-direction: column;
+  //   gap: 0.5rem;
+  label {
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 400;
+  }
+  input {
+    padding: 0.6rem;
+    border: 1px solid var(--grey100);
+    border-radius: 0.4rem;
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 400;
+    outline: none;
+  }
+  input:focus {
+    border: 1px solid var(--greenColor);
+  }
+
+  button {
+    padding: 0.7rem 1rem;
+    background-color: var(--greenColor);
+    color: var(--lightColor);
+    border: 1px solid var(--greenColor);
+    border-radius: 3rem;
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:hover {
+      background-color: var(--lightColor);
+      color: var(--greenColor);
+    }
+  }
+}
+
+@media (width> 768px) {
+  .user-info-container {
+    // background-color: red;
+  }
+  .user-info-container .user-info {
+    // background-color: blue;
+    flex-direction: row;
+    gap: 1rem;
+
+    .user-img {
+      order: 2;
+      flex: 1;
+      //   background-color: red;
+      justify-content: flex-start;
+
+      img {
+        width: 100%;
+      }
+    }
+    .info-form {
+      order: 1;
+      flex: 2;
+
+      button {
+        max-width: 150px;
+      }
+    }
+  }
+}
+
+/********************* Billing Info **********************/
+.billing-info-container .billing-info form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.billing-info-container .billing-info form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  button {
+    padding: 0.7rem 1rem;
+    background-color: var(--greenColor);
+    color: var(--lightColor);
+    border: 1px solid var(--greenColor);
+    border-radius: 3rem;
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:hover {
+      background-color: var(--lightColor);
+      color: var(--greenColor);
+    }
+  }
+}
+.billing-info-container .billing-info form > div > div {
+  //   background-color: red;
+  display: flex;
+  flex-direction: column;
+  //   gap: 0.5rem;
+  //   padding: 0.5rem;
+  label {
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 400;
+  }
+  input {
+    padding: 0.6rem;
+    border: 1px solid var(--grey100);
+    border-radius: 0.4rem;
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 400;
+    outline: none;
+  }
+  input:focus {
+    border: 1px solid var(--greenColor);
+  }
+
+  select {
+    padding: 0.6rem;
+    border: 1px solid var(--grey100);
+    border-radius: 0.4rem;
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 400;
+    outline: none;
+  }
+}
+
+@media (width > 768px) {
+  .billing-info-container .billing-info form > div {
+    flex-direction: row;
+    gap: 1rem;
+
+    button {
+      width: 150px;
+      //   background-color: red;
+    }
+  }
+  .billing-info-container .billing-info form > div > div {
+    // background-color: red;
+    flex: 1;
+  }
+}
+
+/********************* password-container **********************/
+
+.password-container .password {
+  //   background-color: red;
+}
+.password-container .password form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  button {
+    padding: 0.7rem 1rem;
+    background-color: var(--greenColor);
+    color: var(--lightColor);
+    border: 1px solid var(--greenColor);
+    border-radius: 3rem;
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:hover {
+      background-color: var(--lightColor);
+      color: var(--greenColor);
+    }
+  }
+}
+
+.password-container .password form > div > div {
+  //   background-color: red;
+  display: flex;
+  flex-direction: column;
+  //   gap: 0.5rem;
+  //   padding: 0.5rem;
+  label {
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 400;
+  }
+  input {
+    padding: 0.6rem;
+    border: 1px solid var(--grey100);
+    border-radius: 0.4rem;
+    font-size: var(--smf14);
+    line-height: calc(var(--lineHeight) * var(--smf14));
+    font-weight: 400;
+    outline: none;
+  }
+  input:focus {
+    border: 1px solid var(--greenColor);
+  }
+}
+
+@media (width > 768px) {
+  .password-container .password form > div {
+    flex-direction: row;
+  }
+  .password-container .password form > .row-2 {
+    display: flex;
+    gap: 1rem;
+
+    div {
+      flex: 1;
+    }
+  }
+
+  .password-container .password form > .row-3 button {
+    max-width: 150px;
+  }
+}

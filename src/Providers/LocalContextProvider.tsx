@@ -8,14 +8,13 @@ export type localContextType = {
       cat_img: string;
       isPopular: boolean;
     }[];
-    cusrrentUser: {
+    currentUser: {
       uuid: string;
       email: string;
       isVerified: boolean;
-      displayName?: string;
+      displayName?: string | null;
       avatar?: string;
     } | null;
-    isLogedIn: boolean;
   };
   action: any;
   dispatch: React.Dispatch<any>;
@@ -29,9 +28,8 @@ export default function LocalContextProvider({ children }: any) {
       ...action,
     }),
     {
-      cusrrentUser: null,
+      currentUser: null,
       CategoriesDB,
-      isLogedIn: false,
     }
   );
 

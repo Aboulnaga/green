@@ -1,100 +1,64 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useContext } from "react";
 import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
 import { Link } from "react-router-dom";
 import FormErrorMsg from "../../../Components/FormErrorMsg/FormErrorMsg";
 import { FormErrorType } from "../../../Components/FormErrorMsg/FormErrorMsg";
 import { Z_SigninSchema } from "./Z_SigninSchema";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { GreenContext } from "../../../Providers/LocalContextProvider";
 import GoogleSignin from "./GoogleSignin";
 import { localContextType } from "../../../Providers/LocalContextProvider";
-import { Toaster, toast } from "react-hot-toast";
-type chckInputsType = {
-  email: string;
-  password: string;
-};
-export default function SigninPage() {
-  const [error, setError] = useState<FormErrorType | null>(null);
+
+export default function old_SigninPage() {
+  const [error, setError] = useState<FormErrorType | false>(false);
   const [isPwdHidden, setIsPwdHidden] = useState(true);
-  const [loading, setLoading] = useState(false);
   const formREf = useRef<HTMLFormElement | null>(null);
-  const signinToast = () => toast.success("Sign In Successful");
   const { dispatch } = useContext(GreenContext) as localContextType;
 
-  useEffect(() => {
-    error && setLoading(false);
-  }, [error]);
-  const handelSignInFormSubmit = async (e: any) => {
-    setLoading(true);
+  const handelSignInFormSubmit = (e: any) => {
     e.preventDefault();
-    setError(null);
-    if (!checkSigninInputs(e)) return;
-    const { email, password } = checkSigninInputs(e) as chckInputsType;
-    const zRes = acceptedByZod(email, password);
-    if (!zRes) return;
-    const isUserInDB = await userInDatabase(zRes);
-    if (!isUserInDB) return;
-
-    const res = onAuthStateChanged(authUser, user => {
-      if (user) {
-        dispatch({ currentUser: { uuid: user.uid } });
-      }
-    });
-
-    console.log(res);
-    // console.log(state.currentUser);
-
-    formREf.current?.reset();
-    signinToast();
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  };
-
-  const checkSigninInputs = (e: any) => {
     const formData: FormData = new FormData(e.target);
     const email = formData.get("email");
     const password = formData.get("password");
-    if (!email || !password) {
-      return setError([{ error: "Please fill in all fields", path: "email" }]);
-    }
-    const data = { email, password };
-    return data as chckInputsType;
-  };
-
-  const acceptedByZod = (email: string, password: string): {} | false => {
-    console.log(email, password);
-    const res = Z_SigninSchema.safeParse({ email, password });
-    // console.log(res);
-    if (!res.success) {
-      const mapErrors = res.error.errors.map(err => {
+    const Z_Result = Z_SigninSchema.safeParse({ email, password });
+    if (Z_Result.success) {
+      setError(false);
+      doLogin(Z_Result.data);
+    } else {
+      const mapErrors = Z_Result.error.errors.map((err): any => {
+        // console.log(err);
         return { error: err.message, path: err.path[0] };
-      }) as FormErrorType;
-      // console.log(mapErrors);
-      setError(mapErrors);
-      return false;
-    }
+      });
 
-    return {
-      email,
-      password,
-    };
+      setError(mapErrors);
+    }
   };
 
-  const userInDatabase = async (data: any) => {
+  // console.log(error.length);
+
+  const doLogin = async (data: any) => {
     try {
       const res = await signInWithEmailAndPassword(
         authUser,
         data.email,
         data.password
       );
-      return res.user;
-      // console.log(res);
+
+      if (res.user) {
+        setError(false);
+        formREf.current?.reset();
+        dispatch({ isLogedIn: true });
+        window.location.replace("/");
+      }
     } catch (err) {
       // console.log(err.message);
-      setError([{ error: "Something went wrong with data", path: "server" }]);
-      return false;
+      setError([
+        {
+          error: "Something went wrong in email, password or user not found",
+          path: "server",
+        },
+      ]);
     }
   };
 
@@ -109,11 +73,6 @@ export default function SigninPage() {
         />
       </div>
       <main className="sign-in-page">
-        <Toaster
-          position="top-right"
-          toastOptions={{ duration: 5000 }}
-          reverseOrder={false}
-        />
         <div className="sign-in">
           <h2>Sign In</h2>
           <form ref={formREf} onSubmit={handelSignInFormSubmit}>
@@ -168,13 +127,7 @@ export default function SigninPage() {
               </div>
             </div>
             <div className="submit">
-              {loading ? (
-                <div className="loader-container">
-                  <span className="signup-loader"></span>
-                </div>
-              ) : (
-                <button type="submit">Sign in</button>
-              )}
+              <button>Sign In</button>
               {error && error?.length === 2 ? (
                 <FormErrorMsg
                   userClass="sign-in-error-msg"

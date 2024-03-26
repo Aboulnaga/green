@@ -13,19 +13,20 @@ export default function VerifiedDonePage() {
   const userId = user?.user_id;
 
   useEffect(() => {
-    window.addEventListener("DOMContentLoaded", async () => {
-      const res = await handleVerifyEmail(authUser, actionCode);
-      if (!res) return;
-      const tst = await setDoc(doc(db, "users", userId as string), {
-        is_verfied: true,
-        user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
-      });
-      console.log(tst);
+    window.addEventListener("DOMContentLoaded", () => {
+      handleVerifyEmail(authUser, actionCode);
     });
   }, []);
 
   const handleVerifyEmail = async (auth: any, actionCode: any) => {
-    await applyActionCode(auth, actionCode);
+    const res = await applyActionCode(auth, actionCode);
+    console.log(res);
+
+    await setDoc(doc(db, "users", userId as string), {
+      is_verfied: true,
+      user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
+    });
+
     return true;
   };
 

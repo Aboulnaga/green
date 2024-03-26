@@ -28,12 +28,26 @@ import TermsAndConditionPage from "./Pages/TermsAndCondition/TermsAndConditionPa
 const ProtectChild = ({
   children,
   url,
+  is_verified,
 }: {
   children: React.ReactNode;
   url: string;
+  is_verified: boolean;
 }) => {
   const currentUser = useCurrentUser();
-  return currentUser ? <Navigate to={url} /> : children;
+  const currentUserIsVerified = currentUser?.is_verified;
+
+  if (currentUser) {
+    if (is_verified) {
+      return currentUserIsVerified ? <Navigate to={url} /> : children;
+    }
+
+    if (!is_verified) {
+      return !currentUserIsVerified ? <Navigate to={url} /> : children;
+    }
+
+    return <Navigate to={url} />;
+  }
 };
 
 const router = createBrowserRouter([
@@ -92,7 +106,7 @@ const router = createBrowserRouter([
       {
         path: "auth/sign-in",
         element: (
-          <ProtectChild url="/">
+          <ProtectChild is_verified={false} url="/">
             <SigninPage />
           </ProtectChild>
         ),
@@ -100,7 +114,7 @@ const router = createBrowserRouter([
       {
         path: "auth/sign-up",
         element: (
-          <ProtectChild url="/">
+          <ProtectChild is_verified={false} url="/">
             <SignupPage />
           </ProtectChild>
         ),
@@ -109,7 +123,7 @@ const router = createBrowserRouter([
       {
         path: "auth/verify-email",
         element: (
-          <ProtectChild url="/">
+          <ProtectChild is_verified={true} url="/">
             <VerfiyEmailPage />
           </ProtectChild>
         ),
@@ -117,7 +131,7 @@ const router = createBrowserRouter([
       {
         path: "auth/verified",
         element: (
-          <ProtectChild url="/">
+          <ProtectChild is_verified={true} url="/">
             <VerifiedDonePage />
           </ProtectChild>
         ),

@@ -23,7 +23,7 @@ type createdUserDataType = {
   userID: string;
   userEmail: string;
   userName: string | null;
-  isVerfied: boolean;
+  isVerified: boolean;
   userAvatar: string | null;
 };
 
@@ -128,7 +128,7 @@ export default function SignupPage() {
         userName: newUser.user.displayName,
         userID: newUser.user.uid,
         userEmail: newUser.user.email,
-        isVerfied: newUser.user.emailVerified,
+        isVerified: newUser.user.emailVerified,
         userAvatar: newUser.user.photoURL,
       };
 
@@ -166,14 +166,16 @@ export default function SignupPage() {
   };
 
   const setDataInUsersCollection = async (data: any) => {
+    // user_createdAT: Timestamp.fromDate(new Date("December 10, 1815")),
+    // user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
     try {
       const userData = {
         user_name: data.displayName,
         user_id: data.uid,
         user_email: data.email,
-        is_verfied: data.emailVerified,
-        user_createdAT: Timestamp.fromDate(new Date("December 10, 1815")),
-        user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
+        is_verified: data.emailVerified,
+        user_createdAT: Timestamp,
+        user_updatedAT: Timestamp,
         user_avatar: data.photoURL,
         user_role: "customer",
       };

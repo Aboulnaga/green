@@ -5,8 +5,9 @@ import { authUser } from "../../../Config/FireBaseConfig";
 import { useEffect, useState } from "react";
 import { setDoc, Timestamp, doc } from "firebase/firestore";
 import { db } from "../../../Config/FireBaseConfig";
+
 export default function VerifiedDonePage() {
-  const [error, setError] = useState<{} | null>(null);
+  const [error, setError] = useState<any | null>(null);
   const [searchParams] = useSearchParams();
   const actionCode = searchParams.get("oobCode");
 
@@ -26,7 +27,7 @@ export default function VerifiedDonePage() {
           user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
         });
       } catch (error: any) {
-        setError({ msg: error.message });
+        setError(error.message);
       }
     };
     handleVerifyEmail(authUser, actionCode);
@@ -61,7 +62,7 @@ export default function VerifiedDonePage() {
             ) : (
               <>
                 <h3>Verification failed</h3>
-                <p>{error?.msg}</p>
+                <p>{error}</p>
               </>
             )}
           </div>

@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { applyActionCode } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { useEffect, useState } from "react";
-import { setDoc, Timestamp, doc } from "firebase/firestore";
+import { updateDoc, Timestamp, doc } from "firebase/firestore";
 import { db } from "../../../Config/FireBaseConfig";
 
 export default function VerifiedDonePage() {
@@ -11,8 +11,9 @@ export default function VerifiedDonePage() {
   const [searchParams] = useSearchParams();
   const actionCode = searchParams.get("oobCode");
 
-  const userId = authUser.currentUser?.uid;
-  console.log(actionCode, userId);
+  const userId = authUser.currentUser;
+  console.log("actionCode", actionCode);
+  console.log("userId", userId);
 
   useEffect(() => {
     console.log("useEffect");
@@ -22,7 +23,7 @@ export default function VerifiedDonePage() {
         const res = await applyActionCode(auth, actionCode);
         console.log(res);
 
-        await setDoc(doc(db, "users", userId as string), {
+        await updateDoc(doc(db, "users", userId as string), {
           is_verfied: true,
           user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
         });

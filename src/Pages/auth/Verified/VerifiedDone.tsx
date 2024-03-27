@@ -7,7 +7,7 @@ import { updateDoc, Timestamp, doc } from "firebase/firestore";
 import { db } from "../../../Config/FireBaseConfig";
 
 export default function VerifiedDonePage() {
-  const [error, setError] = useState<any | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
   const actionCode = searchParams.get("oobCode");
 
@@ -23,18 +23,17 @@ export default function VerifiedDonePage() {
         const res = await applyActionCode(auth, actionCode);
         console.log(res);
 
-        await updateDoc(doc(db, "user", userId as string), {
+        await updateDoc(doc(db, "users", userId as string), {
           is_verfied: true,
           user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
         });
       } catch (error: any) {
-        setError(error.message);
+        setError(
+          "Something went wrong eith activation email. Please try again later."
+        );
       }
     };
     handleVerifyEmail(authUser, actionCode);
-    // window.addEventListener("DOMContentLoaded", () => {
-    //   handleVerifyEmail(authUser, actionCode);
-    // });
   }, [actionCode]);
 
   return (
@@ -62,7 +61,7 @@ export default function VerifiedDonePage() {
               </>
             ) : (
               <>
-                <h3>Verification failed</h3>
+                <h3>Verification failed :(</h3>
                 <p>{error}</p>
               </>
             )}

@@ -9,7 +9,7 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
-import { setDoc, Timestamp, doc } from "firebase/firestore";
+import { setDoc, serverTimestamp, doc } from "firebase/firestore";
 import { authUser, db } from "../../../Config/FireBaseConfig";
 import { Toaster, toast } from "react-hot-toast";
 
@@ -38,6 +38,7 @@ export default function SignupPage() {
     isError && setLoading(false);
   }, [isError]);
   const handleFormSubmit = async (e: any) => {
+    // console.log(serverTimestamp());
     setIsError(null);
     setLoading(true);
     e.preventDefault();
@@ -47,6 +48,7 @@ export default function SignupPage() {
     if (!checkMatchedPassword(formData.password, formData.confirmPassword))
       return;
     const createdUserData = await createNewUserWithEmailAndPassword(formData);
+    // console.log(createdUserData);
     if (!createdUserData) return;
     const { userEmail } = createdUserData as createdUserDataType;
     const verificationEmail = await sendEmailVerificationLink(userEmail);
@@ -174,8 +176,8 @@ export default function SignupPage() {
         user_id: data.uid,
         user_email: data.email,
         is_verified: data.emailVerified,
-        user_createdAT: Timestamp,
-        user_updatedAT: Timestamp,
+        user_createdAT: serverTimestamp(),
+        user_updatedAT: serverTimestamp(),
         user_avatar: data.photoURL,
         user_role: "customer",
       };

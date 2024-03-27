@@ -45,12 +45,12 @@ export default function useCurrentUser() {
       }
     } catch (err) {
       // console.log(err);
-      // throw new Error("user not found");
+      throw new Error("user not found");
     }
   };
 
   // console.log("id", userId);
-  console.log("data", userData);
+  // console.log("data", userData);
 
   // getUserDataFromDB();
   // dispatch({ currentUser: userData });

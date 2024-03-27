@@ -26,7 +26,14 @@ export default function useCurrentUser() {
 
   const memoUserID = useMemo(() => {
     authUser.currentUser && setUserId(authUser.currentUser.uid);
-  }, [authUser.currentUser]);
+  }, [authUser.currentUser?.uid]);
+
+  useEffect(() => {
+    // authUser.currentUser && setUserId(authUser.currentUser.uid);
+    memoUserID;
+    getUserDataFromDB();
+    dispatch({ currentUser: userData });
+  }, [userId]);
 
   const getUserDataFromDB = async () => {
     try {
@@ -42,11 +49,10 @@ export default function useCurrentUser() {
     }
   };
 
-  useEffect(() => {
-    memoUserID;
-    getUserDataFromDB();
-    dispatch({ currentUser: userData });
-  }, [authUser.currentUser?.uid]);
+  // console.log("id", userId);
+  console.log("data", userData);
 
+  // getUserDataFromDB();
+  // dispatch({ currentUser: userData });
   return userData as useCurrentUserType;
 }

@@ -23,7 +23,7 @@ import UserShoppingCart from "./Pages/Dashboard/ShoppingCart/UserShoppingCart.ts
 import UserSettings from "./Pages/Dashboard/Settings/UserSettings.tsx";
 import OrderDetailsPage from "./Pages/Dashboard/OrderDetails/OrderDetailsPage.tsx";
 import TermsAndConditionPage from "./Pages/TermsAndCondition/TermsAndConditionPage.tsx";
-import useCurrentUser from "./Hooks/useCurrentUser.tsx";
+import useCurrentUser, { useCurrentUserType } from "./Hooks/useCurrentUser.tsx";
 
 const ProtectChild = ({
   children,
@@ -34,10 +34,12 @@ const ProtectChild = ({
   url: string;
   allowedForNotVerifiedUser: boolean;
 }) => {
-  const currentUser = useCurrentUser();
+  const currentUser = useCurrentUser() as useCurrentUserType;
   // console.log(url);
   // console.log(currentUser);
   const currentUserIsVerified = currentUser?.is_verified;
+
+  console.log(currentUserIsVerified);
 
   if (allowedForNotVerifiedUser && !currentUserIsVerified) {
     return <div>{children}</div>;

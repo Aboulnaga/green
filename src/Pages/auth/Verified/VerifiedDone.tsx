@@ -2,10 +2,11 @@ import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
 import { Link, useSearchParams } from "react-router-dom";
 import { applyActionCode } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setDoc, Timestamp, doc } from "firebase/firestore";
 import { db } from "../../../Config/FireBaseConfig";
 export default function VerifiedDonePage() {
+  const [error, setError] = useState<{} | null>(null);
   const [searchParams] = useSearchParams();
   const actionCode = searchParams.get("oobCode");
 
@@ -15,14 +16,18 @@ export default function VerifiedDonePage() {
   useEffect(() => {
     console.log("useEffect");
     const handleVerifyEmail = async (auth: any, actionCode: any) => {
-      console.log("handleVerifyEmail");
-      const res = await applyActionCode(auth, actionCode);
-      console.log(res);
+      try {
+        console.log("handleVerifyEmail");
+        const res = await applyActionCode(auth, actionCode);
+        console.log(res);
 
-      await setDoc(doc(db, "users", userId as string), {
-        is_verfied: true,
-        user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
-      });
+        await setDoc(doc(db, "users", userId as string), {
+          is_verfied: true,
+          user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
+        });
+      } catch (error: any) {
+        setError({ msg: error.message });
+      }
     };
     handleVerifyEmail(authUser, actionCode);
     // window.addEventListener("DOMContentLoaded", () => {
@@ -42,14 +47,23 @@ export default function VerifiedDonePage() {
       <main>
         <section className="verfied-done-page-container">
           <div className="verfied fix-width center">
-            <h3>Account verified</h3>
-            <p>
-              Your account has been successfully verified. You can now,{" "}
-              <span>
-                <Link to="/auth/sign-in">Sign In</Link>{" "}
-              </span>
-              , enjoy shopping.
-            </p>
+            {!error ? (
+              <>
+                <h3>Account verified</h3>
+                <p>
+                  Your account has been successfully verified. You can now,{" "}
+                  <span>
+                    <Link to="/auth/sign-in">Sign In</Link>{" "}
+                  </span>
+                  , enjoy shopping.
+                </p>
+              </>
+            ) : (
+              <>
+                <h3>Verification failed</h3>
+                <p>{error?.msg}</p>
+              </>
+            )}
           </div>
         </section>
       </main>

@@ -15,7 +15,6 @@ import VerfiyEmailPage from "./Pages/auth/Verfiy/VerfiyEmail.tsx";
 import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
 import ErrorPage from "./Pages/Error/ErrorPage.tsx";
 import { Navigate } from "react-router-dom";
-import useCurrentUser from "./Hooks/useCurrentUser.tsx";
 import UserDahsboardLayout from "./Layout/UserDashboardLayout/UserDahsboardLayout.tsx";
 import UserDashboardPage from "./Pages/Dashboard/UserDashboard/UserDashboardPage.tsx";
 import OrderHistory from "./Pages/Dashboard/OrderHistory/OrderHistory.tsx";
@@ -24,30 +23,26 @@ import UserShoppingCart from "./Pages/Dashboard/ShoppingCart/UserShoppingCart.ts
 import UserSettings from "./Pages/Dashboard/Settings/UserSettings.tsx";
 import OrderDetailsPage from "./Pages/Dashboard/OrderDetails/OrderDetailsPage.tsx";
 import TermsAndConditionPage from "./Pages/TermsAndCondition/TermsAndConditionPage.tsx";
+import useCurrentUser from "./Hooks/useCurrentUser.tsx";
 
 const ProtectChild = ({
   children,
   url,
-  is_verified,
+  allowedForNotVerifiedUser = false,
 }: {
   children: React.ReactNode;
   url: string;
-  is_verified: boolean;
+  allowedForNotVerifiedUser: boolean;
 }) => {
   const currentUser = useCurrentUser();
+  // console.log(url);
+  // console.log(currentUser);
   const currentUserIsVerified = currentUser?.is_verified;
 
-  if (currentUser) {
-    if (is_verified) {
-      return currentUserIsVerified ? <Navigate to={url} /> : children;
-    }
-
-    if (!is_verified) {
-      return !currentUserIsVerified ? <Navigate to={url} /> : children;
-    }
-
-    return <Navigate to={url} />;
+  if (allowedForNotVerifiedUser && !currentUserIsVerified) {
+    return <div>{children}</div>;
   }
+  return <div>{!currentUser ? children : <Navigate to={url} />}</div>;
 };
 
 const router = createBrowserRouter([
@@ -106,7 +101,7 @@ const router = createBrowserRouter([
       {
         path: "auth/sign-in",
         element: (
-          <ProtectChild is_verified={false} url="/">
+          <ProtectChild allowedForNotVerifiedUser={false} url="/">
             <SigninPage />
           </ProtectChild>
         ),
@@ -114,7 +109,7 @@ const router = createBrowserRouter([
       {
         path: "auth/sign-up",
         element: (
-          <ProtectChild is_verified={false} url="/">
+          <ProtectChild allowedForNotVerifiedUser={false} url="/">
             <SignupPage />
           </ProtectChild>
         ),
@@ -123,7 +118,7 @@ const router = createBrowserRouter([
       {
         path: "auth/verify-email",
         element: (
-          <ProtectChild is_verified={true} url="/">
+          <ProtectChild allowedForNotVerifiedUser={true} url="/">
             <VerfiyEmailPage />
           </ProtectChild>
         ),
@@ -131,7 +126,7 @@ const router = createBrowserRouter([
       {
         path: "auth/verified",
         element: (
-          <ProtectChild is_verified={true} url="/">
+          <ProtectChild allowedForNotVerifiedUser={true} url="/">
             <VerifiedDonePage />
           </ProtectChild>
         ),

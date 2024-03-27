@@ -11,28 +11,25 @@ export default function VerifiedDonePage() {
   const actionCode = searchParams.get("oobCode");
   const user = useCurrentUser();
   const userId = user?.user_id;
+  console.log(actionCode, userId);
 
   useEffect(() => {
+    console.log("useEffect");
+    const handleVerifyEmail = async (auth: any, actionCode: any) => {
+      console.log("handleVerifyEmail");
+      const res = await applyActionCode(auth, actionCode);
+      console.log(res);
+
+      await setDoc(doc(db, "users", userId as string), {
+        is_verfied: true,
+        user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
+      });
+    };
     handleVerifyEmail(authUser, actionCode);
-    console.log(actionCode);
-    console.log("useeffect");
     // window.addEventListener("DOMContentLoaded", () => {
     //   handleVerifyEmail(authUser, actionCode);
     // });
-  }, []);
-
-  const handleVerifyEmail = async (auth: any, actionCode: any) => {
-    console.log("handleVerifyEmail");
-    const res = await applyActionCode(auth, actionCode);
-    console.log(res);
-
-    await setDoc(doc(db, "users", userId as string), {
-      is_verfied: true,
-      user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
-    });
-
-    return true;
-  };
+  }, [actionCode]);
 
   return (
     <>

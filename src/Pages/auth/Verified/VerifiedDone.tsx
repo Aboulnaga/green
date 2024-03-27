@@ -11,7 +11,7 @@ export default function VerifiedDonePage() {
   const [searchParams] = useSearchParams();
   const actionCode = searchParams.get("oobCode");
 
-  const userId = authUser.currentUser;
+  const userId = authUser.currentUser?.uid;
   console.log("actionCode", actionCode);
   console.log("userId", userId);
 
@@ -23,7 +23,7 @@ export default function VerifiedDonePage() {
         const res = await applyActionCode(auth, actionCode);
         console.log(res);
 
-        await updateDoc(doc(db, "users", userId as string), {
+        await updateDoc(doc(db, "user", userId as string), {
           is_verfied: true,
           user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
         });

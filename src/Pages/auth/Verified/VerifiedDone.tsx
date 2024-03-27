@@ -3,14 +3,13 @@ import { Link, useSearchParams } from "react-router-dom";
 import { applyActionCode } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { useEffect } from "react";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
 import { setDoc, Timestamp, doc } from "firebase/firestore";
 import { db } from "../../../Config/FireBaseConfig";
 export default function VerifiedDonePage() {
   const [searchParams] = useSearchParams();
   const actionCode = searchParams.get("oobCode");
-  const user = useCurrentUser();
-  const userId = user?.user_id;
+
+  const userId = authUser.currentUser?.uid;
   console.log(actionCode, userId);
 
   useEffect(() => {

@@ -13,12 +13,16 @@ export default function VerifiedDonePage() {
   const userId = user?.user_id;
 
   useEffect(() => {
-    window.addEventListener("DOMContentLoaded", () => {
-      handleVerifyEmail(authUser, actionCode);
-    });
+    handleVerifyEmail(authUser, actionCode);
+    console.log(actionCode);
+    console.log("useeffect");
+    // window.addEventListener("DOMContentLoaded", () => {
+    //   handleVerifyEmail(authUser, actionCode);
+    // });
   }, []);
 
   const handleVerifyEmail = async (auth: any, actionCode: any) => {
+    console.log("handleVerifyEmail");
     const res = await applyActionCode(auth, actionCode);
     console.log(res);
 

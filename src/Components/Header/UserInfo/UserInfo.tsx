@@ -5,25 +5,23 @@ import DefAvatarSvg from "./DefAvatarSvg";
 import { useNavigate } from "react-router-dom";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 
+type userDataTape = {
+  userName: string;
+  userImg: string;
+};
 export default function UserInfo() {
   const user = useCurrentUser();
   const email = user?.user_email;
   const avatar = user?.user_avatar;
   const displayName = user?.user_name;
-  // console.log(user);
-
-  // const { email, avatar, displayName } = user as CusrrentUserType;
   const doNav = useNavigate();
-  const [userData, setUserData] = useState<{
-    userName: string | null | undefined;
-    userImg: string | null | undefined;
-  }>();
+  const [userData, setUserData] = useState<userDataTape | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const chsekUserNameAndImg = () => {
     if (user) {
       const defName = displayName || email?.split("@")[0];
       const defImg = avatar;
-      setUserData({ userName: defName, userImg: defImg });
+      setUserData({ userName: defName, userImg: defImg } as userDataTape);
     }
   };
 

@@ -14,7 +14,6 @@ import Cat from "./Pages/ShopPage/Category/Cat";
 import VerfiyEmailPage from "./Pages/auth/Verfiy/VerfiyEmail.tsx";
 import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
 import ErrorPage from "./Pages/Error/ErrorPage.tsx";
-import { Navigate } from "react-router-dom";
 import UserDahsboardLayout from "./Layout/UserDashboardLayout/UserDahsboardLayout.tsx";
 import UserDashboardPage from "./Pages/Dashboard/UserDashboard/UserDashboardPage.tsx";
 import OrderHistory from "./Pages/Dashboard/OrderHistory/OrderHistory.tsx";
@@ -23,29 +22,6 @@ import UserShoppingCart from "./Pages/Dashboard/ShoppingCart/UserShoppingCart.ts
 import UserSettings from "./Pages/Dashboard/Settings/UserSettings.tsx";
 import OrderDetailsPage from "./Pages/Dashboard/OrderDetails/OrderDetailsPage.tsx";
 import TermsAndConditionPage from "./Pages/TermsAndCondition/TermsAndConditionPage.tsx";
-import useCurrentUser, { useCurrentUserType } from "./Hooks/useCurrentUser.tsx";
-
-const ProtectChild = ({
-  children,
-  url,
-  allowedForNotVerifiedUser = false,
-}: {
-  children: React.ReactNode;
-  url: string;
-  allowedForNotVerifiedUser: boolean;
-}) => {
-  const currentUser = useCurrentUser() as useCurrentUserType;
-  // console.log(url);
-  // console.log(currentUser);
-  const currentUserIsVerified = currentUser?.is_verified;
-
-  console.log(currentUserIsVerified);
-
-  if (allowedForNotVerifiedUser && !currentUserIsVerified) {
-    return <div>{children}</div>;
-  }
-  return <div>{!currentUser ? children : <Navigate to={url} />}</div>;
-};
 
 const router = createBrowserRouter([
   {
@@ -102,36 +78,20 @@ const router = createBrowserRouter([
 
       {
         path: "auth/sign-in",
-        element: (
-          <ProtectChild allowedForNotVerifiedUser={false} url="/">
-            <SigninPage />
-          </ProtectChild>
-        ),
+        element: <SigninPage />,
       },
       {
         path: "auth/sign-up",
-        element: (
-          <ProtectChild allowedForNotVerifiedUser={false} url="/">
-            <SignupPage />
-          </ProtectChild>
-        ),
+        element: <SignupPage />,
       },
 
       {
         path: "auth/verify-email",
-        element: (
-          <ProtectChild allowedForNotVerifiedUser={true} url="/">
-            <VerfiyEmailPage />
-          </ProtectChild>
-        ),
+        element: <VerfiyEmailPage />,
       },
       {
         path: "auth/verified",
-        element: (
-          <ProtectChild allowedForNotVerifiedUser={true} url="/">
-            <VerifiedDonePage />
-          </ProtectChild>
-        ),
+        element: <VerifiedDonePage />,
       },
 
       {

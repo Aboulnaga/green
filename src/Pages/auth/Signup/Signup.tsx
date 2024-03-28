@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
@@ -8,6 +8,7 @@ import { signupSchema } from "./Zschema";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signOut,
 } from "firebase/auth";
 import { setDoc, serverTimestamp, doc } from "firebase/firestore";
 import { authUser, db } from "../../../Config/FireBaseConfig";
@@ -31,7 +32,7 @@ export default function SignupPage() {
   const [isRememberMe, setIsRememberMe] = useState<boolean>(false);
   const [isError, setIsError] = useState<FormErrorType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const formRef = useRef<HTMLFormElement | null>(null);
   const sucessSignUpMSG = () => toast.success("Sign Up Successful");
 
   useEffect(() => {
@@ -54,11 +55,11 @@ export default function SignupPage() {
     const verificationEmail = await sendEmailVerificationLink(userEmail);
     if (!verificationEmail) return;
     if (!setDataInUsersCollection(authUser.currentUser)) return;
-
     setIsError(null);
     sucessSignUpMSG();
     setTimeout(() => {
       setLoading(false);
+      formRef.current?.reset();
       window.location.replace("/auth/verify-email/");
     }, 3000);
     // console.log(verificationEmail);
@@ -180,6 +181,7 @@ export default function SignupPage() {
         user_updatedAT: serverTimestamp(),
         user_avatar: data.photoURL,
         user_role: "customer",
+        user_phone: "",
       };
       const res = await setDoc(doc(db, "users", data.uid), userData);
       return res;
@@ -192,6 +194,7 @@ export default function SignupPage() {
         },
       ]);
     } finally {
+      signOut(authUser);
       return true;
     }
   };
@@ -214,7 +217,7 @@ export default function SignupPage() {
         <div className="terms-and-cond"></div>
         <div className="sign-up">
           <h2>Sign Up</h2>
-          <form onSubmit={handleFormSubmit}>
+          <form ref={formRef} onSubmit={handleFormSubmit}>
             <div className="email">
               <input name="email" type="email" placeholder="Email" />
               <FormErrorMsg

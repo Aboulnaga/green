@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import FormErrorMsg from "../../../Components/FormErrorMsg/FormErrorMsg";
 import { FormErrorType } from "../../../Components/FormErrorMsg/FormErrorMsg";
 import { Z_SigninSchema } from "./Z_SigninSchema";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { GreenContext } from "../../../Providers/LocalContextProvider";
 import GoogleSignin from "./GoogleSignin";
@@ -21,13 +21,12 @@ export default function SigninPage() {
   const formREf = useRef<HTMLFormElement | null>(null);
   const signinToast = () => toast.success("Sign In Successful");
   const { dispatch } = useContext(GreenContext) as localContextType;
-
   useEffect(() => {
     error && setLoading(false);
   }, [error]);
   const handelSignInFormSubmit = async (e: any) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
     setError(null);
     if (!checkSigninInputs(e)) return;
     const { email, password } = checkSigninInputs(e) as chckInputsType;
@@ -35,20 +34,15 @@ export default function SigninPage() {
     if (!zRes) return;
     const isUserInDB = await userInDatabase(zRes);
     if (!isUserInDB) return;
+    if (!setUserInCurrentUserContext()) return;
 
-    const res = onAuthStateChanged(authUser, user => {
-      if (user) {
-        dispatch({ currentUser: { uuid: user.uid } });
-      }
-    });
-
-    console.log(res);
     // console.log(state.currentUser);
 
-    formREf.current?.reset();
     signinToast();
     setTimeout(() => {
       setLoading(false);
+      formREf.current?.reset();
+      // window.location.replace("/");
     }, 3000);
   };
 
@@ -64,7 +58,7 @@ export default function SigninPage() {
   };
 
   const acceptedByZod = (email: string, password: string): {} | false => {
-    console.log(email, password);
+    // console.log(email, password);
     const res = Z_SigninSchema.safeParse({ email, password });
     // console.log(res);
     if (!res.success) {
@@ -96,6 +90,27 @@ export default function SigninPage() {
       setError([{ error: "Something went wrong with data", path: "server" }]);
       return false;
     }
+  };
+
+  const setUserInCurrentUserContext = () => {
+    authUser.onAuthStateChanged(user => {
+      if (user) {
+        dispatch({ cusrrentUser: user });
+        // console.log(user);
+      } else {
+        // console.log("user not found");
+        dispatch({ cusrrentUser: null });
+        setError([
+          {
+            error: "cant set user in our context",
+            path: "server",
+          },
+        ]);
+        return false;
+      }
+    });
+
+    return true;
   };
 
   return (

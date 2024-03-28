@@ -15,44 +15,60 @@ export type useCurrentUserType = {
   user_firstName?: string;
   user_lastName?: string;
   user_phone?: string;
-};
+} | null;
 
 export default function useCurrentUser() {
   const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState<useCurrentUserType | null>(null);
   const { dispatch } = useContext(GreenContext) as localContextType;
 
-  // console.log(firebaseUser.uid);
-
-  const memoUserID = useMemo(() => {
-    authUser.currentUser && setUserId(authUser.currentUser.uid);
-  }, [authUser.currentUser?.uid]);
+  const memoizedUserData = useMemo(() => userData, [userData]);
+  const memoizedUserId = useMemo(() => userId, [userId]);
 
   useEffect(() => {
-    // authUser.currentUser && setUserId(authUser.currentUser.uid);
-    memoUserID;
+    const unsubscribe = authUser.onAuthStateChanged(user => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        setUserId(null);
+        setUserData(null); // مسح البيانات عند تسجيل الخروج
+      }
+    });
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const getUserDataFromDB = async () => {
+      if (memoizedUserId) {
+        try {
+          const usersCollection = collection(db, "users");
+          const userDoc = doc(usersCollection, memoizedUserId);
+          const userSnapshot = await getDoc(userDoc);
+
+          if (userSnapshot.exists()) {
+            setUserData(userSnapshot.data() as useCurrentUserType);
+          } else {
+            console.error("User document not found:", userId);
+          }
+        } catch (error) {
+          console.error("User document not found:", userId);
+        }
+      }
+    };
+
     getUserDataFromDB();
-    dispatch({ currentUser: userData });
   }, [userId]);
 
-  const getUserDataFromDB = async () => {
-    try {
-      const usersCollection = collection(db, "users");
-      const docRef = doc(usersCollection, userId as string);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUserData(docSnap.data() as useCurrentUserType);
-      }
-    } catch (err) {
-      // console.log(err);
-      throw new Error("user not found");
+  useEffect(() => {
+    if (userData) {
+      dispatch({ currentUser: userData });
     }
-  };
+  }, [userData]);
 
-  // console.log("id", userId);
-  // console.log("data", userData);
+  // console.log("userData", userData);
+  // console.log("userId", userId);
+  // console.log("memoizedUserData", memoizedUserData);
+  // console.log("memoizedUserId", memoizedUserId);
 
-  // getUserDataFromDB();
-  // dispatch({ currentUser: userData });
-  return userData as useCurrentUserType;
+  return memoizedUserData;
 }

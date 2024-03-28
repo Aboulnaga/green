@@ -15,14 +15,16 @@ export default function UserInfo() {
   // const { email, avatar, displayName } = user as CusrrentUserType;
   const doNav = useNavigate();
   const [userData, setUserData] = useState<{
-    userName: string;
+    userName: string | null | undefined;
     userImg: string | null | undefined;
   }>();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const chsekUserNameAndImg = () => {
-    const defName = displayName || email?.split("@")[0];
-    const defImg = avatar;
-    setUserData({ userName: defName, userImg: defImg });
+    if (user) {
+      const defName = displayName || email?.split("@")[0];
+      const defImg = avatar;
+      setUserData({ userName: defName, userImg: defImg });
+    }
   };
 
   const memoChekUserNameAndImg = useMemo(() => {

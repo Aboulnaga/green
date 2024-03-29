@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 export default function ShopPage() {
   const products = [
     { id: 1, name: "Product 1", price: 10 },

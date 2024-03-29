@@ -1,6 +1,45 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { useCurrentUserType } from "../../../Hooks/useCurrentUser";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../../../Config/FireBaseConfig";
+import { db_user_type } from "../../../Type/commonType";
+import Spinner from "../../../Components/Spinner/Spinner";
+import { authUser } from "../../../Config/FireBaseConfig";
 export default function UserDashboardPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const currentUser = useCurrentUser() as useCurrentUserType;
+  const userId = authUser.currentUser?.uid;
+  const [currrentUserData, setCurrentUserData] = useState<db_user_type | null>(
+    null
+  );
+
+  useEffect(() => {
+    setIsLoading(true);
+    const getUserDocFromFirebaseDB = async () => {
+      if (userId) {
+        const docRef = doc(db, "users", userId as string);
+        const docSnap = await getDoc(docRef);
+
+        // console.log(docRef);
+        if (docSnap.exists()) {
+          setCurrentUserData(docSnap.data() as db_user_type);
+          // console.log("Document data:", docSnap.data());
+          setIsLoading(false);
+        } else {
+          // docSnap.data() will be undefined in this case
+          // console.log("No such document!");
+          throw new Error("No such document!");
+        }
+      }
+    };
+
+    getUserDocFromFirebaseDB();
+  }, [userId]);
+
+  // console.log(currrentUserData);
   return (
     <>
       <Helmet>
@@ -8,23 +47,31 @@ export default function UserDashboardPage() {
       </Helmet>
       <div className="dashboard-page-container">
         <div className="dashboard-page-container__col1">
-          <img src="/img/pages/dashboard/user.jpg" alt="user name" />
-          <p>Abdelrahman Mahmoud Ahmed zaher Abdel Azem Salama Abdelrahman</p>
-          <p>Customer</p>
-          <a href="#">Edit Profile</a>
+          <Spinner isLoading={isLoading}>
+            <img
+              key={currentUser?.user_id + "img"}
+              src={currentUser?.user_avatar}
+              alt={currentUser?.user_name}
+            />
+            <p>{currrentUserData?.user_name}</p>
+            <p>{currrentUserData?.user_role}</p>
+            <Link to={"/u/dashboard/settings/"}>Edit Profile</Link>
+          </Spinner>
         </div>
         <div className="dashboard-page-container__col2">
-          <p>BILLING ADDRESS</p>
-          <div className="user-info">
-            <p>Abdelrahman Mahmoud Ahmed Abdel Azem Salama Abdelrahman</p>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi,
-              maiores.
-            </p>
-            <p>abdelrahman_luka@gmail.com</p>
-            <p> (010) 123-456-789</p>
-          </div>
-          <a href="#">Edit Address</a>
+          <Spinner isLoading={isLoading}>
+            <p>BILLING ADDRESS</p>
+            <div className="user-info">
+              <p>{currrentUserData?.user_name}</p>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi,
+                maiores.
+              </p>
+              <p>{currentUser?.user_email}</p>
+              <p>{currentUser?.user_phone}</p>
+            </div>
+            <a href="#">Edit Address</a>
+          </Spinner>
         </div>
         <div className="dashboard-page-container__col3">
           <div className="table-title">

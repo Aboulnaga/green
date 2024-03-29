@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import UserInfo from "../UserInfo/UserInfo";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { authUser } from "../../../Config/FireBaseConfig";
 export default function TopHeader() {
-  const user = useCurrentUser();
+  // const user = useCurrentUser();
+  const user = authUser.currentUser;
 
   return (
     <div className="top-header-container">

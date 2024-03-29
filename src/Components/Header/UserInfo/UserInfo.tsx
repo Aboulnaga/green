@@ -3,37 +3,48 @@ import { authUser } from "../../../Config/FireBaseConfig";
 import { signOut } from "firebase/auth";
 import DefAvatarSvg from "./DefAvatarSvg";
 import { useNavigate } from "react-router-dom";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
-
+import { db_user_type } from "../../../Type/commonType";
+import useGetUserData from "../../../Hooks/useGetUserData";
 type userDataTape = {
   userName: string;
   userImg: string;
 };
 export default function UserInfo() {
-  const user = useCurrentUser();
-  const email = user?.user_email;
+  const currentUser = authUser.currentUser;
+  const currentUserId = currentUser?.uid as string;
+  const [currentUserData, setCurrentUserData] = useState<db_user_type | null>(
+    null
+  );
+
+  useEffect(() => {
+    const getCurrentUserData = useGetUserData(currentUserId);
+    getCurrentUserData.then(res => setCurrentUserData(res));
+  }, []);
+
+  const email = currentUserData?.user_email;
   // const avatar = user?.user_avatar;
-  const displayName = user?.user_name;
-  const isVerified = user?.is_verified;
-  const userRole = user?.user_role;
+  const displayName = currentUserData?.user_name;
+  const isVerified = currentUserData?.is_verified;
+  const userRole = currentUserData?.user_role;
   const doNav = useNavigate();
   const [userData, setUserData] = useState<userDataTape | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [verifiedIconHover, setVerifiedIconHover] = useState(false);
   const userInfCompRef = useRef<HTMLDivElement>(null);
+  // console.log(currentUserData);
 
-  const handleOutsideClick = (event: any) => {
-    if (!userInfCompRef.current?.contains(event.target)) {
-      setIsMenuOpen(false);
-    }
-  };
+  // const handleOutsideClick = (event: any) => {
+  //   if (!userInfCompRef.current?.contains(event.target)) {
+  //     setIsMenuOpen(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("click", handleOutsideClick);
+  //   return () => {
+  //     document.removeEventListener("click", handleOutsideClick);
+  //   };
+  // }, []);
   const chsekUserNameAndImg = () => {
     if (authUser.currentUser) {
       const defName = authUser.currentUser?.displayName || email?.split("@")[0];

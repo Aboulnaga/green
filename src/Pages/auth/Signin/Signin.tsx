@@ -42,7 +42,7 @@ export default function SigninPage() {
     setTimeout(() => {
       setLoading(false);
       formREf.current?.reset();
-      // window.location.replace("/");
+      window.location.replace("/");
     }, 3000);
   };
 

@@ -1,48 +1,85 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
+import Loader from "./Components/Loader/Loader.tsx";
 import ReactDOM from "react-dom/client";
 import MainLayout from "./MainLayout.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import LocalContextProvider from "./Providers/LocalContextProvider.tsx";
 import LocalHelmetProvider from "./Providers/LocalHelmetProvider.tsx";
-import HomePage from "./Pages/Home/HomePage";
-import ShopLayout from "./Layout/ShopLayout/ShopLayout";
-import ShopPage from "./Pages/ShopPage/ShopPage";
-import SigninPage from "./Pages/auth/Signin/Signin.tsx";
-import SignupPage from "./Pages/auth/Signup/Signup.tsx";
-import Cat from "./Pages/ShopPage/Category/Cat";
-import VerfiyEmailPage from "./Pages/auth/Verfiy/VerfiyEmail.tsx";
-import VerifiedDonePage from "./Pages/auth/Verified/VerifiedDone.tsx";
-import ErrorPage from "./Pages/Error/ErrorPage.tsx";
-import UserDahsboardLayout from "./Layout/UserDashboardLayout/UserDahsboardLayout.tsx";
-import UserDashboardPage from "./Pages/Dashboard/UserDashboard/UserDashboardPage.tsx";
-import OrderHistory from "./Pages/Dashboard/OrderHistory/OrderHistory.tsx";
-import UserWishlist from "./Pages/Dashboard/Wishlist/UserWishlist.tsx";
-import UserShoppingCart from "./Pages/Dashboard/ShoppingCart/UserShoppingCart.tsx";
-import UserSettings from "./Pages/Dashboard/Settings/UserSettings.tsx";
-import OrderDetailsPage from "./Pages/Dashboard/OrderDetails/OrderDetailsPage.tsx";
-import TermsAndConditionPage from "./Pages/TermsAndCondition/TermsAndConditionPage.tsx";
+const HomePage = lazy(() => import("./Pages/Home/HomePage"));
+const ShopLayout = lazy(() => import("./Layout/ShopLayout/ShopLayout"));
+const ShopPage = lazy(() => import("./Pages/ShopPage/ShopPage"));
+const SigninPage = lazy(() => import("./Pages/auth/Signin/Signin.tsx"));
+const SignupPage = lazy(() => import("./Pages/auth/Signup/Signup.tsx"));
+const Cat = lazy(() => import("./Pages/ShopPage/Category/Cat"));
+const VerfiyEmailPage = lazy(
+  () => import("./Pages/auth/Verfiy/VerfiyEmail.tsx")
+);
+const VerifiedDonePage = lazy(
+  () => import("./Pages/auth/Verified/VerifiedDone.tsx")
+);
+const ErrorPage = lazy(() => import("./Pages/Error/ErrorPage.tsx"));
+const UserDahsboardLayout = lazy(
+  () => import("./Layout/UserDashboardLayout/UserDahsboardLayout.tsx")
+);
+const UserDashboardPage = lazy(
+  () => import("./Pages/Dashboard/UserDashboard/UserDashboardPage.tsx")
+);
+const OrderHistory = lazy(
+  () => import("./Pages/Dashboard/OrderHistory/OrderHistory.tsx")
+);
+const UserWishlist = lazy(
+  () => import("./Pages/Dashboard/Wishlist/UserWishlist.tsx")
+);
+const UserShoppingCart = lazy(
+  () => import("./Pages/Dashboard/ShoppingCart/UserShoppingCart.tsx")
+);
+const UserSettings = lazy(
+  () => import("./Pages/Dashboard/Settings/UserSettings.tsx")
+);
+const OrderDetailsPage = lazy(
+  () => import("./Pages/Dashboard/OrderDetails/OrderDetailsPage.tsx")
+);
+const TermsAndConditionPage = lazy(
+  () => import("./Pages/TermsAndCondition/TermsAndConditionPage.tsx")
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: <Suspense fallback={<Loader />}>{<MainLayout />}</Suspense>,
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <HomePage />
+          </Suspense>
+        ),
       },
       {
         path: "shop",
-        element: <ShopLayout />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ShopLayout />
+          </Suspense>
+        ),
         children: [
           {
             index: true,
-            element: <ShopPage />,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ShopPage />
+              </Suspense>
+            ),
           },
           {
             path: ":cat",
-            element: <Cat />,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Cat />
+              </Suspense>
+            ),
           },
         ],
       },
@@ -50,63 +87,122 @@ const router = createBrowserRouter([
       {
         path: "u/dashboard",
 
-        element: <UserDahsboardLayout />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <UserDahsboardLayout />
+          </Suspense>
+        ),
         children: [
           {
             index: true,
-            element: <UserDashboardPage />,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <UserDashboardPage />
+              </Suspense>
+            ),
           },
           {
             path: "orders-history",
-            element: <OrderHistory />,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <OrderHistory />
+              </Suspense>
+            ),
           },
-          { path: "orders-history/id/:id", element: <OrderDetailsPage /> },
+          {
+            path: "orders-history/id/:id",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <OrderDetailsPage />
+              </Suspense>
+            ),
+          },
           {
             path: "wishlist",
-            element: <UserWishlist />,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <UserWishlist />
+              </Suspense>
+            ),
           },
           {
             path: "shopping-cart",
-            element: <UserShoppingCart />,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <UserShoppingCart />
+              </Suspense>
+            ),
           },
           {
             path: "settings",
-            element: <UserSettings />,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <UserSettings />
+              </Suspense>
+            ),
           },
         ],
       },
 
       {
         path: "auth/sign-in",
-        element: <SigninPage />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SigninPage />
+          </Suspense>
+        ),
       },
       {
         path: "auth/sign-up",
-        element: <SignupPage />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SignupPage />
+          </Suspense>
+        ),
       },
 
       {
         path: "auth/verify-email",
-        element: <VerfiyEmailPage />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <VerfiyEmailPage />
+          </Suspense>
+        ),
       },
       {
         path: "auth/verified",
-        element: <VerifiedDonePage />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <VerifiedDonePage />
+          </Suspense>
+        ),
       },
 
       {
         path: "terms-and-conditions",
-        element: <TermsAndConditionPage />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <TermsAndConditionPage />
+          </Suspense>
+        ),
       },
 
       {
         path: "error",
-        element: <ErrorPage />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ErrorPage />
+          </Suspense>
+        ),
       },
 
       {
         path: "*",
-        element: <ErrorPage />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ErrorPage />
+          </Suspense>
+        ),
       },
     ],
   },

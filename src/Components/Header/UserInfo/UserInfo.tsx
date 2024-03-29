@@ -4,7 +4,6 @@ import { signOut } from "firebase/auth";
 import DefAvatarSvg from "./DefAvatarSvg";
 import { useNavigate } from "react-router-dom";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
-import Spinner from "../../Spinner/Spinner";
 
 type userDataTape = {
   userName: string;

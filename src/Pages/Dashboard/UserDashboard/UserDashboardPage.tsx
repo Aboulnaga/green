@@ -1,45 +1,35 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useEffect, useState } from "react";
-import { db_user_type } from "../../../Type/commonType";
 import Spinner from "../../../Components/Spinner/Spinner";
-import { authUser } from "../../../Config/FireBaseConfig";
-import useGetUserData from "../../../Hooks/useGetUserData";
-import { lazy } from "react";
-const UserDashboardCol_1 = lazy(
-  () => import("../../../Components/UserDashboard/UserDashboardCol_1")
-);
+import useQueryCurrentUser from "../../../Hooks/useQueryCurrentUser";
+import { Toaster, toast } from "react-hot-toast";
 export default function UserDashboardPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const userId = authUser.currentUser?.uid as string;
-  const [currentUser, setCurrentUser] = useState<db_user_type | null>(null);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        setIsLoading(true);
-        const data = await useGetUserData(userId);
-        setCurrentUser(data);
-        setIsLoading(false);
-      } catch (error) {
-        // console.log(error);
-        throw error;
-      }
-    };
-    getData();
-  }, []);
-
-  // console.log(currentUser);
-
-  // console.log(currrentUserData);
+  const { data: currentUser, isError, isLoading } = useQueryCurrentUser();
+  // console.log(isLoading, isError);
+  if (isError) {
+    toast.error("something went wrong :(");
+  }
   return (
     <>
       <Helmet>
         <title>Green Store - Dashboard</title>
       </Helmet>
       <div className="dashboard-page-container">
+        <Toaster
+          toastOptions={{ duration: 3000 }}
+          position="top-center"
+          reverseOrder={false}
+        />
         <Spinner isLoading={isLoading}>
-          <UserDashboardCol_1 currentUser={currentUser} />
+          <div className="dashboard-page-container__col1">
+            <img
+              src={currentUser?.user_avatar.src}
+              alt={currentUser?.user_name}
+            />
+            <p>{currentUser?.user_name}</p>
+            <p>{currentUser?.user_role}</p>
+            <Link to={"/u/dashboard/settings/"}>Edit Profile</Link>
+          </div>
         </Spinner>
         <div className="dashboard-page-container__col2">
           <Spinner isLoading={isLoading}>

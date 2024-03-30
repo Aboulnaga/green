@@ -179,7 +179,10 @@ export default function SignupPage() {
         is_verified: data.emailVerified,
         user_createdAT: serverTimestamp(),
         user_updatedAT: serverTimestamp(),
-        user_avatar: data.photoURL,
+        user_avatar: {
+          src: data.photoURL,
+          id: null,
+        },
         user_role: "customer",
         user_phone: "",
       };

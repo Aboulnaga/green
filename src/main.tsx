@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { Children, lazy, Suspense, useEffect, useState } from "react";
 import Loader from "./Components/Loader/Loader.tsx";
 import ReactDOM from "react-dom/client";
 import MainLayout from "./MainLayout.tsx";
@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import LocalContextProvider from "./Providers/LocalContextProvider.tsx";
 import LocalHelmetProvider from "./Providers/LocalHelmetProvider.tsx";
+import UseQueryProvider from "./Providers/UseQueryProvider.tsx";
 const HomePage = lazy(() => import("./Pages/Home/HomePage"));
 const ShopLayout = lazy(() => import("./Layout/ShopLayout/ShopLayout"));
 const ShopPage = lazy(() => import("./Pages/ShopPage/ShopPage"));
@@ -43,6 +44,32 @@ const OrderDetailsPage = lazy(
 const TermsAndConditionPage = lazy(
   () => import("./Pages/TermsAndCondition/TermsAndConditionPage.tsx")
 );
+
+import useGetUserData from "./Hooks/useGetUserData.tsx";
+import { authUser } from "./Config/FireBaseConfig.tsx";
+import { db_user_type } from "./Type/commonType.tsx";
+
+const ProtectDashboard = ({ children }: { children: React.ReactNode }) => {
+  const [userData, setUserData] = useState<db_user_type | null>(null);
+  const userId = authUser.currentUser?.uid;
+  const userGet = useGetUserData(userId as string);
+  useEffect(() => {
+    userGet.then(data => setUserData(data));
+  });
+  const isVerified = userData?.is_verified;
+
+  return (
+    <>
+      {isVerified ? (
+        children
+      ) : (
+        <div>
+          <p> Private area </p>
+        </div>
+      )}
+    </>
+  );
+};
 
 const router = createBrowserRouter([
   {
@@ -89,7 +116,9 @@ const router = createBrowserRouter([
 
         element: (
           <Suspense fallback={<Loader />}>
-            <UserDahsboardLayout />
+            <ProtectDashboard>
+              <UserDahsboardLayout />
+            </ProtectDashboard>
           </Suspense>
         ),
         children: [
@@ -211,9 +240,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <LocalContextProvider>
-      <LocalHelmetProvider>
-        <RouterProvider router={router} />
-      </LocalHelmetProvider>
+      <UseQueryProvider>
+        <LocalHelmetProvider>
+          <RouterProvider router={router} />
+        </LocalHelmetProvider>
+      </UseQueryProvider>
     </LocalContextProvider>
   </React.StrictMode>
 );

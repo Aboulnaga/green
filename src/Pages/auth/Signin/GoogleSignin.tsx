@@ -7,12 +7,13 @@ import { updateDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../Config/FireBaseConfig";
 
 type userDataType = {
-  email: string;
-  avatar: string;
-  displayName: string;
-  isVerified: boolean;
-  uuid: string;
-  phone: string;
+  user_email: string;
+  user_avatar: { src: string; id: string | null };
+  user_name: string;
+  is_verified: boolean;
+  user_uuid: string;
+  user_phone: string;
+  user_role: string;
 };
 export default function GoogleSignin() {
   const provider = new GoogleAuthProvider();
@@ -27,12 +28,16 @@ export default function GoogleSignin() {
         // const token = credential?.accessToken;
         const data = result?.user;
         const user = {
-          email: data.email,
-          avatar: data.photoURL,
-          displayName: data.displayName,
-          isVerified: data.emailVerified,
-          uuid: data.uid,
-          phone: data.phoneNumber,
+          user_email: data.email,
+          user_avatar: {
+            src: data.photoURL,
+            id: null,
+          },
+          user_name: data.displayName,
+          is_verified: data.emailVerified,
+          user_uuid: data.uid,
+          user_phone: data.phoneNumber,
+          user_role: "customer",
         } as userDataType;
 
         if (data) {
@@ -57,13 +62,17 @@ export default function GoogleSignin() {
   const updateUserDocInUsersCollectionDB = async (user: userDataType) => {
     // console.log(user);
     // console.log(user.phone);
-    const docRef = doc(db, "users", user.uuid);
+    const docRef = doc(db, "users", user.user_uuid);
     await updateDoc(docRef, {
-      is_verified: user.isVerified,
-      user_avatar: user.avatar,
+      is_verified: user.is_verified,
+      user_avatar: {
+        src: user.user_avatar.src,
+        id: null,
+      },
       user_updatedAT: serverTimestamp(),
-      user_name: user.displayName,
-      user_phone: user.phone,
+      user_name: user.user_name,
+      user_phone: user.user_phone,
+      user_role: "customer",
     });
 
     // console.log(res);

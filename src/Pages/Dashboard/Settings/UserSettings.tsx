@@ -1,19 +1,10 @@
 import EditableInput from "../../../Components/Buttons/EditableInput/EditableInput";
 import CountrySelectBTN from "../../../Components/Buttons/CountrySelectBTN/CountrySelectBTN";
 // import { authUser } from "../../../Config/FireBaseConfig";
-
+import UserInfoComp from "../../../Components/DshboardSettingsPage/UserInfoComp/UserInfoComp";
 export default function UserSettings_old() {
   // const userId = authUser.currentUser?.uid;
 
-  const handleInfoForm = (e: any) => {
-    e.preventDefault();
-    const formData: FormData = new FormData(e.target);
-    const firstName = formData.get("firstName");
-    const lastName = formData.get("lastName");
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-    console.log(firstName, lastName, email, phone);
-  };
   return (
     <section className="user-settings-container">
       <div className="user-settings">
@@ -22,61 +13,7 @@ export default function UserSettings_old() {
           <div className="section-title ">
             <h3>Account Settings</h3>
           </div>
-          <div className="user-info ">
-            <div className="user-img">
-              <img src="/img/pages/dashboard/user.jpg" alt="user name" />
-              <form>
-                <button>Chose Image</button>
-              </form>
-            </div>
-            <div className="info-form">
-              <form onSubmit={handleInfoForm}>
-                <EditableInput
-                  containerClass="first-name"
-                  inputName="firstName"
-                  inputID="info-form-first-name"
-                  inputLabel="First Name"
-                  inputType="text"
-                  inputValue={"Abdelrahman"}
-                  readOnlyFeature={true}
-                />
-
-                <EditableInput
-                  inputName="lastName"
-                  containerClass="last-name"
-                  inputID="info-form-last-name"
-                  inputLabel="Last Name"
-                  inputType="text"
-                  inputValue={"Mahmoud"}
-                  readOnlyFeature={true}
-                />
-
-                <EditableInput
-                  inputName="email"
-                  containerClass="email"
-                  inputID="info-form-email"
-                  inputLabel="Email"
-                  inputType="email"
-                  inputValue={"abdelrahman_luka@gmail.com"}
-                  readOnlyFeature={true}
-                />
-
-                <EditableInput
-                  inputName="phone"
-                  containerClass="phone"
-                  inputID="info-form-phone"
-                  inputLabel="Phone"
-                  inputType="text"
-                  inputValue={"01000000000"}
-                  readOnlyFeature={true}
-                />
-
-                <div className="submit">
-                  <button type="submit">Save Changes</button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <UserInfoComp />
         </div>
         {/****************  Billing Info ******************** */}
         <div className="billing-info-container settings-page-container">

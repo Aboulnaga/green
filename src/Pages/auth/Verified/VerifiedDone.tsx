@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { applyActionCode } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { useEffect, useState } from "react";
-import { updateDoc, Timestamp, doc } from "firebase/firestore";
+import { updateDoc, serverTimestamp, doc } from "firebase/firestore";
 import { db } from "../../../Config/FireBaseConfig";
 
 export default function VerifiedDonePage() {
@@ -17,10 +17,12 @@ export default function VerifiedDonePage() {
     // console.log("useEffect");
     const handleVerifyEmail = async () => {
       try {
+        console.log(actionCode);
+        console.log(userId);
         const ac = await applyActionCode(authUser, actionCode);
         const up = await updateDoc(doc(db, "users", userId as string), {
           is_verified: true,
-          user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
+          user_updatedAT: serverTimestamp(),
         });
         console.log("ac", ac);
         console.log("up", up);

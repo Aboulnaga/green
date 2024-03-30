@@ -1,4 +1,4 @@
-import React, { Children, lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import Loader from "./Components/Loader/Loader.tsx";
 import ReactDOM from "react-dom/client";
 import MainLayout from "./MainLayout.tsx";

@@ -20,20 +20,24 @@ export default function VerifiedDonePage() {
     const handleVerifyEmail = async (auth: any, actionCode: any) => {
       try {
         // console.log("handleVerifyEmail");
-        await applyActionCode(auth, actionCode);
+        const ac = await applyActionCode(auth, actionCode);
 
-        await updateDoc(doc(db, "users", userId as string), {
+        const up = await updateDoc(doc(db, "users", userId as string), {
           is_verified: true,
           user_updatedAT: Timestamp.fromDate(new Date("December 10, 1815")),
         });
+
+        console.log("ac", ac);
+        console.log("up", up);
       } catch (error: any) {
+        console.log("error", error);
         setError(
           "Something went wrong eith activation email. Please try again later."
         );
       }
     };
     handleVerifyEmail(authUser, actionCode);
-  }, [actionCode]);
+  }, []);
 
   return (
     <>

@@ -196,9 +196,6 @@ export default function SignupPage() {
           path: "server",
         },
       ]);
-    } finally {
-      // signOut(authUser);
-      return true;
     }
   };
 

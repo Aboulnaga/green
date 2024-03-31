@@ -1,5 +1,5 @@
 import BreadCrumbsComp from "../../../Components/BreadCrumbs/BreadCrumbs";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { applyActionCode } from "firebase/auth";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { useEffect, useState } from "react";

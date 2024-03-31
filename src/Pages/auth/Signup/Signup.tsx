@@ -8,6 +8,7 @@ import { signupSchema } from "./Zschema";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signOut,
 } from "firebase/auth";
 import { setDoc, serverTimestamp, doc } from "firebase/firestore";
 import { authUser, db } from "../../../Config/FireBaseConfig";
@@ -186,6 +187,7 @@ export default function SignupPage() {
         user_phone: "",
       };
       const res = await setDoc(doc(db, "users", data.uid), userData);
+      signOut(authUser);
       return res;
     } catch (error: any) {
       // console.log(error.message);

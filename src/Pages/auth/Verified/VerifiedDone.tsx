@@ -5,7 +5,7 @@ import { authUser } from "../../../Config/FireBaseConfig";
 import { useEffect, useState } from "react";
 import { updateDoc, serverTimestamp, doc } from "firebase/firestore";
 import { db } from "../../../Config/FireBaseConfig";
-
+import { Toaster, toast } from "react-hot-toast";
 export default function VerifiedDonePage() {
   const [error, setError] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
@@ -16,18 +16,21 @@ export default function VerifiedDonePage() {
   useEffect(() => {
     // console.log("useEffect");
     const handleVerifyEmail = async () => {
+      if (!authUser.currentUser)
+        return setError(" please login first then click on your verified link");
       try {
-        console.log(actionCode);
-        console.log(userId);
-        const ac = await applyActionCode(authUser, actionCode);
-        const up = await updateDoc(doc(db, "users", userId as string), {
+        await applyActionCode(authUser, actionCode);
+        await updateDoc(doc(db, "users", userId as string), {
           is_verified: true,
           user_updatedAT: serverTimestamp(),
         });
-        console.log("ac", ac);
-        console.log("up", up);
+        toast.success(
+          "thanks for verifying your email, redirecting to home page in 3 seconds"
+        );
+        setTimeout(() => {
+          window.location.replace("/");
+        }, 3000);
       } catch (error: any) {
-        console.log("error", error);
         setError(
           "Something went wrong eith activation email. Please try again later."
         );
@@ -47,6 +50,11 @@ export default function VerifiedDonePage() {
       />
       <main>
         <section className="verfied-done-page-container">
+          <Toaster
+            toastOptions={{ duration: 3000 }}
+            position="top-center"
+            reverseOrder={false}
+          />
           <div className="verfied fix-width center">
             {!error ? (
               <>

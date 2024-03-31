@@ -8,7 +8,6 @@ import { signupSchema } from "./Zschema";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  signOut,
 } from "firebase/auth";
 import { setDoc, serverTimestamp, doc } from "firebase/firestore";
 import { authUser, db } from "../../../Config/FireBaseConfig";

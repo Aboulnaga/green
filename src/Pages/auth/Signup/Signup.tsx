@@ -197,7 +197,7 @@ export default function SignupPage() {
         },
       ]);
     } finally {
-      signOut(authUser);
+      // signOut(authUser);
       return true;
     }
   };

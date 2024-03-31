@@ -92,9 +92,9 @@ export default function UserInfoComp() {
       );
 
       console.log(storageRef);
-      // deleteUserOldAvatar(
-      //   currentUserData?.user_avatar as { src: string; id: string }
-      // );
+      deleteUserOldAvatar(
+        currentUserData?.user_avatar as { src: string; id: string }
+      );
       const dbRes = await uploadBytes(storageRef, newImage?.blob as Blob);
       console.log(dbRes);
       if (dbRes) {

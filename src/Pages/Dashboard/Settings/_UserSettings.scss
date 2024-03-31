@@ -69,8 +69,8 @@
   padding: 1rem 0;
 
   img {
-    max-width: 224px;
-    max-height: 224px;
+    width: 120px;
+    height: 120px;
     aspect-ratio: 1/1;
     border-radius: 50%;
     width: 30%;
@@ -91,6 +91,14 @@
       color: var(--lightColor);
     }
   }
+}
+
+.user-info .user-avatar-svg {
+  width: 120px;
+  height: 120px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  fill: var(--greenColor);
 }
 
 .user-info-container .user-info .info-form form {
@@ -155,7 +163,7 @@
       justify-content: flex-start;
 
       img {
-        width: 100%;
+        width: 120px;
       }
     }
     .info-form {

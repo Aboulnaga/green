@@ -28,6 +28,15 @@
   margin-bottom: 1rem;
 }
 
+.dashboard-page-container__col1 .df-svg-profile {
+  width: var(--img-size);
+  height: var(--img-size);
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  fill: var(--greenColor);
+}
+
 .dashboard-page-container__col1 p:first-of-type {
   font-weight: 500;
   max-width: 320px;

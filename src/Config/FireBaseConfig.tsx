@@ -26,4 +26,7 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const db = getFirestore(app);
 export const authUser = getAuth(app);
-export const storage = getStorage(app, import.meta.env.VIT_GS_STORAGEBUCKET);
+export const storage = getStorage(
+  app,
+  `${import.meta.env.VITE_GS_STORAGEBUCKET}`
+);

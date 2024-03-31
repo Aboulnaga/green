@@ -83,15 +83,20 @@ export default function UserInfoComp() {
   };
 
   const uploadImage = async () => {
+    console.log(newImage);
+    console.log("here");
     try {
       const storageRef = ref(
         storage,
-        `profile_pic/${currentUserData?.user_id}+${currentUserData?.user_name}+${newImage?.name}`
+        `profile_pic/${currentUserData?.user_id}-${newImage?.name}`
       );
-      deleteUserOldAvatar(
-        currentUserData?.user_avatar as { src: string; id: string }
-      );
+
+      console.log(storageRef);
+      // deleteUserOldAvatar(
+      //   currentUserData?.user_avatar as { src: string; id: string }
+      // );
       const dbRes = await uploadBytes(storageRef, newImage?.blob as Blob);
+      console.log(dbRes);
       if (dbRes) {
         // console.log(dbRes);
         getDownloadURL(dbRes.ref).then(res =>
@@ -110,7 +115,7 @@ export default function UserInfoComp() {
     const storageRef = ref(storage, `profile_pic/${avatar.id}`);
     const meta = await getMetadata(storageRef);
     console.log(meta);
-    if (!meta.name) return;
+    if (!meta.name) return true;
     try {
       await deleteObject(storageRef);
       return true;
@@ -173,7 +178,7 @@ export default function UserInfoComp() {
           />
         ) : (
           <>
-            {currentUserData?.user_avatar ? (
+            {currentUserData?.user_avatar.src ? (
               <img
                 className="user-avatar"
                 src={currentUserData?.user_avatar.src}

@@ -3,12 +3,15 @@ import { Helmet } from "react-helmet-async";
 import Spinner from "../../../Components/Spinner/Spinner";
 import useQueryCurrentUser from "../../../Hooks/useQueryCurrentUser";
 import { Toaster, toast } from "react-hot-toast";
+import { useEffect } from "react";
 export default function UserDashboardPage() {
   const { data: currentUser, isError, isLoading } = useQueryCurrentUser();
   // console.log(isLoading, isError);
-  if (isError) {
-    toast.error("something went wrong :(");
-  }
+  useEffect(() => {
+    if (isError) {
+      toast.error("something went wrong :(");
+    }
+  }, [isError]);
   return (
     <>
       <Helmet>

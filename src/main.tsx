@@ -55,7 +55,7 @@ const ProtectDashboard = ({ children }: { children: React.ReactNode }) => {
   const userGet = useGetUserData(userId as string);
   useEffect(() => {
     userGet.then(data => setUserData(data));
-  });
+  }, []);
   const isVerified = userData?.is_verified;
 
   return (

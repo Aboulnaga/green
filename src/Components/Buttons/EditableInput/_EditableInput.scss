@@ -10,3 +10,21 @@
     }
   }
 }
+
+.disabled {
+  display: flex;
+  position: relative;
+  input {
+    flex: 1;
+
+    &:read-only {
+      border: 1px solid var(--errorColor);
+      background-color: var(--grey100);
+      cursor: not-allowed;
+    }
+    &:focus {
+      outline: none;
+      border: 1px solid var(--errorColor) !important;
+    }
+  }
+}

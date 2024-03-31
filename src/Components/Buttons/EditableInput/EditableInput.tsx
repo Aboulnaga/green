@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
+import { toast } from "react-hot-toast";
 
 export default function EditableInput({
   children,
@@ -9,6 +10,8 @@ export default function EditableInput({
   inputType,
   readOnlyFeature,
   inputName,
+  disableFeature = false,
+  inputNotifyMsg = null,
 }: {
   children?: React.ReactNode;
   containerClass: string;
@@ -18,76 +21,51 @@ export default function EditableInput({
   inputLabel?: string;
   readOnlyFeature: boolean;
   inputName: string;
+  disableFeature?: boolean;
+  inputNotifyMsg?: string | null;
 }) {
-  const [isReadOnly, setIsReadOnly] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
-  //   console.log(inputRef.current);
-  //   console.log(isInputDisabled);
-  // const tst = () => {
-  //   return isReadOnly ? "readonly" : "";
-  // };
+
+  // console.log(errorMsg);
 
   return (
-    <div
-      onMouseLeave={() => {
-        inputRef.current?.setAttribute("readonly", "true");
-        setIsReadOnly(true);
-        inputRef.current?.blur();
-      }}
-      className={`${containerClass} editable-input`}
-    >
-      <label htmlFor={inputID}>{inputLabel || children}</label>
-      <div className="input-and-icon">
-        <input
-          onClick={() => {
-            inputRef.current?.removeAttribute("readonly");
-            setIsReadOnly(false);
-            inputRef.current?.focus();
-          }}
-          // {tst()}
-          name={inputName}
-          ref={inputRef}
-          readOnly={readOnlyFeature && isReadOnly}
-          defaultValue={inputValue}
-          type={inputType}
-          id={inputID}
-        />
+    <>
+      <div
+        onMouseLeave={() => {
+          // setIsReadOnly(true);
+          inputRef.current?.setAttribute("readonly", "true");
+          inputRef.current?.blur();
+        }}
+        className={`${containerClass} editable-input`}
+      >
+        <label htmlFor={inputID}>{inputLabel || children}</label>
+        <div className={disableFeature ? "disabled" : "input-and-icon"}>
+          <input
+            onClick={event => {
+              event.stopPropagation();
+              if (!disableFeature) {
+                inputRef.current?.removeAttribute("readonly");
+              }
+              inputNotifyMsg && toast.error(inputNotifyMsg);
+              inputRef.current?.focus();
+            }}
+            onTouchStart={event => {
+              event.stopPropagation();
+              if (!disableFeature) {
+                inputRef.current?.removeAttribute("readonly");
+              }
+              inputRef.current?.focus();
+            }}
+            // {tst()}
+            name={inputName}
+            ref={inputRef}
+            readOnly={readOnlyFeature && true}
+            defaultValue={inputValue}
+            type={inputType}
+            id={inputID}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
-
-/*
-
- <div
-      onMouseLeave={() => {
-        inputRef.current?.setAttribute("readonly", "true");
-        setIsReadOnly(true);
-        setTimeout(() => {
-          inputRef.current?.blur();
-        }, 1000);
-      }}
-      className={`${containerClass} editable-input`}
-    >
-      <label htmlFor={inputID}>{inputLabel || children}</label>
-      <div className="input-and-icon">
-        <input
-          onClick={() => {
-            inputRef.current?.removeAttribute("readonly");
-            setIsReadOnly(false);
-            setTimeout(() => {
-              inputRef.current?.focus();
-            }, 1000);
-          }}
-          name={inputName}
-          ref={inputRef}
-          readOnly={readOnlyFeature ? isReadOnly : false}
-          defaultValue={inputValue}
-          type={inputType}
-          id={inputID}
-        />
-      </div>
-    </div>
-
-
-*/

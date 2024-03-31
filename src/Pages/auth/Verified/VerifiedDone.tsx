@@ -29,7 +29,7 @@ export default function VerifiedDonePage() {
         );
         setTimeout(() => {
           window.location.replace("/");
-        }, 3000);
+        }, 5000);
       } catch (error: any) {
         setError(
           "Something went wrong eith activation email. Please try again later."
@@ -60,11 +60,8 @@ export default function VerifiedDonePage() {
               <>
                 <h3>Account verified</h3>
                 <p>
-                  Your account has been successfully verified. You can now,{" "}
-                  <span>
-                    <Link to="/auth/sign-in">Sign In</Link>{" "}
-                  </span>
-                  , enjoy shopping.
+                  Your account has been successfully verified. You can now enjoy
+                  shopping :).
                 </p>
               </>
             ) : (

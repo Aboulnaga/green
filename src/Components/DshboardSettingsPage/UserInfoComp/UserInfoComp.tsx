@@ -218,6 +218,8 @@ export default function UserInfoComp() {
             inputType="email"
             inputValue={currentUserData?.user_email}
             readOnlyFeature={true}
+            disableFeature={true}
+            inputNotifyMsg="sorry, you can't change your email"
           />
 
           <EditableInput

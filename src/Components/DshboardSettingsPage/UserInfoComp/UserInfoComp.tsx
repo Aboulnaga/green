@@ -3,7 +3,7 @@ import useGetUserData from "../../../Hooks/useGetUserData";
 import { useEffect, useState } from "react";
 import { authUser } from "../../../Config/FireBaseConfig";
 import { db_user_type } from "../../../Type/commonType";
-import DefAvatarSvg from "../../Header/UserInfo/DefAvatarSvg";
+import DefAvatarSvg from "../../defSvgProfileImg/DefAvatarSvg";
 import Z_imageSchema from "./Z_imageSchema";
 import { Toaster, toast } from "react-hot-toast";
 import {

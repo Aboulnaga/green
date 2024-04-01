@@ -11,6 +11,7 @@ export default function UserInfo() {
   const { isLoading, isError, data: currentUser } = useQueryCurrentUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [verifiedIconHover, setVerifiedIconHover] = useState(false);
+
   const doNav = useNavigate();
 
   useEffect(() => {

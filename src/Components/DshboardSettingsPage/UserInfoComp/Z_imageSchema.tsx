@@ -13,7 +13,7 @@ const Z_imageSchema = zod.object({
   size: zod
     .number()
     .min(100, "Min file size is 100KB")
-    .max(4000000, "Max file size is 4MB"),
+    .max(100000, "Max file size is 1MB"),
   dimensions: zod.string().refine(value => {
     const [width, height] = value.split("x");
     return (

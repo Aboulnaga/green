@@ -14,6 +14,7 @@ import { updateDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db_user_type } from "../../Type/commonType";
 import { useRef } from "react";
 import OpacitySpinner from "../OpacitySpinner/OpacitySpinner";
+import Spinner from "../Spinner/Spinner";
 
 type ImageDimensionsType = {
   width: number;
@@ -24,6 +25,7 @@ type ImageDimensionsType = {
 export default function UploadImage({
   isError,
   currentUserData,
+  isLoading,
 }: {
   isError: boolean;
   isLoading: boolean;
@@ -37,7 +39,7 @@ export default function UploadImage({
     }
   }, [isError]);
 
-  const handeleUploadNewProfileImage = (e: any) => {
+  const handeleUploadNewProfileImage = () => {
     const input = document.createElement("input");
     input.type = "file";
     input.accept = "image/jpg, image/jpeg, image/png";
@@ -205,18 +207,20 @@ export default function UploadImage({
 
   return (
     <div className="user-img">
-      <OpacitySpinner isLoading={isUploading}>
-        {currentUserData?.user_avatar.src ? (
-          <img
-            ref={imageRef}
-            className="user-avatar"
-            src={currentUserData?.user_avatar.src}
-            alt={currentUserData?.user_name}
-          />
-        ) : (
-          <DefAvatarSvg svgClass="user-avatar-svg" />
-        )}
-      </OpacitySpinner>
+      <Spinner isLoading={isLoading}>
+        <OpacitySpinner isLoading={isUploading}>
+          {currentUserData?.user_avatar.src ? (
+            <img
+              ref={imageRef}
+              className="user-avatar"
+              src={currentUserData?.user_avatar.src}
+              alt={currentUserData?.user_name}
+            />
+          ) : (
+            <DefAvatarSvg svgClass="user-avatar-svg" />
+          )}
+        </OpacitySpinner>
+      </Spinner>
       <form>
         <button
           style={
@@ -232,7 +236,7 @@ export default function UploadImage({
               toast.error("cant upload image during upload process :(");
             }
             if (!isUploading) {
-              handeleUploadNewProfileImage(e);
+              handeleUploadNewProfileImage();
             }
           }}
         >

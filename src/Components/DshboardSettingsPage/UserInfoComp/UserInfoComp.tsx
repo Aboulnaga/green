@@ -68,6 +68,7 @@ export default function UserInfoComp() {
         <UploadImage
           currentUserData={currentUserData as any}
           isError={isError}
+          isLoading={isLoading}
         />
       </Spinner>
       <div className="info-form">

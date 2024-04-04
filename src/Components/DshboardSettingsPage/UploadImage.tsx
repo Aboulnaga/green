@@ -78,7 +78,7 @@ export default function UploadImage({
               });
               if (!checkByZod) return;
               const oldImageId = currentUserData.user_avatar.id;
-              const deleteOldImage = await deleteImage(oldImageId);
+              await deleteImage(oldImageId);
               // console.log(deleteOldImage);
               const uplaodImage = await uploadImage({
                 imageName: imageAsFile.name,

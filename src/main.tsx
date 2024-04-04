@@ -45,19 +45,11 @@ const TermsAndConditionPage = lazy(
   () => import("./Pages/TermsAndCondition/TermsAndConditionPage.tsx")
 );
 
-import useGetUserData from "./Hooks/useGetUserData.tsx";
-import { authUser } from "./Config/FireBaseConfig.tsx";
-import { db_user_type } from "./Type/commonType.tsx";
+import useQueryCurrentUser from "./Hooks/useQueryCurrentUser.tsx";
 
 const ProtectDashboard = ({ children }: { children: React.ReactNode }) => {
-  const [userData, setUserData] = useState<db_user_type | null>(null);
-  const userId = authUser.currentUser?.uid;
-  const userGet = useGetUserData(userId as string);
-  useEffect(() => {
-    userGet.then(data => setUserData(data));
-  }, []);
-  const isVerified = userData?.is_verified;
-
+  const { data: currentUser } = useQueryCurrentUser();
+  const isVerified = currentUser?.is_verified;
   return (
     <>
       {isVerified ? (

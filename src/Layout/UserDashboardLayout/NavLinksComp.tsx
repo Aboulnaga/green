@@ -1,3 +1,6 @@
+import { signOut } from "firebase/auth";
+import { authUser } from "../../Config/FireBaseConfig";
+
 export function DashboardLinkComp() {
   return (
     <div className="nav-links-comp dashboard-link-comp">
@@ -118,7 +121,15 @@ export function SettingsLinkComp() {
 
 export function LogOutButtonComp() {
   return (
-    <div className="nav-links-comp logout-link-comp">
+    <div
+      onClick={async () => {
+        await signOut(authUser);
+        setTimeout(() => {
+          window.location.replace("/");
+        }, 2000);
+      }}
+      className="nav-links-comp logout-link-comp"
+    >
       <div className="icon">
         <svg
           width="24"

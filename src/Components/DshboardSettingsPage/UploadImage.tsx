@@ -14,7 +14,6 @@ import { updateDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db_user_type } from "../../Type/commonType";
 import { useRef } from "react";
 import OpacitySpinner from "../OpacitySpinner/OpacitySpinner";
-import Spinner from "../Spinner/Spinner";
 
 type ImageDimensionsType = {
   width: number;
@@ -25,10 +24,8 @@ type ImageDimensionsType = {
 export default function UploadImage({
   isError,
   currentUserData,
-  isLoading,
 }: {
   isError: boolean;
-  isLoading: boolean;
   currentUserData: db_user_type;
 }) {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -82,7 +79,7 @@ export default function UploadImage({
               if (!checkByZod) return;
               const oldImageId = currentUserData.user_avatar.id;
               const deleteOldImage = await deleteImage(oldImageId);
-              console.log(deleteOldImage);
+              // console.log(deleteOldImage);
               const uplaodImage = await uploadImage({
                 imageName: imageAsFile.name,
                 imageBlob: blob,
@@ -106,7 +103,8 @@ export default function UploadImage({
 
               ////////////////////////////////////// end of logic try
             } catch (err) {
-              console.log("image logic error", err);
+              // console.log("image logic error", err);
+              throw new Error("image logic error" + err);
             }
           };
 
@@ -207,20 +205,18 @@ export default function UploadImage({
 
   return (
     <div className="user-img">
-      <Spinner isLoading={isLoading}>
-        <OpacitySpinner isLoading={isUploading}>
-          {currentUserData?.user_avatar.src ? (
-            <img
-              ref={imageRef}
-              className="user-avatar"
-              src={currentUserData?.user_avatar.src}
-              alt={currentUserData?.user_name}
-            />
-          ) : (
-            <DefAvatarSvg svgClass="user-avatar-svg" />
-          )}
-        </OpacitySpinner>
-      </Spinner>
+      <OpacitySpinner isLoading={isUploading}>
+        {currentUserData?.user_avatar.src ? (
+          <img
+            ref={imageRef}
+            className="user-avatar"
+            src={currentUserData?.user_avatar.src}
+            alt={currentUserData?.user_name}
+          />
+        ) : (
+          <DefAvatarSvg svgClass="user-avatar-svg" />
+        )}
+      </OpacitySpinner>
       <form>
         <button
           style={
@@ -246,89 +242,3 @@ export default function UploadImage({
     </div>
   );
 }
-
-/**
- * 
- * 
- 
- const dimensions = getImageDetails(imageUrl, imageAsFile);
-          dimensions
-            .then(info => {
-              const w = info.width;
-              const h = info.height;
-              const t = info.type;
-              const s = info.size;
-              return { w, h, t, s };
-              // console.log(res);
-            })
-            .then(img => {
-              // const res = checkImageByZod({ height: res.h, width: res.w });
-              // console.log(img);
-              const res = checkImageByZod({
-                height: img.h,
-                width: img.w,
-                type: img.t,
-                size: img.s,
-              });
-              // console.log(res);
-              return res;
-            })
-            .then(() => {
-              const res = uploadImage();
-              console.log(res);
-            })
-            .catch(() => {
-              toast.error("error, image details or dimensions!");
-              // console.log(err);
-            });
-
-
- * 
- * 
- * 
- * 
- 
- const uploadImage = async () => {
-    try {
-      setUploading(true);
-      //   const storage = getStorage();
-      const storageRef = ref(
-        storage,
-        `profile_pic/${currentUserData?.user_id}-${newImage?.name}`
-      );
-      const dbRes = await uploadBytes(storageRef, newImage?.blob as Blob);
-      getDownloadURL(dbRes.ref).then(res =>
-        upadateUserAvatarWithUploadedImage({
-          path: res,
-          id: dbRes.metadata.name,
-        })
-      );
-        const uploadTaskSnapshot = getStorage()
-        const uploadTask = uploadBytesResumable(
-          storageRef,
-          newImage?.blob as Blob
-        );
-        uploadTask.on("state_changed", snapshot => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          // toast.loading(`uploading your image... ${progress.toFixed(2)}%`);
-        });
-
-      uploadTask
-        .then(() => {
-          getDownloadURL(dbRes.ref).then(res =>
-            upadateUserAvatarWithUploadedImage({
-              path: res,
-              id: dbRes.metadata.name,
-            })
-          );
-        })
-        .catch(err => {
-          toast.error(`(${err}),something went wrong :(`);
-        });
-    } catch (err) {
-      toast.error(`something went wrong :(`);
-    }
-  };
-
- */

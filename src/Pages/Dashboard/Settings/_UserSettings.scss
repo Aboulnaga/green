@@ -60,6 +60,17 @@
   gap: 1rem;
 }
 
+// علشان رسالة الخطأ اللي بتطلع من userinfocomp
+.user-info .info-form > form > div {
+  // background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+// .user-info-container .user-info > div .user-info-error {
+//   background-color: blue;
+// }
+
 .user-info-container .user-info .user-img {
   display: flex;
   flex-direction: column;

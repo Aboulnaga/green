@@ -12,6 +12,7 @@ export default function FormErrorMsg({
   path: string;
 }) {
   const mapErrors = (errors: FormErrorType) => {
+    // console.log(errors);
     return errors.map(error => {
       if (error.path === path) {
         return (

@@ -1,6 +1,6 @@
 import useIsUserDataLoaded from "../../Hooks/useIsUserDataLoaded";
 import Loader from "../../Components/Loader/Loader";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 export default function PrepareData({
   children,
 }: {

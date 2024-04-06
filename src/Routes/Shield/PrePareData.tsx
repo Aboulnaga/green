@@ -7,8 +7,8 @@ export default function PrepareData({
   children: React.ReactNode;
 }) {
   const checkData = useIsUserDataLoaded();
-  //   console.log(checkData?.status);
-  // console.log(checkData?.status);
+  console.log(checkData);
+  console.log(checkData?.status);
   if (checkData?.status === "loading") return <Loader />;
   if (checkData?.status === "error") {
     return (

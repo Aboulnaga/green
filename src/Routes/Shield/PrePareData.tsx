@@ -10,15 +10,15 @@ export default function PrepareData({
   console.log(checkData);
   console.log(checkData?.status);
   if (checkData?.status === "loading") return <Loader />;
-  if (checkData?.status === "error") {
-    return (
-      <Navigate
-        to={`/error?status=error&message=${checkData?.message}&path=${window.location.pathname} `}
-        replace={true}
-        state={checkData?.message}
-      />
-    );
-  }
+  // if (checkData?.status === "error") {
+  //   return (
+  //     <Navigate
+  //       to={`/error?status=error&message=${checkData?.message}&path=${window.location.pathname} `}
+  //       replace={true}
+  //       state={checkData?.message}
+  //     />
+  //   );
+  // }
 
   return <>{children}</>;
 }

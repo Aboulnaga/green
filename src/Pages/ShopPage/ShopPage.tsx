@@ -1,5 +1,25 @@
 import { Link } from "react-router-dom";
+import useQueryCurrentUser from "../../Hooks/useQueryCurrentUser";
+import { db } from "../../Config/FireBaseConfig";
+import { getDoc, doc, onSnapshot } from "firebase/firestore";
 export default function ShopPage() {
+  const { data: currentUser } = useQueryCurrentUser();
+
+  const handlebtn = async (e: any) => {
+    e.preventDefault();
+
+    const docRef = doc(db, "users", currentUser?.user_id as string);
+    const docSnap = await getDoc(docRef);
+    onSnapshot(docRef, doc => {
+      console.log("Current data: ", doc.data());
+    });
+    const data = docSnap.data();
+    console.log(docSnap.id);
+
+    console.log(data);
+
+    // console.log(docSnap.data());
+  };
   const products = [
     { id: 1, name: "Product 1", price: 10 },
     { id: 2, name: "Product 2", price: 20 },
@@ -26,6 +46,7 @@ export default function ShopPage() {
   return (
     <div className="shop">
       <h2>Shop Page</h2>
+      <button onClick={handlebtn}>get billing info</button>
       <div className="products">{renderProducts()}</div>
     </div>
   );

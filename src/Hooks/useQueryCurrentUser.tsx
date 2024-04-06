@@ -25,7 +25,7 @@ export default function useQueryCurrentUser() {
       ...Option,
       refetchOnWindowFocus: false,
       enabled: !!userId,
-      staleTime: 1000 * 60 * 10,
+      staleTime: 1000 * 60 * 60,
     }
   );
 }

@@ -1,0 +1,53 @@
+.admin-header {
+  background-color: var(--grey900);
+  color: var(--lightColor);
+}
+.admin-header .admin-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header svg {
+  height: 32px;
+  width: 32px;
+  fill: var(--lightColor);
+  pointer-events: none;
+}
+
+.admin-header .logo {
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--h2);
+    font-weight: 800;
+    line-height: calc(var(--lineHeight) * var(--h1));
+  }
+}
+
+.admin-header nav {
+  ul {
+    display: flex;
+    gap: 2rem;
+  }
+
+  li {
+    // background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: all;
+    cursor: pointer;
+  }
+}
+
+.admin-header .avatar {
+  --size: 32px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

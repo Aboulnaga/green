@@ -10,6 +10,8 @@ import {
   DashboardLinkComp,
   OrderHistoryLinkComp,
 } from "./NavLinksComp";
+import HeaderComp from "../../Components/Header/HeaderComp";
+import Footer from "../../Components/Footer/Footer";
 type BreadCompsType = {
   title: string;
   url: string;
@@ -74,6 +76,7 @@ export default function UserDahsboardLayout() {
 
   return (
     <>
+      <HeaderComp />
       <BreadCrumbsComp path={BreadCompsComp() as BreadCompsType} />
       <div className="dashboard-layout fix-width center">
         <aside>
@@ -123,6 +126,7 @@ export default function UserDahsboardLayout() {
           <Outlet />
         </main>
       </div>
+      <Footer />
     </>
   );
 }

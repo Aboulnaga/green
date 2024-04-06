@@ -11,7 +11,6 @@ export default function UserInfo() {
   const { isLoading, isError, data: currentUser } = useQueryCurrentUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [verifiedIconHover, setVerifiedIconHover] = useState(false);
-
   const doNav = useNavigate();
 
   useEffect(() => {
@@ -103,11 +102,21 @@ export default function UserInfo() {
               </div>
 
               <div className="user-dashboard-links">
+                <div className="user-management">
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      doNav("/+/behind-the-scenes/");
+                    }}
+                  >
+                    Management
+                  </button>
+                </div>
                 <div className="user-dashboard">
                   <button
                     onClick={() => {
                       setIsMenuOpen(false);
-                      doNav("u/dashboard/");
+                      doNav("/u/dashboard");
                     }}
                   >
                     Dashboard
@@ -117,7 +126,7 @@ export default function UserInfo() {
                   <button
                     onClick={() => {
                       setIsMenuOpen(false);
-                      doNav("u/dashboard/settings/");
+                      doNav("/u/dashboard/settings/");
                     }}
                   >
                     Settings

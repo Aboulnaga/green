@@ -1,0 +1,23 @@
+.admin-fixed {
+  width: 90%;
+  max-width: 1200px;
+}
+
+.admin-center {
+  margin: 0 auto;
+}
+
+main {
+  min-height: calc(100vh - 150px);
+}
+
+.admin-layout-main {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (width > 768px) {
+  .admin-fixed {
+    width: 80%;
+  }
+}

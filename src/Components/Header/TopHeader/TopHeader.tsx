@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import UserInfo from "../UserInfo/UserInfo";
-import { authUser } from "../../../Config/FireBaseConfig";
+import useQueryCurrentUser from "../../../Hooks/useQueryCurrentUser";
 export default function TopHeader() {
+  const { data: currentUser } = useQueryCurrentUser();
   // const user = useCurrentUser();
-  const user = authUser.currentUser;
+  const userId = currentUser?.user_id;
 
   return (
     <div className="top-header-container">
@@ -45,7 +46,7 @@ export default function TopHeader() {
             </select>
           </div>
 
-          {!user ? (
+          {!userId ? (
             <div className="top-header__col2__log">
               <Link to="/auth/sign-in"> Sign in</Link>
               <span></span>
@@ -53,7 +54,7 @@ export default function TopHeader() {
             </div>
           ) : null}
 
-          {user ? <UserInfo /> : null}
+          {userId ? <UserInfo /> : null}
         </div>
       </div>
     </div>

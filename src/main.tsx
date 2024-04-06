@@ -2,7 +2,11 @@ import React, { lazy, Suspense } from "react";
 import Loader from "./Components/Loader/Loader.tsx";
 import ReactDOM from "react-dom/client";
 import MainLayout from "./MainLayout.tsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import "./index.css";
 import LocalContextProvider from "./Providers/LocalContextProvider.tsx";
 import LocalHelmetProvider from "./Providers/LocalHelmetProvider.tsx";
@@ -20,9 +24,10 @@ const VerifiedDonePage = lazy(
   () => import("./Pages/auth/Verified/VerifiedDone.tsx")
 );
 const ErrorPage = lazy(() => import("./Pages/Error/ErrorPage.tsx"));
-const UserDahsboardLayout = lazy(
-  () => import("./Layout/UserDashboardLayout/UserDahsboardLayout.tsx")
-);
+// const UserDahsboardLayout = lazy(
+//   () => import("./Layout/UserDashboardLayout/UserDahsboardLayout.tsx")
+// );
+import UserDahsboardLayout from "./Layout/UserDashboardLayout/UserDahsboardLayout.tsx";
 const UserDashboardPage = lazy(
   () => import("./Pages/Dashboard/UserDashboard/UserDashboardPage.tsx")
 );
@@ -45,11 +50,43 @@ const TermsAndConditionPage = lazy(
   () => import("./Pages/TermsAndCondition/TermsAndConditionPage.tsx")
 );
 
+const AdminLayout = lazy(() => import("./Layout/AdminLayout/AdminLayout.tsx"));
+
+const AdminStatusPage = lazy(
+  () => import("./Pages/Admin/Status/AdminStatusPage.tsx")
+);
+
 import useQueryCurrentUser from "./Hooks/useQueryCurrentUser.tsx";
+import useIsUserDataLoaded from "./Hooks/useIsUserDataLoaded.tsx";
+import toast from "react-hot-toast";
+import ErrorsLayout from "./Layout/ErrorsLayout/ErrorsLayout.tsx";
+
+const PrepareDataBeforeLoadingComponent = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const checkData = useIsUserDataLoaded();
+  console.log(checkData?.status);
+  // console.log(checkData?.status);
+  if (checkData?.status === "loading") return <Loader />;
+  if (checkData?.status === "error") {
+    return (
+      <Navigate
+        to={`/error?status=error&message=${checkData?.message}&path=${window.location.pathname} `}
+        replace={true}
+        state={checkData?.message}
+      />
+    );
+  }
+
+  return <>{children}</>;
+};
 
 const ProtectDashboard = ({ children }: { children: React.ReactNode }) => {
   const { data: currentUser } = useQueryCurrentUser();
   const isVerified = currentUser?.is_verified;
+
   return (
     <>
       {isVerified ? (
@@ -66,7 +103,11 @@ const ProtectDashboard = ({ children }: { children: React.ReactNode }) => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Suspense fallback={<Loader />}>{<MainLayout />}</Suspense>,
+    element: (
+      <PrepareDataBeforeLoadingComponent>
+        <Suspense fallback={<Loader />}>{<MainLayout />}</Suspense>,
+      </PrepareDataBeforeLoadingComponent>
+    ),
     children: [
       {
         index: true,
@@ -97,68 +138,6 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<Loader />}>
                 <Cat />
-              </Suspense>
-            ),
-          },
-        ],
-      },
-
-      {
-        path: "u/dashboard",
-
-        element: (
-          <Suspense fallback={<Loader />}>
-            <ProtectDashboard>
-              <UserDahsboardLayout />
-            </ProtectDashboard>
-          </Suspense>
-        ),
-        children: [
-          {
-            index: true,
-            element: (
-              <Suspense fallback={<Loader />}>
-                <UserDashboardPage />
-              </Suspense>
-            ),
-          },
-          {
-            path: "orders-history",
-            element: (
-              <Suspense fallback={<Loader />}>
-                <OrderHistory />
-              </Suspense>
-            ),
-          },
-          {
-            path: "orders-history/id/:id",
-            element: (
-              <Suspense fallback={<Loader />}>
-                <OrderDetailsPage />
-              </Suspense>
-            ),
-          },
-          {
-            path: "wishlist",
-            element: (
-              <Suspense fallback={<Loader />}>
-                <UserWishlist />
-              </Suspense>
-            ),
-          },
-          {
-            path: "shopping-cart",
-            element: (
-              <Suspense fallback={<Loader />}>
-                <UserShoppingCart />
-              </Suspense>
-            ),
-          },
-          {
-            path: "settings",
-            element: (
-              <Suspense fallback={<Loader />}>
-                <UserSettings />
               </Suspense>
             ),
           },
@@ -207,20 +186,111 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
+    ],
+  },
 
+  {
+    path: "u/dashboard",
+
+    element: (
+      <Suspense fallback={<Loader />}>
+        <PrepareDataBeforeLoadingComponent>
+          <ProtectDashboard>
+            <UserDahsboardLayout />
+          </ProtectDashboard>
+        </PrepareDataBeforeLoadingComponent>
+      </Suspense>
+    ),
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <UserDashboardPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "orders-history",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <OrderHistory />
+          </Suspense>
+        ),
+      },
+      {
+        path: "orders-history/id/:id",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <OrderDetailsPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "wishlist",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <UserWishlist />
+          </Suspense>
+        ),
+      },
+      {
+        path: "shopping-cart",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <UserShoppingCart />
+          </Suspense>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <UserSettings />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+
+  {
+    path: "+/behind-the-scenes/",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <PrepareDataBeforeLoadingComponent>
+          <ProtectDashboard>
+            <AdminLayout />
+          </ProtectDashboard>
+        </PrepareDataBeforeLoadingComponent>
+      </Suspense>
+    ),
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <AdminStatusPage />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+
+  {
+    path: "*",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <PrepareDataBeforeLoadingComponent>
+          <ErrorsLayout />
+        </PrepareDataBeforeLoadingComponent>
+      </Suspense>
+    ),
+
+    children: [
       {
         path: "error",
         element: (
           <Suspense fallback={<Loader />}>
-            <ErrorPage />
-          </Suspense>
-        ),
-      },
-
-      {
-        path: "*",
-        element: (
-          <Suspense fallback={<div>Loading...</div>}>
             <ErrorPage />
           </Suspense>
         ),

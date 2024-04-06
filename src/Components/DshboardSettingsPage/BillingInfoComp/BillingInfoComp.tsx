@@ -2,10 +2,17 @@ import { useEffect, useState } from "react";
 import EditableInput from "../../Buttons/EditableInput/EditableInput";
 import { Toaster, toast } from "react-hot-toast";
 import { useCountriesApi, useCitiesApi } from "./useCountriesApi";
-import z from "zod";
+import z, { promise } from "zod";
 import FormErrorMsg from "../../FormErrorMsg/FormErrorMsg";
 import { FormErrorType } from "../../FormErrorMsg/FormErrorMsg";
-import { setDoc, doc, serverTimestamp, collection } from "firebase/firestore";
+import {
+  setDoc,
+  doc,
+  serverTimestamp,
+  collection,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import useQueryCurrentUser from "../../../Hooks/useQueryCurrentUser";
 import { db } from "../../../Config/FireBaseConfig";
 import useQueryBillingInfo from "../../../Hooks/useQueryBillingInfo";
@@ -15,7 +22,7 @@ export default function BillingInfoComp() {
   const userId = currentUser?.user_id;
   const { data: countriesData } = useCountriesApi();
   const [defaultCountry, setDefaultCountry] = useState("EG");
-  const [defaultCity, setDefaultCity] = useState("alex");
+  const [defaultCity, setDefaultCity] = useState("ALX");
   const { data: citiesData, refetch } = useCitiesApi(defaultCountry);
   const [formError, setFormError] = useState<FormErrorType | null>(null);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -43,11 +50,11 @@ export default function BillingInfoComp() {
   }, [isError]);
 
   useEffect(() => {
-    if (billingInfoData) {
+    if (citiesData && countriesData && billingInfoData) {
       setDefaultCountry(billingInfoData.billing_info_country);
       setDefaultCity(billingInfoData.billing_info_city);
     }
-  }, [billingInfoData]);
+  }, [billingInfoData, citiesData, countriesData]);
 
   const mapSelectData = (data: any) => {
     if (data?.success) {
@@ -78,6 +85,8 @@ export default function BillingInfoComp() {
 
     const checkRes = await checkInputsByZod(data);
     if (!checkRes) return;
+    const isDocNotExist = await checkIsDocExist();
+    isDocNotExist && (await createNewDoc(isDocNotExist as string));
     const res = await setBillingInfo(checkRes);
     if (!res) return;
     setFormError(null);
@@ -130,12 +139,44 @@ export default function BillingInfoComp() {
     }
   };
 
+  const checkIsDocExist = () => {
+    const collectionRef = collection(db, "billing_info");
+    const docRef = doc(collectionRef, userId);
+
+    return new Promise(resolve => {
+      onSnapshot(docRef, doc => {
+        if (!doc.exists()) {
+          const doc_id = doc.id;
+          // console.log("doc_id not found", doc_id);
+
+          resolve(doc_id);
+        } else {
+          resolve(false);
+        }
+      });
+    });
+  };
+
+  const createNewDoc = async (doc_id: string) => {
+    try {
+      const docRef = doc(collection(db, "billing_info"), userId);
+      setDoc(docRef, {
+        billing_info_id: doc_id,
+        user_id: userId,
+        bill_info_createdAT: serverTimestamp(),
+      });
+      return true;
+    } catch {
+      toast.error("something went wrong in creating new doc :(");
+    }
+  };
+
   const setBillingInfo = async (data: any) => {
+    const docRef = doc(collection(db, "billing_info"), userId);
+
     setButtonLoading(true);
     try {
-      const collectionRef = collection(db, "billing_info");
-      const docRef = doc(collectionRef, userId);
-      const allData = {
+      await updateDoc(docRef, {
         billing_info_firstName: data.firstName,
         billing_info_lastName: data.lastName,
         billing_info_email: data.email,
@@ -145,12 +186,8 @@ export default function BillingInfoComp() {
         billing_info_city: data.city,
         billing_info_address: data.address,
         billing_info_zip: data.zipCode,
-        bill_info_createdAT: serverTimestamp(),
         bill_info_updatedAT: serverTimestamp(),
-        user_id: userId,
-      };
-
-      await setDoc(docRef, allData);
+      });
 
       toast.success("billing info updated :)");
       setButtonLoading(false);

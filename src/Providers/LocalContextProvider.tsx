@@ -15,6 +15,7 @@ export type localContextType = {
       displayName?: string | null;
       avatar?: string;
     } | null;
+    isAdminMenuOpen: boolean;
   };
   action: any;
   dispatch: React.Dispatch<any>;
@@ -28,8 +29,8 @@ export default function LocalContextProvider({ children }: any) {
       ...action,
     }),
     {
-      currentUser: null,
       CategoriesDB,
+      isAdminMenuOpen: false,
     }
   );
 

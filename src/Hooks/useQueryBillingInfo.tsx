@@ -7,14 +7,16 @@ export default function useQueryBillingInfo(userId: string) {
   return useQuery(
     "billingInfo",
     async () => {
-      const userRef = doc(collection(db, "billing_info"), userId);
-      const docSnap = await getDoc(userRef);
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        // console.log(data);
-        return data as billing_info_type;
-      } else {
-        throw new Error("User not found");
+      try {
+        const userRef = doc(collection(db, "billing_info"), userId);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          // console.log(data);
+          return data as billing_info_type;
+        }
+      } catch {
+        throw new Error("billing info not found");
       }
     },
     {

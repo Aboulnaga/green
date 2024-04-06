@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import EditableInput from "../../Buttons/EditableInput/EditableInput";
 import { Toaster, toast } from "react-hot-toast";
 import { useCountriesApi, useCitiesApi } from "./useCountriesApi";
-import z, { promise } from "zod";
+import z from "zod";
 import FormErrorMsg from "../../FormErrorMsg/FormErrorMsg";
 import { FormErrorType } from "../../FormErrorMsg/FormErrorMsg";
 import {

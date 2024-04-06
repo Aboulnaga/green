@@ -58,7 +58,6 @@ const AdminStatusPage = lazy(
 
 import useQueryCurrentUser from "./Hooks/useQueryCurrentUser.tsx";
 import useIsUserDataLoaded from "./Hooks/useIsUserDataLoaded.tsx";
-import toast from "react-hot-toast";
 import ErrorsLayout from "./Layout/ErrorsLayout/ErrorsLayout.tsx";
 
 const PrepareDataBeforeLoadingComponent = ({

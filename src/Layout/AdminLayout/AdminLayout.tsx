@@ -11,7 +11,7 @@ export default function AdminLayout() {
   // console.log(checkData?.status);
   const { state } = useContext(GreenContext) as localContextType;
   const isAdminMenuOpen = state.isAdminMenuOpen;
-  // console.log(isAdminMenuOpen);
+  console.log(isAdminMenuOpen);
   return (
     <>
       <Helmet>

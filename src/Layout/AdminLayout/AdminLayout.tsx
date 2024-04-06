@@ -11,7 +11,6 @@ export default function AdminLayout() {
   // console.log(checkData?.status);
   const { state } = useContext(GreenContext) as localContextType;
   const isAdminMenuOpen = state.isAdminMenuOpen;
-  console.log(isAdminMenuOpen);
   return (
     <>
       <Helmet>
@@ -22,9 +21,11 @@ export default function AdminLayout() {
         <AdminHeader />
 
         <div className="admin-layout-main  admin-fixed admin-center">
-          <aside>
-            <AdminSideMenu />
-          </aside>
+          {isAdminMenuOpen ? (
+            <aside>
+              <AdminSideMenu />
+            </aside>
+          ) : null}
           <main>
             <Outlet />
           </main>

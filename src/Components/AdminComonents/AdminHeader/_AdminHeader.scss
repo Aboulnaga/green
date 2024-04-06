@@ -1,6 +1,10 @@
 .admin-header {
   background-color: var(--grey900);
   color: var(--lightColor);
+  position: relative;
+  z-index: 10;
+  top: 0;
+  left: 0;
 }
 .admin-header .admin-header-container {
   display: flex;
@@ -8,21 +12,48 @@
   align-items: center;
 }
 
-.admin-header svg {
-  height: 32px;
-  width: 32px;
-  fill: var(--lightColor);
-  pointer-events: none;
-}
-
 .admin-header .logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   a {
     display: flex;
-    align-items: center;
     gap: 0.5rem;
     font-size: var(--h2);
-    font-weight: 800;
-    line-height: calc(var(--lineHeight) * var(--h1));
+    font-weight: 400;
+    line-height: calc(var(--lineHeight) * var(--h2));
+  }
+  // background-color: red;
+}
+
+.admin-header .logo .burger-menu {
+  // background-color: red;
+  fill: var(--grey100);
+  display: flex;
+  justify-content: center;
+  // padding: 0.2rem 0.4rem;
+  // border: 1px solid var(--grey700);
+  align-items: center;
+  cursor: pointer;
+  pointer-events: all;
+  // background-color: red;
+  // background-color: var(--darkColor);
+
+  svg {
+    width: 24px;
+    height: 32px;
+  }
+
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.admin-header .logo .burger-menu:hover {
+  fill: var(--lightColor);
+}
+
+.admin-header .logo .burger-menu:active {
+  svg {
+    fill: var(--darkColor);
   }
 }
 
@@ -34,20 +65,38 @@
 
   li {
     // background-color: red;
+    // background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: all;
-    cursor: pointer;
   }
 }
 
+//avatar from user info component
 .admin-header .avatar {
   --size: 32px;
   width: var(--size);
   height: var(--size);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+//.user-data-toggle-menu-container - user-data-toggle-menu-container-active
+// from use inf component
+.admin-header .user-data .user-data-toggle-menu-container {
+  position: absolute;
+  transform: translate(-80%, 0) scaley(0);
+}
+
+.admin-header .user-data .user-data-toggle-menu-container-active {
+  transform: translate(-80%, 0) scaley(1);
+}
+
+@media (width > 768px) {
+  .admin-header .user-data .user-data-toggle-menu-container {
+    position: absolute;
+    transform: translate(-50%, 0) scaley(0);
+  }
+
+  .admin-header .user-data .user-data-toggle-menu-container-active {
+    transform: translate(-50%, 0) scaley(1);
+  }
 }

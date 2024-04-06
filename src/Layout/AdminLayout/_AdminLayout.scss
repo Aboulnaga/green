@@ -1,3 +1,6 @@
+.admin-layout-container {
+  position: relative;
+}
 .admin-fixed {
   width: 90%;
   max-width: 1200px;
@@ -7,7 +10,7 @@
   margin: 0 auto;
 }
 
-main {
+.admin-layout-container main {
   min-height: calc(100vh - 150px);
 }
 
@@ -20,4 +23,11 @@ main {
   .admin-fixed {
     width: 80%;
   }
+}
+
+.admin-layout-container aside {
+  background-color: red;
+  position: fixed;
+  inset: 0;
+  width: 100%;
 }

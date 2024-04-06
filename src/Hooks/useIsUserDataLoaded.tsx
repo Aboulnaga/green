@@ -8,6 +8,7 @@ import { authUser } from "../Config/FireBaseConfig";
 
 export default function useIsUserDataLoaded() {
   const { status, refetch, error } = useQueryCurrentUser();
+  // console.log(status);
   //   console.log(error == "Error: User not found");
   if (status === "idle") {
     refetch();

@@ -1,6 +1,6 @@
-import TopHeader from "./TopHeader/TopHeader"
-import MainHeader from "./MainHeader/MainHeader"
-import MainNav from "./MainNav/MainNav"
+import TopHeader from "./TopHeader/TopHeader";
+import MainHeader from "./MainHeader/MainHeader";
+import MainNav from "./MainNav/MainNav";
 export default function HeaderComp() {
   return (
     <section className="header-container">
@@ -13,5 +13,5 @@ export default function HeaderComp() {
         <MainNav />
       </header>
     </section>
-  )
+  );
 }

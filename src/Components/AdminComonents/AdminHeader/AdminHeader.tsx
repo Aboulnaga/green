@@ -11,6 +11,14 @@ export default function AdminHeader() {
     <header className="admin-header">
       <div className="admin-header-container admin-fixed admin-center">
         <div className="logo">
+          <div
+            className="burger-menu"
+            onClick={() =>
+              dispatch({ isAdminMenuOpen: !state.isAdminMenuOpen })
+            }
+          >
+            {burgerMenuIcon}
+          </div>
           <h1>
             <Link to="/">
               <span>{logoIcon}</span>Green
@@ -20,15 +28,7 @@ export default function AdminHeader() {
 
         <nav>
           <ul>
-            <li>{<UserInfo />}</li>
-            {/* <li>{userProfileIcon}</li> */}
-            <li
-              onClick={() =>
-                dispatch({ isAdminMenuOpen: !state.isAdminMenuOpen })
-              }
-            >
-              {burgerMenuIcon}
-            </li>
+            <li className="user-data">{<UserInfo />}</li>
           </ul>
         </nav>
       </div>
